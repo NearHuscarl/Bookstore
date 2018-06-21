@@ -63,7 +63,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookImportDTO.vb" />
+    <Compile Include="AuthorDTO.vb" />
+    <Compile Include="BookCategoryDTO.vb" />
+    <Compile Include="BookDTO.vb" />
+    <Compile Include="CustomerDTO.vb" />
+    <Compile Include="DeptReportDetail.vb" />
+    <Compile Include="DeptReportDTO.vb" />
+    <Compile Include="ImportDetailDTO.vb" />
+    <Compile Include="ImportDTO.vb" />
+    <Compile Include="InvoiceDetail.vb" />
+    <Compile Include="InvoiceDTO.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -81,6 +90,8 @@
     </Compile>
     <Compile Include="ParameterDTO.vb" />
     <Compile Include="ReceiptDTO.vb" />
+    <Compile Include="StockReportDetailDTO.vb" />
+    <Compile Include="StockReportDTO.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

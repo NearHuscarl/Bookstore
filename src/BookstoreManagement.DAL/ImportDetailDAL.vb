@@ -3,7 +3,7 @@ Imports System.Data.SqlClient
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class BookImportDAL
+Public Class ImportDetailDAL
 	Private connectionStr As String
 
 	Public Sub New()
@@ -18,7 +18,7 @@ Public Class BookImportDAL
 		Dim query As String = String.Empty
 
 		query &= "SELECT TOP 1 [ID]"
-		query &= "FROM [BookImport]"
+		query &= "FROM [Import]"
 		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
@@ -63,45 +63,46 @@ Public Class BookImportDAL
 		Return New Result(True)
 	End Function
 
-	Public Function insert(reader As ImportDTO) As Result
+	Public Function insertAll(importDetailDTOs As List(Of ImportDetailDTO)) As Result
 		Dim query As String = String.Empty
 
-		query &= "INSERT INTO [BookImport] ([ID], [Name], [Category], [Author], [Amount], [Price], [ReceivedDate])"
-		query &= "VALUES (@ID, @Name, @Category, @Author, @Amount, @Price, @ReceivedDate)"
-
-		Dim nextID = 0
-		Dim result As Result
-
-		result = getNextId(nextID)
-		If (result.FlagResult = False) Then
-			Return result
-		End If
-		reader.ID = nextID
+		query &= "INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice])"
+		query &= "VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice)"
 
 		Using conn As New SqlConnection(connectionStr)
 
 			Using comm As New SqlCommand()
 
-				With comm
-					.Connection = conn
-					.CommandType = CommandType.Text
-					.CommandText = query
-
-					.Parameters.AddWithValue("@ID", reader.ID)
-					.Parameters.AddWithValue("@Name", reader.Name)
-					.Parameters.AddWithValue("@Category", reader.Category)
-					.Parameters.AddWithValue("@Author", reader.Author)
-					.Parameters.AddWithValue("@Amount", reader.ImportAmount)
-					.Parameters.AddWithValue("@Price", reader.ImportPrice)
-					.Parameters.AddWithValue("@ReceivedDate", reader.ReceivedDate)
-				End With
-
 				Try
-					conn.Open()
-					comm.ExecuteNonQuery()
+					For Each importDetail As ImportDetailDTO In importDetailDTOs
+						Dim nextID = 0
+						Dim result As Result
+
+						result = getNextId(nextID)
+						If (result.FlagResult = False) Then
+							Return result
+						End If
+						importDetail.ID = nextID
+
+						With comm
+							.Connection = conn
+							.CommandType = CommandType.Text
+							.CommandText = query
+
+							.Parameters.AddWithValue("@ID", importDetail.ID)
+							.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
+							.Parameters.AddWithValue("@BookID", importDetail.BookID)
+							.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
+							.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
+							.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
+						End With
+
+						conn.Open()
+						comm.ExecuteNonQuery()
+					Next
 				Catch exception As Exception
 					conn.Close()
-					Return New Result(False, "Add Book Import Infos failed", exception.StackTrace)
+					Return New Result(False, "Add import detail failed", exception.StackTrace)
 				End Try
 
 			End Using

@@ -17,7 +17,7 @@ Public Class ParameterDAL
 	Public Function selectAll(ByRef parameter As ParameterDTO) As Result
 		Dim query As String = String.Empty
 
-		query &= " SELECT [MinImportAmount], [MinInventoryAmount]"
+		query &= " SELECT [MinImportAmount], [MinStockBeforeImport], [MinStockAfterSales], [MaxDept], [UseRegulation]"
 		query &= " FROM [Parameter]"
 
 		Using conn As New SqlConnection(connectionStr)
@@ -38,7 +38,13 @@ Public Class ParameterDAL
 
 					If reader.HasRows = True Then
 						While reader.Read()
-							parameter = New ParameterDTO(reader("MinImportAmount"), reader("MinInventoryAmount"))
+							parameter = New ParameterDTO(
+								reader("MinImportAmount"),
+								reader("MinStockBeforeImport"),
+								reader("MinStockAfterSales"),
+								reader("MaxDept"),
+								reader("UseRegulation")
+								)
 						End While
 					End If
 
