@@ -8,9 +8,9 @@
 
 	End Sub
 
-	Private Sub ImportBookToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImportBookToolStripMenuItem.Click
+	Private Sub tlImport_Click(sender As Object, e As EventArgs) Handles tlImport.Click
 		Dim frm As frmImport = New frmImport()
-		frm.MdiParent = Me
+		'frm.MdiParent = Me
 		frm.Show()
 	End Sub
 End Class

@@ -29,22 +29,22 @@ Partial Class frmImport
 		Me.btnAdd = New MetroFramework.Controls.MetroButton()
 		Me.btnClear = New MetroFramework.Controls.MetroButton()
 		Me.dtpReceivedDate = New MetroFramework.Controls.MetroDateTime()
-		Me.lblReceivedDate = New MetroFramework.Controls.MetroLabel()
+		Me.lblImportDate = New MetroFramework.Controls.MetroLabel()
 		Me.dgvImport = New MetroFramework.Controls.MetroGrid()
-		Me.ImportDetailDTOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.ImportIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.BookIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.ImportAmountDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.CurrentAmountDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.ImportPriceDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.ImportDetailDTOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.ImportDetailDTOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'btnAdd
 		'
-		Me.btnAdd.Location = New System.Drawing.Point(191, 325)
+		Me.btnAdd.Location = New System.Drawing.Point(216, 329)
 		Me.btnAdd.Name = "btnAdd"
 		Me.btnAdd.Size = New System.Drawing.Size(75, 23)
 		Me.btnAdd.TabIndex = 5
@@ -53,7 +53,7 @@ Partial Class frmImport
 		'
 		'btnClear
 		'
-		Me.btnClear.Location = New System.Drawing.Point(418, 325)
+		Me.btnClear.Location = New System.Drawing.Point(443, 329)
 		Me.btnClear.Name = "btnClear"
 		Me.btnClear.Size = New System.Drawing.Size(75, 23)
 		Me.btnClear.TabIndex = 6
@@ -63,20 +63,20 @@ Partial Class frmImport
 		'dtpReceivedDate
 		'
 		Me.dtpReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-		Me.dtpReceivedDate.Location = New System.Drawing.Point(349, 63)
+		Me.dtpReceivedDate.Location = New System.Drawing.Point(372, 75)
 		Me.dtpReceivedDate.MinimumSize = New System.Drawing.Size(0, 29)
 		Me.dtpReceivedDate.Name = "dtpReceivedDate"
 		Me.dtpReceivedDate.Size = New System.Drawing.Size(96, 29)
 		Me.dtpReceivedDate.TabIndex = 7
 		'
-		'lblReceivedDate
+		'lblImportDate
 		'
-		Me.lblReceivedDate.AutoSize = True
-		Me.lblReceivedDate.Location = New System.Drawing.Point(245, 69)
-		Me.lblReceivedDate.Name = "lblReceivedDate"
-		Me.lblReceivedDate.Size = New System.Drawing.Size(92, 19)
-		Me.lblReceivedDate.TabIndex = 8
-		Me.lblReceivedDate.Text = "Received Date"
+		Me.lblImportDate.AutoSize = True
+		Me.lblImportDate.Location = New System.Drawing.Point(268, 81)
+		Me.lblImportDate.Name = "lblImportDate"
+		Me.lblImportDate.Size = New System.Drawing.Size(81, 19)
+		Me.lblImportDate.TabIndex = 8
+		Me.lblImportDate.Text = "Import Date"
 		'
 		'dgvImport
 		'
@@ -108,7 +108,7 @@ Partial Class frmImport
 		Me.dgvImport.EnableHeadersVisualStyles = False
 		Me.dgvImport.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvImport.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.dgvImport.Location = New System.Drawing.Point(43, 112)
+		Me.dgvImport.Location = New System.Drawing.Point(60, 124)
 		Me.dgvImport.Name = "dgvImport"
 		Me.dgvImport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -124,10 +124,6 @@ Partial Class frmImport
 		Me.dgvImport.Size = New System.Drawing.Size(632, 150)
 		Me.dgvImport.TabIndex = 9
 		'
-		'ImportDetailDTOBindingSource
-		'
-		Me.ImportDetailDTOBindingSource.DataSource = GetType(BookstoreManagement.DTO.ImportDetailDTO)
-		'
 		'DataGridViewTextBoxColumn1
 		'
 		Me.DataGridViewTextBoxColumn1.DataPropertyName = "ID"
@@ -140,6 +136,7 @@ Partial Class frmImport
 		Me.ImportIDDataGridViewTextBoxColumn.DataPropertyName = "ImportID"
 		Me.ImportIDDataGridViewTextBoxColumn.HeaderText = "Import ID"
 		Me.ImportIDDataGridViewTextBoxColumn.Name = "ImportIDDataGridViewTextBoxColumn"
+		Me.ImportIDDataGridViewTextBoxColumn.ReadOnly = True
 		'
 		'BookIDDataGridViewTextBoxColumn
 		'
@@ -167,13 +164,17 @@ Partial Class frmImport
 		Me.ImportPriceDataGridViewTextBoxColumn.HeaderText = "Import Price"
 		Me.ImportPriceDataGridViewTextBoxColumn.Name = "ImportPriceDataGridViewTextBoxColumn"
 		'
+		'ImportDetailDTOBindingSource
+		'
+		Me.ImportDetailDTOBindingSource.DataSource = GetType(BookstoreManagement.DTO.ImportDetailDTO)
+		'
 		'frmImport
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(724, 384)
+		Me.ClientSize = New System.Drawing.Size(750, 400)
 		Me.Controls.Add(Me.dgvImport)
-		Me.Controls.Add(Me.lblReceivedDate)
+		Me.Controls.Add(Me.lblImportDate)
 		Me.Controls.Add(Me.dtpReceivedDate)
 		Me.Controls.Add(Me.btnClear)
 		Me.Controls.Add(Me.btnAdd)
@@ -189,7 +190,7 @@ Partial Class frmImport
 	Friend WithEvents btnAdd As MetroFramework.Controls.MetroButton
 	Friend WithEvents btnClear As MetroFramework.Controls.MetroButton
 	Friend WithEvents dtpReceivedDate As MetroFramework.Controls.MetroDateTime
-	Friend WithEvents lblReceivedDate As MetroFramework.Controls.MetroLabel
+	Friend WithEvents lblImportDate As MetroFramework.Controls.MetroLabel
 	Friend WithEvents IDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 	Friend WithEvents NameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 	Friend WithEvents CategoryDataGridViewTextBoxColumn As DataGridViewTextBoxColumn

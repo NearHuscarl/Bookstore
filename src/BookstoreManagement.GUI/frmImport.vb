@@ -8,6 +8,7 @@ Public Class frmImport
 
 	Private Sub frmImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		importBUS = New ImportBUS()
+		importDetailBUS = New ImportDetailBUS()
 		ShowNextID()
 	End Sub
 
