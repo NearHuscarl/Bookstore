@@ -63,7 +63,7 @@ Public Class BookImportDAL
 		Return New Result(True)
 	End Function
 
-	Public Function insert(reader As BookImportDTO) As Result
+	Public Function insert(reader As ImportDTO) As Result
 		Dim query As String = String.Empty
 
 		query &= "INSERT INTO [BookImport] ([ID], [Name], [Category], [Author], [Amount], [Price], [ReceivedDate])"
@@ -91,8 +91,8 @@ Public Class BookImportDAL
 					.Parameters.AddWithValue("@Name", reader.Name)
 					.Parameters.AddWithValue("@Category", reader.Category)
 					.Parameters.AddWithValue("@Author", reader.Author)
-					.Parameters.AddWithValue("@Amount", reader.Amount)
-					.Parameters.AddWithValue("@Price", reader.Price)
+					.Parameters.AddWithValue("@Amount", reader.ImportAmount)
+					.Parameters.AddWithValue("@Price", reader.ImportPrice)
 					.Parameters.AddWithValue("@ReceivedDate", reader.ReceivedDate)
 				End With
 

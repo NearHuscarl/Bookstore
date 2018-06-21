@@ -16,7 +16,7 @@ Public Class BookImportBUS
 		parameterBUS = New ParameterBUS()
 	End Sub
 
-	Public Function isValidBookImportInfo(importInfo As BookImportDTO)
+	Public Function isValidBookImportInfo(importInfo As ImportDTO)
 		If (importInfo.Name.Length < 1) Then
 			Return False
 		End If
@@ -25,7 +25,7 @@ Public Class BookImportBUS
 		Dim result = parameterBUS.selectAll(parameter)
 
 		If result.FlagResult = True Then
-			If (importInfo.Amount < parameter.MinImportAmount) Then
+			If (importInfo.ImportAmount < parameter.MinImportAmount) Then
 				Return False
 			End If
 
@@ -36,11 +36,11 @@ Public Class BookImportBUS
 		Return False
 	End Function
 
-	Public Function insert(importInfos As List(Of BookImportDTO)) As Result
+	Public Function insert(receipt As ReceiptDTO) As Result
 		' Validate here
 		Dim result As Result
 
-		For Each importInfo As BookImportDTO In importInfos
+		For Each importInfo As ImportDTO In receipt.BookImports
 			result = bookImportDAL.insert(importInfo)
 
 			If (result.FlagResult <> True) Then
@@ -51,7 +51,7 @@ Public Class BookImportBUS
 		Return result
 	End Function
 
-	Public Function insert(importInfo As BookImportDTO) As Result
+	Public Function insert(importInfo As ImportDTO) As Result
 		' Validate here
 		Return bookImportDAL.insert(importInfo)
 	End Function

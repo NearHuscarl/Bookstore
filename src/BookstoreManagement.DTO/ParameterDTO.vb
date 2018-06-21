@@ -1,34 +1,70 @@
 ﻿Public Class ParameterDTO
-	Private intMinImportAmount As Integer
-	Private intMinInventoryAmount As Integer
+	Private _minImportAmount As Integer
+	Private _minStockBeforeImport As Integer
+	Private _minStockAfterSales As Integer
+	Private _maxDept As Integer
+	Private _useRegulation As Boolean
 
 	Public Sub New()
 	End Sub
 
 	Public Sub New(
-		intMinImportAmount As Integer,
-		intMinInventoryAmount As Integer
+		minImportAmount As Integer,
+		minStockBeforeImport As Integer,
+		minStockAfterSales As Integer,
+		maxDept As Integer,
+		useRegulation As Boolean
 		)
 
-		Me.intMinImportAmount = intMinImportAmount
-		Me.intMinInventoryAmount = intMinInventoryAmount
+		Me._minImportAmount = minImportAmount
+		Me._minStockBeforeImport = minStockBeforeImport
+		Me._minStockAfterSales = minStockAfterSales
+		Me._maxDept = maxDept
+		Me._useRegulation = useRegulation
 	End Sub
 
 	Property MinImportAmount() As Integer
 		Get
-			Return intMinImportAmount
+			Return _minImportAmount
 		End Get
 		Set(ByVal Value As Integer)
-			intMinImportAmount = Value
+			_minImportAmount = Value
 		End Set
 	End Property
 
-	Property MinInventoryAmount() As Integer
+	Property MinStockBeforeImport() As Integer
 		Get
-			Return intMinInventoryAmount
+			Return _minStockBeforeImport
 		End Get
 		Set(ByVal Value As Integer)
-			intMinInventoryAmount = Value
+			_minStockBeforeImport = Value
+		End Set
+	End Property
+
+	Property MinStockAfterSales() As Integer
+		Get
+			Return _minStockAfterSales
+		End Get
+		Set(ByVal Value As Integer)
+			_minStockAfterSales = Value
+		End Set
+	End Property
+
+	Property MaxDept() As Integer
+		Get
+			Return _maxDept
+		End Get
+		Set(ByVal Value As Integer)
+			_maxDept = Value
+		End Set
+	End Property
+
+	Property UseRegulation() As Boolean
+		Get
+			Return _useRegulation
+		End Get
+		Set(ByVal Value As Boolean)
+			_useRegulation = Value
 		End Set
 	End Property
 End Class
