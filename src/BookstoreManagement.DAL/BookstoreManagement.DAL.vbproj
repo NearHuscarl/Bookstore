@@ -64,8 +64,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorDAL.vb" />
+    <Compile Include="BookCategoryDAL.vb" />
+    <Compile Include="BookDAL.vb" />
+    <Compile Include="CustomerDAL.vb" />
+    <Compile Include="DebtReportDAL.vb" />
+    <Compile Include="DebtReportDetailDAL.vb" />
     <Compile Include="ImportDAL.vb" />
     <Compile Include="ImportDetailDAL.vb" />
+    <Compile Include="InvoiceDAL.vb" />
+    <Compile Include="InvoiceDetailDAL.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -82,6 +90,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ParameterDAL.vb" />
+    <Compile Include="ReceiptDAL.vb" />
+    <Compile Include="StockReportDAL.vb" />
+    <Compile Include="StockReportDetailDAL.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

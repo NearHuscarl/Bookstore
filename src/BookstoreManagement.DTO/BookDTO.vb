@@ -3,10 +3,9 @@
 	Private _name As String
 	Private _category As BookCategoryDTO
 	Private _author As AuthorDTO
-	Private _importAmount As Integer
-	Private _importPrice As Integer
+   Private _importAmount As Integer
 
-	Public Sub New()
+   Public Sub New()
 	End Sub
 
 	Public Sub New(
@@ -22,9 +21,8 @@
 		Me._name = name
 		Me._category = category
 		Me._author = author
-		Me._importAmount = importAmount
-		Me._importPrice = importPrice
-	End Sub
+      Me._importAmount = importAmount
+   End Sub
 
 	Property ID() As String
 		Get
@@ -62,21 +60,12 @@
 		End Set
 	End Property
 
-	Property ImportAmount() As Integer
-		Get
-			Return _importAmount
-		End Get
-		Set(ByVal Value As Integer)
-			_importAmount = Value
-		End Set
-	End Property
-
-	Property ImportPrice() As Integer
-		Get
-			Return _importPrice
-		End Get
-		Set(ByVal Value As Integer)
-			_importPrice = Value
-		End Set
-	End Property
+   Property ImportAmount() As Integer
+      Get
+         Return _importAmount
+      End Get
+      Set(ByVal Value As Integer)
+         _importAmount = Value
+      End Set
+   End Property
 End Class

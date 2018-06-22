@@ -67,11 +67,11 @@
     <Compile Include="BookCategoryDTO.vb" />
     <Compile Include="BookDTO.vb" />
     <Compile Include="CustomerDTO.vb" />
-    <Compile Include="DeptReportDetail.vb" />
-    <Compile Include="DeptReportDTO.vb" />
+    <Compile Include="DebtReportDetailDTO.vb" />
+    <Compile Include="DebtReportDTO.vb" />
     <Compile Include="ImportDetailDTO.vb" />
     <Compile Include="ImportDTO.vb" />
-    <Compile Include="InvoiceDetail.vb" />
+    <Compile Include="InvoiceDetailDTO.vb" />
     <Compile Include="InvoiceDTO.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
