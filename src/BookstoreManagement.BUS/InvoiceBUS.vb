@@ -1,43 +1,42 @@
-﻿Imports System.Configuration
-Imports System.Data.SqlClient
+﻿Imports BookstoreManagement.DAL
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class InvoiceDAL
-	Private connectionStr As String
+Public Class InvoiceBUS
+	Private invoiceDAL As InvoiceDAL
 
 	Public Sub New()
-		connectionStr = ConfigurationManager.AppSettings("ConnectionStr")
+		invoiceDAL = New InvoiceDAL()
 	End Sub
 
 	Public Sub New(connectionStr As String)
-		Me.connectionStr = connectionStr
+		invoiceDAL = New InvoiceDAL(connectionStr)
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
+		Return invoiceDAL.getNextId(nextId)
 	End Function
 
 	Public Function insert(invoice As InvoiceDTO) As Result
-		Return New Result(True)
+		Return invoiceDAL.insert(invoice)
 	End Function
 
 	Public Function sellectALL(ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return New Result(True)
+		Return invoiceDAL.sellectALL(invoices)
 	End Function
 
 	Public Function sellectALL_ByDate(dateCreated As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return New Result(True)
+		Return invoiceDAL.sellectALL_ByDate(dateCreated, invoices)
 	End Function
 	Public Function sellectALL_ByCustomer(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return New Result(True)
+		Return invoiceDAL.sellectALL_ByCustomer(customerID, invoices)
 	End Function
 
 	Public Function update(invoice As InvoiceDTO) As Result
-		Return New Result(True)
+		Return invoiceDAL.update(invoice)
 	End Function
 
 	Public Function delete(invoiceID As String) As Result
-		Return New Result(True)
+		Return invoiceDAL.delete(invoiceID)
 	End Function
 End Class

@@ -111,4 +111,12 @@ Public Class ImportDetailDAL
 
 		Return New Result(True)
 	End Function
+
+	Public Function update(importDetail As ImportDetailDTO) As Result
+		Return New Result(True)
+	End Function
+
+	Public Function delete(importDetail As ImportDetailDTO) As Result
+		Return New Result(True)
+	End Function
 End Class

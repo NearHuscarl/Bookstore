@@ -1,40 +1,39 @@
-﻿Imports System.Configuration
-Imports System.Data.SqlClient
+﻿Imports BookstoreManagement.DAL
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class StockReportDAL
-	Private connectionStr As String
+Public Class StockReportBUS
+	Private stockReportDAL As StockReportDAL
 
 	Public Sub New()
-		connectionStr = ConfigurationManager.AppSettings("ConnectionStr")
+		stockReportDAL = New StockReportDAL()
 	End Sub
 
 	Public Sub New(connectionStr As String)
-		Me.connectionStr = connectionStr
+		stockReportDAL = New StockReportDAL(connectionStr)
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
+		Return getNextId(nextId)
 	End Function
 
 	Public Function insert(stockReport As StockReportDTO) As Result
-		Return New Result(True)
+		Return insert(stockReport)
 	End Function
 
 	Public Function sellectALL(ByRef stockReports As List(Of StockReportDTO)) As Result
-		Return New Result(True)
+		Return sellectALL(stockReports)
 	End Function
 
 	Public Function sellectALL_ByDate(dateReported As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
-		Return New Result(True)
+		Return sellectALL_ByDate(dateReported, stockReports)
 	End Function
 
 	Public Function update(stockReport As StockReportDTO) As Result
-		Return New Result(True)
+		Return update(stockReport)
 	End Function
 
 	Public Function delete(stockReportID As String) As Result
-		Return New Result(True)
+		Return delete(stockReportID)
 	End Function
 End Class

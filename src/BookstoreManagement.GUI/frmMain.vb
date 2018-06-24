@@ -20,6 +20,6 @@ Public Class frmMain
 	Private Sub tlImport_Click(sender As Object, e As EventArgs) Handles tlImport.Click
 		Dim frm As frmImport = New frmImport()
 		'frm.MdiParent = Me
-		frm.Show()
+		frm.ShowDialog()
 	End Sub
 End Class

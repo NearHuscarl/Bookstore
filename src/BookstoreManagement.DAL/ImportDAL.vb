@@ -63,7 +63,7 @@ Public Class ImportDAL
 		Return New Result(True)
 	End Function
 
-	Public Function insert(reader As ImportDTO) As Result
+	Public Function insert(import As ImportDTO) As Result
 		Dim query As String = String.Empty
 
 		query &= "INSERT INTO [Import] ([ID], [DateImport])"
@@ -76,7 +76,7 @@ Public Class ImportDAL
 		If (result.FlagResult = False) Then
 			Return result
 		End If
-		reader.ID = nextID
+		import.ID = nextID
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -87,8 +87,8 @@ Public Class ImportDAL
 					.CommandType = CommandType.Text
 					.CommandText = query
 
-					.Parameters.AddWithValue("@ID", reader.ID)
-					.Parameters.AddWithValue("@DateImport", reader.DateImport)
+					.Parameters.AddWithValue("@ID", import.ID)
+					.Parameters.AddWithValue("@DateImport", import.DateImport)
 				End With
 
 				Try
@@ -103,6 +103,14 @@ Public Class ImportDAL
 
 		End Using
 
+		Return New Result(True)
+	End Function
+
+	Public Function update(import As ImportDTO) As Result
+		Return New Result(True)
+	End Function
+
+	Public Function delete(import As ImportDTO) As Result
 		Return New Result(True)
 	End Function
 End Class

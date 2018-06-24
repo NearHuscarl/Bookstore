@@ -18,27 +18,27 @@ Public Class DebtReportDetailDAL
       Return New Result(True)
    End Function
 
-   Public Function insert(reader As DebtReportDetailDTO) As Result
+	Public Function insert(debtReportDetail As DebtReportDetailDTO) As Result
+		Return New Result(True)
+	End Function
+
+	Public Function insertAll(debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return New Result(True)
+	End Function
+
+	Public Function sellectALL(ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
       Return New Result(True)
    End Function
 
-   Public Function insertAll(debtReportDetailDTOs As List(Of DebtReportDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL_ByDebtReport(debtReportID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function sellectALL(ByRef listDebtReportDetail As List(Of DebtReportDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL_ByCustomer(customerID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function sellectALL_ByDebtReport(debtReportID As String, ByRef listDebtReportDetail As List(Of DebtReportDetailDTO)) As Result
-      Return New Result(True)
-   End Function
-
-   Public Function sellectALL_ByCustomer(customerID As String, ByRef listDebtReportDetail As List(Of DebtReportDetailDTO)) As Result
-      Return New Result(True)
-   End Function
-
-   Public Function update(debtReportDetail As DebtReportDetailDTO) As Result
+	Public Function update(debtReportDetail As DebtReportDetailDTO) As Result
       Return New Result(True)
    End Function
 

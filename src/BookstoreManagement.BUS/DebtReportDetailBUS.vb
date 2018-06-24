@@ -1,0 +1,47 @@
+﻿Imports BookstoreManagement.DAL
+Imports BookstoreManagement.DTO
+Imports Utility
+
+Public Class DebtReportDetailBUS
+	Private debtReportDetailDAL As DebtReportDetailDAL
+
+	Public Sub New()
+		debtReportDetailDAL = New DebtReportDetailDAL()
+	End Sub
+
+	Public Sub New(connectionStr As String)
+		debtReportDetailDAL = New DebtReportDetailDAL(connectionStr)
+	End Sub
+
+	Public Function getNextId(ByRef nextId As Integer) As Result
+		Return debtReportDetailDAL.getNextId(nextId)
+	End Function
+
+	Public Function insert(debtReportDetail As DebtReportDetailDTO) As Result
+		Return debtReportDetailDAL.insert(debtReportDetail)
+	End Function
+
+	Public Function insertAll(debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.insertAll(debtReportDetails)
+	End Function
+
+	Public Function sellectALL(ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.sellectALL(debtReportDetails)
+	End Function
+
+	Public Function sellectALL_ByDebtReport(debtReportID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.sellectALL_ByDebtReport(debtReportID, debtReportDetails)
+	End Function
+
+	Public Function sellectALL_ByCustomer(customerID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.sellectALL_ByCustomer(customerID, debtReportDetails)
+	End Function
+
+	Public Function update(debtReportDetail As DebtReportDetailDTO) As Result
+		Return debtReportDetailDAL.update(debtReportDetail)
+	End Function
+
+	Public Function delete(debtReportDetailID As String) As Result
+		Return debtReportDetailDAL.delete(debtReportDetailID)
+	End Function
+End Class

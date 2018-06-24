@@ -63,8 +63,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorBUS.vb" />
+    <Compile Include="BookBUS.vb" />
+    <Compile Include="BookCategoryBUS.vb" />
+    <Compile Include="CustomerBUS.vb" />
+    <Compile Include="DebtReportBUS.vb" />
+    <Compile Include="DebtReportDetailBUS.vb" />
     <Compile Include="ImportBUS.vb" />
     <Compile Include="ImportDetailBUS.vb" />
+    <Compile Include="InvoiceBUS.vb" />
+    <Compile Include="InvoiceDetailBUS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -81,6 +89,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ParameterBUS.vb" />
+    <Compile Include="ReceiptBUS.vb" />
+    <Compile Include="StockReportBUS.vb" />
+    <Compile Include="StockReportDetailBUS.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

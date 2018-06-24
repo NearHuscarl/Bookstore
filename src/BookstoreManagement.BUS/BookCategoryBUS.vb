@@ -1,36 +1,35 @@
-﻿Imports System.Configuration
-Imports System.Data.SqlClient
+﻿Imports BookstoreManagement.DAL
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class BookCategoryDAL
-	Private connectionStr As String
+Public Class BookCategoryBUS
+	Private bookCategoryDAL As BookCategoryDAL
 
 	Public Sub New()
-		connectionStr = ConfigurationManager.AppSettings("ConnectionStr")
+		bookCategoryDAL = New BookCategoryDAL()
 	End Sub
 
 	Public Sub New(connectionStr As String)
-		Me.connectionStr = connectionStr
+		bookCategoryDAL = New BookCategoryDAL(connectionStr)
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
+		Return bookCategoryDAL.getNextId(nextId)
 	End Function
 
 	Public Function insert(category As BookCategoryDTO) As Result
-		Return New Result(True)
+		Return bookCategoryDAL.insert(category)
 	End Function
 
 	Public Function sellectALL(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
-		Return New Result(True)
+		Return bookCategoryDAL.sellectALL(bookCategories)
 	End Function
 
 	Public Function update(bookCategory As BookCategoryDTO) As Result
-		Return New Result(True)
+		Return bookCategoryDAL.update(bookCategory)
 	End Function
 
 	Public Function delete(bookCategoryID As String) As Result
-		Return New Result(True)
+		Return bookCategoryDAL.delete(bookCategoryID)
 	End Function
 End Class

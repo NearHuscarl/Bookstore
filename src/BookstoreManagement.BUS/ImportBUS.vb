@@ -24,4 +24,12 @@ Public Class ImportBUS
 	Public Function getNextId(ByRef nextId As Integer) As Result
 		Return importDAL.getNextId(nextId)
 	End Function
+
+	Public Function update(import As ImportDTO) As Result
+		Return importDAL.update(import)
+	End Function
+
+	Public Function delete(import As ImportDTO) As Result
+		Return importDAL.delete(import)
+	End Function
 End Class

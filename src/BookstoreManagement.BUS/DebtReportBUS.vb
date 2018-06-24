@@ -1,40 +1,39 @@
-﻿Imports System.Configuration
-Imports System.Data.SqlClient
+﻿Imports BookstoreManagement.DAL
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class DebtReportDAL
-	Private connectionStr As String
+Public Class DebtReportBUS
+	Private debtReportDAL As DebtReportDAL
 
 	Public Sub New()
-		connectionStr = ConfigurationManager.AppSettings("ConnectionStr")
+		debtReportDAL = New DebtReportDAL()
 	End Sub
 
 	Public Sub New(connectionStr As String)
-		Me.connectionStr = connectionStr
+		debtReportDAL = New DebtReportDAL(connectionStr)
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
+		Return debtReportDAL.getNextId(nextId)
 	End Function
 
 	Public Function insert(debtReport As DebtReportDTO) As Result
-		Return New Result(True)
+		Return debtReportDAL.insert(debtReport)
 	End Function
 
 	Public Function sellectALL(ByRef debtReports As List(Of DebtReportDTO)) As Result
-		Return New Result(True)
+		Return debtReportDAL.sellectALL(debtReports)
 	End Function
 
 	Public Function sellectALL_ByDate(dateReport As DateTime, ByRef debtReports As List(Of DebtReportDTO)) As Result
-		Return New Result(True)
+		Return debtReportDAL.sellectALL_ByDate(dateReport, debtReports)
 	End Function
 
 	Public Function update(debtReport As DebtReportDTO) As Result
-		Return New Result(True)
+		Return debtReportDAL.update(debtReport)
 	End Function
 
 	Public Function delete(debtReportID As String) As Result
-		Return New Result(True)
+		Return debtReportDAL.delete(debtReportID)
 	End Function
 End Class

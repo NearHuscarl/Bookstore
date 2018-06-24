@@ -18,27 +18,27 @@ Public Class InvoiceDetailDAL
       Return New Result(True)
    End Function
 
-   Public Function insert(reader As InvoiceDetailDTO) As Result
-      Return New Result(True)
-   End Function
+	Public Function insert(invoiceDetail As InvoiceDetailDTO) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function insertAll(invoiceDetailDTOs As List(Of InvoiceDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function insertAll(invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function sellectALL(ByRef listInvoiceDetail As List(Of InvoiceDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL(ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function sellectALL_ByInvoice(invoiceID As String, ByRef listInvoiceDetail As List(Of InvoiceDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL_ByInvoice(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function sellectALL_ByBook(bookID As String, ByRef listInvoiceDetail As List(Of InvoiceDetailDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL_ByBook(bookID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function update(invoiceDetail As InvoiceDetailDTO) As Result
+	Public Function update(invoiceDetail As InvoiceDetailDTO) As Result
       Return New Result(True)
    End Function
 

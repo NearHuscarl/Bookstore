@@ -22,11 +22,11 @@ Public Class AuthorDAL
       Return New Result(True)
    End Function
 
-   Public Function sellectALL(ByRef listAuthor As List(Of AuthorDTO)) As Result
-      Return New Result(True)
-   End Function
+	Public Function sellectALL(ByRef authors As List(Of AuthorDTO)) As Result
+		Return New Result(True)
+	End Function
 
-   Public Function update(author As AuthorDTO) As Result
+	Public Function update(author As AuthorDTO) As Result
       Return New Result(True)
    End Function
 

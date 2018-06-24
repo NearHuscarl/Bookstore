@@ -1,36 +1,35 @@
-﻿Imports System.Configuration
-Imports System.Data.SqlClient
+﻿Imports BookstoreManagement.DAL
 Imports BookstoreManagement.DTO
 Imports Utility
 
-Public Class CustomerDAL
-	Private connectionStr As String
+Public Class CustomerBUS
+	Private customerDAL As CustomerDAL
 
 	Public Sub New()
-		connectionStr = ConfigurationManager.AppSettings("ConnectionStr")
+		customerDAL = New CustomerDAL()
 	End Sub
 
 	Public Sub New(connectionStr As String)
-		Me.connectionStr = connectionStr
+		customerDAL = New CustomerDAL(connectionStr)
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
+		Return customerDAL.getNextId(nextId)
 	End Function
 
 	Public Function insert(customer As CustomerDTO) As Result
-		Return New Result(True)
+		Return customerDAL.insert(customer)
 	End Function
 
 	Public Function sellectALL(ByRef customers As List(Of CustomerDTO)) As Result
-		Return New Result(True)
+		Return customerDAL.sellectALL(customers)
 	End Function
 
 	Public Function update(customer As CustomerDTO) As Result
-		Return New Result(True)
+		Return customerDAL.update(customer)
 	End Function
 
 	Public Function delete(customerID As String) As Result
-		Return New Result(True)
+		Return customerDAL.delete(customerID)
 	End Function
 End Class

@@ -60,4 +60,12 @@ Public Class ParameterDAL
 
 		Return New Result(True)
 	End Function
+
+	Public Function update(parameters As ParameterDTO) As Result
+		Return New Result(True)
+	End Function
+
+	Public Function delete(parameters As ParameterDTO) As Result
+		Return New Result(True)
+	End Function
 End Class
