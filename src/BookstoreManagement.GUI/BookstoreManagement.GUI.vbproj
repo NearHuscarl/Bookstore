@@ -159,7 +159,25 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Back.png" />
+    <None Include="Resources\ImportIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InvoiceIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DebtReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StockReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Regulation.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
