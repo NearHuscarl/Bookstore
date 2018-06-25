@@ -14,376 +14,373 @@ Public Class ImportDetailDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-   Public Function getNextId(ByRef nextId As Integer) As Result
-      Dim query As String = String.Empty
+	Public Function getNextId(ByRef nextId As Integer) As Result
+		Dim query As String = String.Empty
 
-      query &= " SELECT TOP 1 [ID] "
-      query &= " FROM [ImportDetail] "
-      query &= " ORDER BY [ID] DESC "
+		query &= " SELECT TOP 1 [ID] "
+		query &= " FROM [ImportDetail] "
+		query &= " ORDER BY [ID] DESC "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim reader As SqlDataReader
-               Dim idOnDB As Integer
+					Dim importDetail As SqlDataReader
+					Dim idOnDB As Integer
 
-               reader = comm.ExecuteReader()
-               idOnDB = Nothing
+					importDetail = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If reader.HasRows = True Then
-                  While reader.Read()
-                     idOnDB = reader("ID")
-                  End While
-               End If
+					If importDetail.HasRows = True Then
+						While importDetail.Read()
+							idOnDB = importDetail("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 ' new ID = current ID + 1
+					nextId = idOnDB + 1 ' new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+				Catch exception As Exception
+					conn.Close()
 
-               nextId = 1
+					nextId = 1
 
-               Console.WriteLine("Get next Import Detail ID Failed") 'for debug
-               Return New Result(False, "Get next Import Detail ID Failed", exception.StackTrace)
+					Debug.WriteLine("Get next import detail ID failed")
+					Return New Result(False, "Get next import detail ID failed", exception.StackTrace)
 
-            End Try
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Get next Import Detail ID succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Get next import detail ID succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function insert(importDetail As ImportDetailDTO) As Result
+	Public Function insert(importDetail As ImportDetailDTO) As Result
 
-      Dim query As String = String.Empty
-      query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
-      query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
+		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
 
-      Dim nextID = 0
-      Dim result As Result
+		Dim nextID = 0
+		Dim result As Result
 
-      result = getNextId(nextID)
-      If (result.FlagResult = False) Then
-         Return result
-      End If
-      importDetail.ID = nextID
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		importDetail.ID = nextID
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", importDetail.ID)
-               .Parameters.AddWithValue("@ImportID", importDetail.ImportID)
-               .Parameters.AddWithValue("@BookID", importDetail.BookID)
-               .Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-               .Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
-               .Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importDetail.ID)
+					.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
+					.Parameters.AddWithValue("@BookID", importDetail.BookID)
+					.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
+					.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
+					.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
+				End With
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
-            Catch exception As Exception
-               conn.Close()
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+				Catch exception As Exception
+					conn.Close()
 
-               Console.WriteLine("Insert Import Detail failed") 'for debug
-               Return New Result(False, "Insert Import Detail failed", exception.StackTrace)
-            End Try
+					Debug.WriteLine("Insert import detail failed")
+					Return New Result(False, "Insert import detail failed", exception.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
+		Debug.WriteLine("Insert import detail succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Insert Import Detail succeed") 'for debug
-      Return New Result(True)
-   End Function
+	Public Function insertAll(importDetails As List(Of ImportDetailDTO)) As Result
 
-   Public Function insertAll(importDetails As List(Of ImportDetailDTO)) As Result
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
+		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
 
-      Dim query As String = String.Empty
-      query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
-      query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				Try
+					For Each importDetail As ImportDetailDTO In importDetails
+						Dim nextID = 0
+						Dim result As Result
 
-            Try
-               For Each importDetail As ImportDetailDTO In importDetails
-                  Dim nextID = 0
-                  Dim result As Result
+						result = getNextId(nextID)
+						If (result.FlagResult = False) Then
+							Return result
+						End If
+						importDetail.ID = nextID
 
-                  result = getNextId(nextID)
-                  If (result.FlagResult = False) Then
-                     Return result
-                  End If
-                  importDetail.ID = nextID
+						With comm
+							.Connection = conn
+							.CommandType = CommandType.Text
+							.CommandText = query
+							.Parameters.AddWithValue("@ID", importDetail.ID)
+							.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
+							.Parameters.AddWithValue("@BookID", importDetail.BookID)
+							.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
+							.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
+							.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
+						End With
 
-                  With comm
-                     .Connection = conn
-                     .CommandType = CommandType.Text
-                     .CommandText = query
-                     .Parameters.AddWithValue("@ID", importDetail.ID)
-                     .Parameters.AddWithValue("@ImportID", importDetail.ImportID)
-                     .Parameters.AddWithValue("@BookID", importDetail.BookID)
-                     .Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-                     .Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
-                     .Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
-                  End With
+						conn.Open()
+						comm.ExecuteNonQuery()
+					Next
+				Catch exception As Exception
+					conn.Close()
 
-                  conn.Open()
-                  comm.ExecuteNonQuery()
-               Next
-            Catch exception As Exception
-               conn.Close()
+					Debug.WriteLine("Insert import details failed")
+					Return New Result(False, "Insert import details failed", exception.StackTrace)
+				End Try
 
-               Console.WriteLine("Insert Import Details failed") 'for debug
-               Return New Result(False, "Insert Import Details failed", exception.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
+		Debug.WriteLine("Insert import details succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Insert Import Details succeed") 'for debug
-      Return New Result(True)
-   End Function
+	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO))
 
-   Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO))
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " FROM [ImportDetail] "
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
-      query &= " FROM [ImportDetail] "
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				Try
+					conn.Open()
 
-            Try
-               conn.Open()
+					Dim importDetail As SqlDataReader
+					importDetail = comm.ExecuteReader()
 
-               Dim importDetail As SqlDataReader
-               importDetail = comm.ExecuteReader()
+					If importDetail.HasRows = True Then
+						importDetails.Clear()
+						While importDetail.Read()
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+						End While
+					End If
 
-               If importDetail.HasRows = True Then
-                  importDetails.Clear()
-                  While importDetail.Read()
-                     importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
-                  End While
-               End If
+				Catch ex As Exception
+					conn.Close()
 
-            Catch ex As Exception
-               conn.Close()
+					Debug.WriteLine("Get import details failed")
+					Return New Result(False, "Get import details failed", ex.StackTrace)
+				End Try
 
-               Console.WriteLine("Get Import Details failed") 'for debug
-               Return New Result(False, "Get Import Details failed", ex.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
+		Debug.WriteLine("Get import details succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Get Import Details succeed") 'for debug
-      Return New Result(True)
-   End Function
+	Public Function selectAll_ByImportID(importID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
-   Public Function selectAll_ByImportID(importID As String, ByRef importDetails As List(Of ImportDetailDTO))
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " FROM [ImportDetail]"
+		query &= " WHERE [ImportDetail].[ImportID] = @ImportID"
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
-      query &= " FROM [ImportDetail]"
-      query &= " WHERE [ImportDetail].[ImportID] = @ImportID"
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ImportID", importID)
+				End With
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ImportID", importID)
-            End With
+				Try
+					conn.Open()
 
-            Try
-               conn.Open()
+					Dim importDetail As SqlDataReader
+					importDetail = comm.ExecuteReader()
 
-               Dim importDetail As SqlDataReader
-               importDetail = comm.ExecuteReader()
+					If importDetail.HasRows = True Then
+						importDetails.Clear()
+						While importDetail.Read()
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+						End While
+					End If
 
-               If importDetail.HasRows = True Then
-                  importDetails.Clear()
-                  While importDetail.Read()
-                     importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
-                  End While
-               End If
+				Catch ex As Exception
+					conn.Close()
 
-            Catch ex As Exception
-               conn.Close()
+					Debug.WriteLine("Get import details failed")
+					Return New Result(False, "Get import details failed", ex.StackTrace)
+				End Try
 
-               Console.WriteLine("Get Import Details failed") 'for debug
-               Return New Result(False, "Get Import Details failed", ex.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
+		Debug.WriteLine("Get import details succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Get Import Details succeed") 'for debug
-      Return New Result(True)
-   End Function
+	Public Function selectAll_ByBookID(bookID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
-   Public Function selectAll_ByBookID(bookID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " FROM [ImportDetail] "
+		query &= " WHERE [ImportDetail].[BookID] = @BookID "
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
-      query &= " FROM [ImportDetail] "
-      query &= " WHERE [ImportDetail].[BookID] = @BookID "
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@BookID", bookID)
+				End With
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@BookID", bookID)
-            End With
+				Try
+					conn.Open()
 
-            Try
-               conn.Open()
+					Dim importDetail As SqlDataReader
+					importDetail = comm.ExecuteReader()
 
-               Dim importDetail As SqlDataReader
-               importDetail = comm.ExecuteReader()
+					If importDetail.HasRows = True Then
+						importDetails.Clear()
+						While importDetail.Read()
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+						End While
+					End If
 
-               If importDetail.HasRows = True Then
-                  importDetails.Clear()
-                  While importDetail.Read()
-                     importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
-                  End While
-               End If
+				Catch ex As Exception
+					conn.Close()
 
-            Catch ex As Exception
-               conn.Close()
+					Debug.WriteLine("Get import details failed")
+					Return New Result(False, "Get import details failed", ex.StackTrace)
+				End Try
 
-               Console.WriteLine("Get Import Details failed") 'for debug
-               Return New Result(False, "Get Import Details failed", ex.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
+		Debug.WriteLine("Get import details succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Get Import Details succeed") 'for debug
-      Return New Result(True)
-   End Function
+	Public Function update(importDetail As ImportDetailDTO) As Result
 
-   Public Function update(importDetail As ImportDetailDTO) As Result
+		Dim query As String = String.Empty
+		query &= " UPDATE [ImportDetail] SET "
+		query &= " [ImportID] = @ImportID , "
+		query &= " [BookID] = @BookID , "
+		query &= " [ImportAmount] = @ImportAmount , "
+		query &= " [CurrentAmount] = @CurrentAmount , "
+		query &= " [ImportPrice] = @ImportPrice "
+		query &= " WHERE [ID] = @ID "
 
-      Dim query As String = String.Empty
-      query &= " UPDATE [ImportDetail] SET "
-      query &= " [ImportID] = @ImportID "
-      query &= " [BookID] = @BookID "
-      query &= " [ImportAmount] = @ImportAmount "
-      query &= " [CurrentAmount] = @CurrentAmount "
-      query &= " [ImportPrice] = @ImportPrice "
-      query &= " WHERE [ID] = @ID "
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importDetail.ID)
+					.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
+					.Parameters.AddWithValue("@BookID", importDetail.BookID)
+					.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
+					.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
+					.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
+				End With
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", importDetail.ID)
-               .Parameters.AddWithValue("@ImportID", importDetail.ImportID)
-               .Parameters.AddWithValue("@BookID", importDetail.BookID)
-               .Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-               .Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
-               .Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
-            End With
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+				Catch ex As Exception
+					conn.Close()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+					Debug.WriteLine("Update import detail failed")
+					Return New Result(False, "Update import detail failed", ex.StackTrace)
+				End Try
 
-               Console.WriteLine("Update Import Detail failed")
-               Return New Result(False, "Update Import Detail failed", ex.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
+		Debug.WriteLine("Update import detail succeed")
+		Return New Result(True)
+	End Function
 
-      Console.WriteLine("Update Import Detail succeed")
-      Return New Result(True)
-   End Function
+	Public Function delete(importDetailID As String) As Result
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [ImportDetail] "
+		query &= " WHERE [ID] = @ID "
 
-   Public Function delete(importDetailID As String) As Result
-      Dim query As String = String.Empty
-      query &= " DELETE FROM [ImportDetail] "
-      query &= " WHERE [ID] = @ID "
+		Using conn As New SqlConnection(connectionStr)
 
-      Using conn As New SqlConnection(connectionStr)
+			Using comm As New SqlCommand()
 
-         Using comm As New SqlCommand()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importDetailID)
+				End With
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", importDetailID)
-            End With
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+				Catch ex As Exception
+					conn.Close()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+					Debug.WriteLine("Delete import detail failed")
+					Return New Result(False, "Delete import detail failed", ex.StackTrace)
+				End Try
 
-               Console.WriteLine("Delete Import Detail failed")
-               Return New Result(False, "Delete Import Detail failed", ex.StackTrace)
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
-
-      Console.WriteLine("Delete Import Detail succeed")
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Delete import detail succeed")
+		Return New Result(True)
+	End Function
 End Class

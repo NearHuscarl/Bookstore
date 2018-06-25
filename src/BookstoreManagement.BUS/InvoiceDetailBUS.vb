@@ -25,16 +25,16 @@ Public Class InvoiceDetailBUS
 		Return invoiceDetailDAL.insertAll(invoiceDetails)
 	End Function
 
-	Public Function sellectALL(ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
-		Return invoiceDetailDAL.sellectALL(invoiceDetails)
+	Public Function selectAll(ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return invoiceDetailDAL.selectAll(invoiceDetails)
 	End Function
 
-	Public Function sellectALL_ByInvoice(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
-		Return invoiceDetailDAL.sellectALL_ByInvoice(invoiceID, invoiceDetails)
+	Public Function selectAll_ByInvoiceID(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+		Return invoiceDetailDAL.selectAll_ByInvoiceID(invoiceID, invoiceDetails)
 	End Function
 
 	Public Function sellectALL_ByBook(bookID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
-		Return invoiceDetailDAL.sellectALL_ByBook(bookID, invoiceDetails)
+		Return invoiceDetailDAL.selectAll_ByBookID(bookID, invoiceDetails)
 	End Function
 
 	Public Function update(invoiceDetail As InvoiceDetailDTO) As Result

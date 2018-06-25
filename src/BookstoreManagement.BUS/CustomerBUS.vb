@@ -21,8 +21,8 @@ Public Class CustomerBUS
 		Return customerDAL.insert(customer)
 	End Function
 
-	Public Function sellectALL(ByRef customers As List(Of CustomerDTO)) As Result
-		Return customerDAL.sellectALL(customers)
+	Public Function selectAll(ByRef customers As List(Of CustomerDTO)) As Result
+		Return customerDAL.selectAll(customers)
 	End Function
 
 	Public Function update(customer As CustomerDTO) As Result

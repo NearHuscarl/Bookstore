@@ -15,78 +15,319 @@ Public Class InvoiceDAL
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-      Dim query As String = String.Empty
 
-      query &= "SELECT TOP 1 [ID]"
-      query &= "FROM [Invoice]"
-      query &= "ORDER BY [ID] DESC"
+		Dim query As String = String.Empty
+		query &= " SELECT TOP 1 [ID] "
+		query &= " FROM [Invoice] "
+		query &= " ORDER BY [ID] DESC "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim reader As SqlDataReader
-               Dim idOnDB As Integer
+					Dim invoice As SqlDataReader
+					Dim idOnDB As Integer
 
-               reader = comm.ExecuteReader()
-               idOnDB = Nothing
+					invoice = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If reader.HasRows = True Then
-                  While reader.Read()
-                     idOnDB = reader("ID")
-                  End While
-               End If
+					If invoice.HasRows = True Then
+						While invoice.Read()
+							idOnDB = invoice("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
+					nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+				Catch exception As Exception
+					conn.Close()
 
-               nextId = 1
+					nextId = 1
 
-               Console.WriteLine("Get Next Reader ID Failed") 'for debug
+					Debug.WriteLine("Get next invoice ID failed")
+					Return New Result(False, "Get next invoice ID failed", exception.StackTrace)
+				End Try
 
-               Return New Result(False, "Get Next Reader ID Failed", exception.StackTrace)
+			End Using
 
-            End Try
+		End Using
 
-         End Using
-
-      End Using
-
-      Return New Result(True)
-
-   End Function
+		Debug.WriteLine("Get next invoice ID succeed")
+		Return New Result(True)
+	End Function
 
 	Public Function insert(invoice As InvoiceDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales]) "
+		query &= " VALUES (@ID, @CustomerID, @InvoiceDate, @Amount, @DebtBeforeSales) "
+
+		Dim nextID = 0
+		Dim result As Result
+
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		invoice.ID = nextID
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+
+					.Parameters.AddWithValue("@ID", invoice.ID)
+					.Parameters.AddWithValue("@CustomerID", invoice.CustomerID)
+					.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate)
+					.Parameters.AddWithValue("@Amount", invoice.Amount)
+					.Parameters.AddWithValue("@DebtBeforeSales", invoice.DebtBeforeSales)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch exception As Exception
+					conn.Close()
+
+					Debug.WriteLine("Insert invoice failed")
+					Return New Result(False, "Insert invoice failed", exception.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Insert invoice succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL(ByRef invoices As List(Of InvoiceDTO)) As Result
+	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " FROM [Invoice] "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim invoice As SqlDataReader
+					invoice = comm.ExecuteReader()
+
+					If invoice.HasRows = True Then
+						invoices.Clear()
+						While invoice.Read()
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+						End While
+					End If
+
+				Catch ex As Exception
+					conn.Close()
+
+					Debug.WriteLine("Get invoices failed")
+					Return New Result(False, "Get invoices failed", ex.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL_ByDate(dateCreated As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+	Public Function selectAll_ByInvoiceDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " FROM [Invoice]"
+		query &= " WHERE [Invoice].[InvoiceDate] = @InvoiceDate"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@InvoiceDate", invoiceDate)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim invoice As SqlDataReader
+					invoice = comm.ExecuteReader()
+
+					If invoice.HasRows = True Then
+						invoices.Clear()
+						While invoice.Read()
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+						End While
+					End If
+
+				Catch ex As Exception
+					conn.Close()
+
+					Debug.WriteLine("Get invoices failed")
+					Return New Result(False, "Get invoices failed", ex.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
-	Public Function sellectALL_ByCustomer(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
+
+	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " FROM [Invoice]"
+		query &= " WHERE [Invoice].[CustomerID] = @CustomerID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@CustomerID", customerID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim invoice As SqlDataReader
+					invoice = comm.ExecuteReader()
+
+					If invoice.HasRows = True Then
+						invoices.Clear()
+						While invoice.Read()
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+						End While
+					End If
+
+				Catch ex As Exception
+					conn.Close()
+
+					Debug.WriteLine("Get invoices failed")
+					Return New Result(False, "Get invoices failed", ex.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function update(invoice As InvoiceDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= " UPDATE [Invoice] SET "
+		query &= " [CustomerID] = @CustomerID ,"
+		query &= " [InvoiceDate] = @InvoiceDate ,"
+		query &= " [Amount] = @Amount ,"
+		query &= " [DebtBeforeSales] = @DebtBeforeSales "
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", invoice.ID)
+					.Parameters.AddWithValue("@CustomerID", invoice.CustomerID)
+					.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate)
+					.Parameters.AddWithValue("@Amount", invoice.Amount)
+					.Parameters.AddWithValue("@DebtBeforeSales", invoice.DebtBeforeSales)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+					conn.Close()
+
+					Debug.WriteLine("Update invoice failed")
+					Return New Result(False, "Update invoice failed", ex.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Update invoice succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function delete(invoiceID As String) As Result
+
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [Invoice] "
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", invoiceID)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+					conn.Close()
+
+					Debug.WriteLine("Delete invoice failed")
+					Return New Result(False, "Delete invoice failed", ex.StackTrace)
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Delete invoice succeed")
 		Return New Result(True)
 	End Function
 End Class

@@ -21,8 +21,8 @@ Public Class BookCategoryBUS
 		Return bookCategoryDAL.insert(category)
 	End Function
 
-	Public Function sellectALL(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
-		Return bookCategoryDAL.sellectALL(bookCategories)
+	Public Function selectAll(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
+		Return bookCategoryDAL.selectAll(bookCategories)
 	End Function
 
 	Public Function update(bookCategory As BookCategoryDTO) As Result

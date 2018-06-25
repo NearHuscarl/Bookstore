@@ -16,12 +16,12 @@ Public Class ImportDAL
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
 
-      Dim query As String = String.Empty
-      query &= " SELECT TOP 1 [ID] "
-      query &= " FROM [Import] "
-      query &= " ORDER BY [ID] DESC "
+		Dim query As String = String.Empty
+		query &= " SELECT TOP 1 [ID] "
+		query &= " FROM [Import] "
+		query &= " ORDER BY [ID] DESC "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
 			Using comm As New SqlCommand()
 
@@ -34,15 +34,15 @@ Public Class ImportDAL
 				Try
 					conn.Open()
 
-					Dim reader As SqlDataReader
+					Dim import As SqlDataReader
 					Dim idOnDB As Integer
 
-					reader = comm.ExecuteReader()
+					import = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If reader.HasRows = True Then
-						While reader.Read()
-							idOnDB = reader("ID")
+					If import.HasRows = True Then
+						While import.Read()
+							idOnDB = import("ID")
 						End While
 					End If
 
@@ -51,231 +51,229 @@ Public Class ImportDAL
 				Catch exception As Exception
 					conn.Close()
 
-               nextId = 1
+					nextId = 1
 
-               Console.WriteLine("Get next Import ID failed") 'for debug
-               Return New Result(False, "Get next Import ID failed", exception.StackTrace)
+					Debug.WriteLine("Get next import ID failed")
+					Return New Result(False, "Get next import ID failed", exception.StackTrace)
 
-            End Try
+				End Try
 
 			End Using
 
 		End Using
 
-      Console.WriteLine("Get next Import ID succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Get next import ID succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function insert(import As ImportDTO) As Result
+	Public Function insert(import As ImportDTO) As Result
 
-      Dim query As String = String.Empty
-      query &= " INSERT INTO [Import] ([ID], [ImportDate]) "
-      query &= " VALUES (@ID, @ImportDate) "
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [Import] ([ID], [ImportDate]) "
+		query &= " VALUES (@ID, @ImportDate) "
 
-      Dim nextID = 0
-      Dim result As Result
+		Dim nextID = 0
+		Dim result As Result
 
-      result = getNextId(nextID)
-      If (result.FlagResult = False) Then
-         Return result
-      End If
-      import.ID = nextID
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		import.ID = nextID
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
 
-               .Parameters.AddWithValue("@ID", import.ID)
-               .Parameters.AddWithValue("@ImportDate", import.ImportDate)
-            End With
+					.Parameters.AddWithValue("@ID", import.ID)
+					.Parameters.AddWithValue("@ImportDate", import.ImportDate)
+				End With
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
-            Catch exception As Exception
-               conn.Close()
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+				Catch exception As Exception
+					conn.Close()
 
-               Console.WriteLine("Insert Import failed") 'for debug
-               Return New Result(False, "Insert Import failed", exception.StackTrace)
-            End Try
+					Debug.WriteLine("Insert import failed")
+					Return New Result(False, "Insert import failed", exception.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Insert Import succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Insert import succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result 'trùng keyword
+	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result 'trùng keyword
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [ImportDate] "
-      query &= " FROM [Import]"
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ImportDate] "
+		query &= " FROM [Import]"
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim import As SqlDataReader
-               import = comm.ExecuteReader()
+					Dim import As SqlDataReader
+					import = comm.ExecuteReader()
 
-               If import.HasRows = True Then
-                  _imports.Clear()
-                  While import.Read()
-                     _imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
-                  End While
-               End If
+					If import.HasRows = True Then
+						_imports.Clear()
+						While import.Read()
+							_imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
+						End While
+					End If
 
-            Catch ex As Exception
-               conn.Close()
+				Catch ex As Exception
+					conn.Close()
 
-               Console.WriteLine("Get Imports failed") 'for debug
-               Return New Result(False, "Get Imports failed", ex.StackTrace)
-            End Try
+					Debug.WriteLine("Get imports failed")
+					Return New Result(False, "Get imports failed", ex.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Get Imports succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Get imports succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function selectAll_ByDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
+	Public Function selectAll_ByImportDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [ImportDate] "
-      query &= " FROM [Import]"
-      query &= " WHERE [Import].[ImportDate] = @ImportDate"
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ImportDate] "
+		query &= " FROM [Import]"
+		query &= " WHERE [Import].[ImportDate] = @ImportDate"
 
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ImportDate", importDate)
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ImportDate", importDate)
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim import As SqlDataReader
-               import = comm.ExecuteReader()
+					Dim import As SqlDataReader
+					import = comm.ExecuteReader()
 
-               If import.HasRows = True Then
-                  _imports.Clear()
-                  While import.Read()
-                     _imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
-                  End While
-               End If
+					If import.HasRows = True Then
+						_imports.Clear()
+						While import.Read()
+							_imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
+						End While
+					End If
 
-            Catch ex As Exception
-               conn.Close()
+				Catch ex As Exception
+					conn.Close()
 
-               Console.WriteLine("Get Imports failed") 'for debug
-               Return New Result(False, "Get Imports failed", ex.StackTrace)
-            End Try
+					Debug.WriteLine("Get imports failed")
+					Return New Result(False, "Get imports failed", ex.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Get Imports succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Get imports succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function update(importDTO As ImportDTO) As Result
+	Public Function update(import As ImportDTO) As Result
 
-      Dim query As String = String.Empty
-      query &= " UPDATE [Import] SET "
-      query &= " [ImportDate] = @ImportDate "
-      query &= " WHERE [ID] = @ID "
+		Dim query As String = String.Empty
+		query &= " UPDATE [Import] SET "
+		query &= " [ImportDate] = @ImportDate "
+		query &= " WHERE [ID] = @ID "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", importDTO.ID)
-               .Parameters.AddWithValue("@ImportDate", importDTO.ImportDate)
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", import.ID)
+					.Parameters.AddWithValue("@ImportDate", import.ImportDate)
+				End With
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+				Catch ex As Exception
+					conn.Close()
 
-               Console.WriteLine("Update Import failed")
-               Return New Result(False, "Update Import failed", ex.StackTrace)
-            End Try
+					Debug.WriteLine("Update import failed")
+					Return New Result(False, "Update import failed", ex.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Update Import succeed")
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Update import succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function delete(importID As String) As Result
+	Public Function delete(importID As String) As Result
 
-      Dim query As String = String.Empty
-      query &= " DELETE FROM [Import] "
-      query &= " WHERE [ID] = @ID "
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [Import] "
+		query &= " WHERE [ID] = @ID "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", importID)
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importID)
+				End With
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+				Catch ex As Exception
+					conn.Close()
 
-               Console.WriteLine("Delete Import failed")
-               Return New Result(False, "Delete Import failed", ex.StackTrace)
-            End Try
+					Debug.WriteLine("Delete import failed")
+					Return New Result(False, "Delete import failed", ex.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Delete Import succeed")
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Delete import succeed")
+		Return New Result(True)
+	End Function
 End Class

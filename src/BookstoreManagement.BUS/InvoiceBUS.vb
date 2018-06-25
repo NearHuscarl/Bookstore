@@ -21,15 +21,15 @@ Public Class InvoiceBUS
 		Return invoiceDAL.insert(invoice)
 	End Function
 
-	Public Function sellectALL(ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return invoiceDAL.sellectALL(invoices)
+	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
+		Return invoiceDAL.selectAll(invoices)
 	End Function
 
-	Public Function sellectALL_ByDate(dateCreated As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return invoiceDAL.sellectALL_ByDate(dateCreated, invoices)
+	Public Function selectAll_ByInvoiceDate(InvoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+		Return invoiceDAL.selectAll_ByInvoiceDate(InvoiceDate, invoices)
 	End Function
-	Public Function sellectALL_ByCustomer(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return invoiceDAL.sellectALL_ByCustomer(customerID, invoices)
+	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
+		Return invoiceDAL.selectAll_ByCustomerID(customerID, invoices)
 	End Function
 
 	Public Function update(invoice As InvoiceDTO) As Result

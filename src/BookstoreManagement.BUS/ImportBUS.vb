@@ -29,7 +29,7 @@ Public Class ImportBUS
 		Return importDAL.update(import)
 	End Function
 
-	Public Function delete(import As ImportDTO) As Result
+	Public Function delete(import As String) As Result
 		Return importDAL.delete(import)
 	End Function
 End Class

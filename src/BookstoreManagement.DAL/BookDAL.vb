@@ -16,324 +16,323 @@ Public Class BookDAL
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
 
-      Dim query As String = String.Empty
-      query &= " SELECT TOP 1 [ID] "
-      query &= " FROM [Book] "
-      query &= " ORDER BY [ID] DESC "
+		Dim query As String = String.Empty
+		query &= " SELECT TOP 1 [ID] "
+		query &= " FROM [Book] "
+		query &= " ORDER BY [ID] DESC "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim book As SqlDataReader
-               Dim idOnDB As Integer
+					Dim book As SqlDataReader
+					Dim idOnDB As Integer
 
-               book = comm.ExecuteReader()
-               idOnDB = Nothing
+					book = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If book.HasRows = True Then
-                  While book.Read()
-                     idOnDB = book("ID")
-                  End While
-               End If
+					If book.HasRows = True Then
+						While book.Read()
+							idOnDB = book("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
+					nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+				Catch exception As Exception
+					conn.Close()
 
-               nextId = 1
+					nextId = 1
 
-               Console.WriteLine("Get next Book ID failed") 'for debug
-               Return New Result(False, "Get next Book ID failed", exception.StackTrace)
+					Debug.WriteLine("Get next book ID failed")
+					Return New Result(False, "Get next book ID failed", exception.StackTrace)
 
-            End Try
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Get next Book ID succeed") 'for debug
-      Return New Result(True)
+		Debug.WriteLine("Get next book ID succeed")
+		Return New Result(True)
 
-   End Function
+	End Function
 
 	Public Function insert(book As BookDTO) As Result
 
-      Dim query As String = String.Empty
-      query &= " INSERT INTO [Book] ([ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price]) "
-      query &= " VALUES (@ID, @Name, @AuthorID, @BookCategoryID, @Stock, @Price) "
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [Book] ([ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price]) "
+		query &= " VALUES (@ID, @Name, @AuthorID, @BookCategoryID, @Stock, @Price) "
 
-      Dim nextID = 0
-      Dim result As Result
+		Dim nextID = 0
+		Dim result As Result
 
-      result = getNextId(nextID)
-      If (result.FlagResult = False) Then
-         Return result
-      End If
-      book.ID = nextID
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		book.ID = nextID
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
 
-               .Parameters.AddWithValue("@ID", book.ID)
-               .Parameters.AddWithValue("@Name", book.Name)
-               .Parameters.AddWithValue("@AuthorID", book.AuthorID)
-               .Parameters.AddWithValue("@BookCategoryID", book.BookCategoryID)
-               .Parameters.AddWithValue("@Stock", book.Stock)
-               .Parameters.AddWithValue("@Price", book.Price)
-            End With
+					.Parameters.AddWithValue("@ID", book.ID)
+					.Parameters.AddWithValue("@Name", book.Name)
+					.Parameters.AddWithValue("@AuthorID", book.AuthorID)
+					.Parameters.AddWithValue("@BookCategoryID", book.BookCategoryID)
+					.Parameters.AddWithValue("@Stock", book.Stock)
+					.Parameters.AddWithValue("@Price", book.Price)
+				End With
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
-            Catch exception As Exception
-               conn.Close()
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+				Catch exception As Exception
+					conn.Close()
 
-               Console.WriteLine("Insert Book failed") 'for debug
-               Return New Result(False, "Insert Book failed", exception.StackTrace)
-            End Try
+					Debug.WriteLine("Insert book failed")
+					Return New Result(False, "Insert book failed", exception.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Insert Book succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Insert book succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function selectAll(ByRef books As List(Of BookDTO)) As Result
+	Public Function selectAll(ByRef books As List(Of BookDTO)) As Result
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
-      query &= " FROM [Book] "
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
+		query &= " FROM [Book] "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim book As SqlDataReader
-               book = comm.ExecuteReader()
+					Dim book As SqlDataReader
+					book = comm.ExecuteReader()
 
-               If book.HasRows = True Then
-                  books.Clear()
-                  While book.Read()
-                     books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
-                  End While
-               End If
+					If book.HasRows = True Then
+						books.Clear()
+						While book.Read()
+							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						End While
+					End If
 
-            Catch ex As Exception
-               conn.Close()
+				Catch ex As Exception
+					conn.Close()
 
-               Console.WriteLine("Get Books failed") 'for debug
-               Return New Result(False, "Get Books failed", ex.StackTrace)
-            End Try
+					Debug.WriteLine("Get books failed")
+					Return New Result(False, "Get books failed", ex.StackTrace)
+				End Try
 
-         End Using
+			End Using
 
-      End Using
+		End Using
 
-      Console.WriteLine("Get Books succeed") 'for debug
-      Return New Result(True)
-   End Function
+		Debug.WriteLine("Get books succeed")
+		Return New Result(True)
+	End Function
 
-   Public Function selectAll_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result
+	Public Function selectAll_ByAuthorID(authorID As String, ByRef books As List(Of BookDTO)) As Result
 
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
-      query &= " FROM [Book]"
-      query &= " WHERE [Book].[AuthorID] = @AuthorID"
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
+		query &= " FROM [Book] "
+		query &= " WHERE [Book].[AuthorID] = @AuthorID "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@AuthorID", authorID)
-            End With
-
-            Try
-               conn.Open()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@AuthorID", authorID)
+				End With
 
-               Dim book As SqlDataReader
-               book = comm.ExecuteReader()
+				Try
+					conn.Open()
 
-               If book.HasRows = True Then
-                  books.Clear()
-                  While book.Read()
-                     books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
-                  End While
-               End If
+					Dim book As SqlDataReader
+					book = comm.ExecuteReader()
 
-            Catch ex As Exception
-               conn.Close()
+					If book.HasRows = True Then
+						books.Clear()
+						While book.Read()
+							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						End While
+					End If
 
-               Console.WriteLine("Get Books failed") 'for debug
-               Return New Result(False, "Get Books failed", ex.StackTrace)
-            End Try
+				Catch ex As Exception
+					conn.Close()
 
-         End Using
+					Debug.WriteLine("Get books failed")
+					Return New Result(False, "Get books failed", ex.StackTrace)
+				End Try
 
-      End Using
+			End Using
 
-      Console.WriteLine("Get Books succeed") 'for debug
-      Return New Result(True)
-   End Function
+		End Using
 
-   Public Function selectAll_ByBookCategory(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
-      Dim query As String = String.Empty
-      query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
-      query &= " FROM [Book]"
-      query &= " WHERE [Book].[BookCategoryID] = @BookCategoryID"
+		Debug.WriteLine("Get books succeed")
+		Return New Result(True)
+	End Function
 
-      Using conn As New SqlConnection(connectionStr)
+	Public Function selectAll_ByBookCategoryID(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
 
-         Using comm As New SqlCommand()
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
+		query &= " FROM [Book]"
+		query &= " WHERE [Book].[BookCategoryID] = @BookCategoryID"
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@BookCategoryID", bookCategoryID)
-            End With
+		Using conn As New SqlConnection(connectionStr)
 
-            Try
-               conn.Open()
+			Using comm As New SqlCommand()
 
-               Dim book As SqlDataReader
-               book = comm.ExecuteReader()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@BookCategoryID", bookCategoryID)
+				End With
 
-               If book.HasRows = True Then
-                  books.Clear()
-                  While book.Read()
-                     books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
-                  End While
-               End If
+				Try
+					conn.Open()
 
-            Catch ex As Exception
-               conn.Close()
+					Dim book As SqlDataReader
+					book = comm.ExecuteReader()
 
-               Console.WriteLine("Get Books failed") 'for debug
-               Return New Result(False, "Get Books failed", ex.StackTrace)
-            End Try
+					If book.HasRows = True Then
+						books.Clear()
+						While book.Read()
+							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						End While
+					End If
 
-         End Using
+				Catch ex As Exception
+					conn.Close()
 
-      End Using
+					Debug.WriteLine("Get books failed")
+					Return New Result(False, "Get books failed", ex.StackTrace)
+				End Try
 
-      Console.WriteLine("Get Books succeed") 'for debug
-      Return New Result(True)
-   End Function
+			End Using
 
-   Public Function update(book As BookDTO) As Result
+		End Using
 
-      Dim query As String = String.Empty
-      query &= " UPDATE [Book] SET"
-      query &= " [Name] = @Name "
-      query &= " [AuthorID] = @AuthorID "
-      query &= " [BookCategoryID] = @BookCategoryID "
-      query &= " [Stock] = @Stock "
-      query &= " [Price] = @Price "
-      query &= " WHERE [ID] = @ID "
+		Debug.WriteLine("Get books succeed")
+		Return New Result(True)
+	End Function
 
-      Using conn As New SqlConnection(connectionStr)
+	Public Function update(book As BookDTO) As Result
 
-         Using comm As New SqlCommand()
+		Dim query As String = String.Empty
+		query &= " UPDATE [Book] SET "
+		query &= " [Name] = @Name , "
+		query &= " [AuthorID] = @AuthorID , "
+		query &= " [BookCategoryID] = @BookCategoryID , "
+		query &= " [Stock] = @Stock , "
+		query &= " [Price] = @Price "
+		query &= " WHERE [ID] = @ID "
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", book.ID)
-               .Parameters.AddWithValue("@Name", book.Name)
-               .Parameters.AddWithValue("@AuthorID", book.AuthorID)
-               .Parameters.AddWithValue("@BookCategoryID", book.BookCategoryID)
-               .Parameters.AddWithValue("@Stock", book.Stock)
-               .Parameters.AddWithValue("@Price", book.Price)
-            End With
+		Using conn As New SqlConnection(connectionStr)
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+			Using comm As New SqlCommand()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", book.ID)
+					.Parameters.AddWithValue("@Name", book.Name)
+					.Parameters.AddWithValue("@AuthorID", book.AuthorID)
+					.Parameters.AddWithValue("@BookCategoryID", book.BookCategoryID)
+					.Parameters.AddWithValue("@Stock", book.Stock)
+					.Parameters.AddWithValue("@Price", book.Price)
+				End With
 
-               Console.WriteLine("Update Book failed")
-               Return New Result(False, "Update Book failed", ex.StackTrace)
-            End Try
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-         End Using
+				Catch ex As Exception
+					conn.Close()
 
-      End Using
+					Debug.WriteLine("Update book failed")
+					Return New Result(False, "Update book failed", ex.StackTrace)
+				End Try
 
-      Console.WriteLine("Update Book succeed")
-      Return New Result(True)
-   End Function
+			End Using
 
-   Public Function delete(bookID As String) As Result
+		End Using
 
-      Dim query As String = String.Empty
-      query &= " DELETE FROM [Book] "
-      query &= " WHERE "
-      query &= " [ID] = @ID "
+		Debug.WriteLine("Update book succeed")
+		Return New Result(True)
+	End Function
 
-      Using conn As New SqlConnection(connectionStr)
+	Public Function delete(bookID As String) As Result
 
-         Using comm As New SqlCommand()
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [Book] "
+		query &= " WHERE "
+		query &= " [ID] = @ID "
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-               .Parameters.AddWithValue("@ID", bookID)
-            End With
+		Using conn As New SqlConnection(connectionStr)
 
-            Try
-               conn.Open()
-               comm.ExecuteNonQuery()
+			Using comm As New SqlCommand()
 
-            Catch ex As Exception
-               Console.WriteLine(ex.StackTrace)
-               conn.Close()
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", bookID)
+				End With
 
-               Console.WriteLine("Delete Book failed")
-               Return New Result(False, "Delete Book failed", ex.StackTrace)
-            End Try
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
 
-         End Using
+				Catch ex As Exception
+					conn.Close()
 
-      End Using
+					Debug.WriteLine("Delete book failed")
+					Return New Result(False, "Delete book failed", ex.StackTrace)
+				End Try
 
-      Console.WriteLine("Delete Book succeed")
-      Return New Result(True)
-   End Function
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Delete book succeed")
+		Return New Result(True)
+	End Function
 End Class

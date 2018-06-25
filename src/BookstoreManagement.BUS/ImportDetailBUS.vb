@@ -46,7 +46,7 @@ Public Class ImportDetailBUS
 		Return importDetailDAL.update(importDetail)
 	End Function
 
-	Public Function delete(importDetail As ImportDetailDTO) As Result
+	Public Function delete(importDetail As String) As Result
 		Return importDetailDAL.delete(importDetail)
 	End Function
 End Class

@@ -21,16 +21,16 @@ Public Class BookBUS
 		Return bookDAL.insert(book)
 	End Function
 
-	Public Function sellectALL(ByRef books As List(Of BookDTO)) As Result
-		Return bookDAL.sellectALL(books)
+	Public Function selectAll(ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll(books)
 	End Function
 
-	Public Function sellectALL_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result
-		Return bookDAL.sellectALL_ByAuthor(authorID, books)
+	Public Function selectAll_ByAuthorID(authorID As String, ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll_ByAuthorID(authorID, books)
 	End Function
 
-	Public Function sellectALL_ByBookCategory(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
-		Return bookDAL.sellectALL_ByBookCategory(bookCategoryID, books)
+	Public Function selectAll_ByBookCategoryID(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll_ByBookCategoryID(bookCategoryID, books)
 	End Function
 
 	Public Function update(book As BookDTO) As Result

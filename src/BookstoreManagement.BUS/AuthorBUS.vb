@@ -21,8 +21,8 @@ Public Class AuthorBUS
 		Return authorDAL.insert(reader)
 	End Function
 
-	Public Function sellectALL(ByRef authors As List(Of AuthorDTO)) As Result
-		Return authorDAL.sellectALL(authors)
+	Public Function selectAll(ByRef authors As List(Of AuthorDTO)) As Result
+		Return authorDAL.selectAll(authors)
 	End Function
 
 	Public Function update(author As AuthorDTO) As Result
