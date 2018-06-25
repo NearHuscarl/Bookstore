@@ -15,8 +15,57 @@ Public Class DebtReportDAL
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return New Result(True)
-	End Function
+      Dim query As String = String.Empty
+
+      query &= "SELECT TOP 1 [ID]"
+      query &= "FROM [DebtReport]"
+      query &= "ORDER BY [ID] DESC"
+
+      Using conn As New SqlConnection(connectionStr)
+
+         Using comm As New SqlCommand()
+
+            With comm
+               .Connection = conn
+               .CommandType = CommandType.Text
+               .CommandText = query
+            End With
+
+            Try
+               conn.Open()
+
+               Dim reader As SqlDataReader
+               Dim idOnDB As Integer
+
+               reader = comm.ExecuteReader()
+               idOnDB = Nothing
+
+               If reader.HasRows = True Then
+                  While reader.Read()
+                     idOnDB = reader("ID")
+                  End While
+               End If
+
+               nextId = idOnDB + 1 'new ID = current ID + 1
+
+            Catch exception As Exception
+               conn.Close()
+
+               nextId = 1
+
+               Console.WriteLine("Get Next Reader ID Failed") 'for debug
+
+               Return New Result(False, "Get Next Reader ID Failed", exception.StackTrace)
+
+            End Try
+
+         End Using
+
+      End Using
+
+      Return New Result(True)
+
+   End Function
 
 	Public Function insert(debtReport As DebtReportDTO) As Result
 		Return New Result(True)

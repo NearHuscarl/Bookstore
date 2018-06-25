@@ -1,16 +1,16 @@
 ﻿Public Class ImportDTO
 	Private _ID As String
-	Private _dateImport As DateTime
+   Private _importDate As DateTime
 
-	Public Sub New()
+   Public Sub New()
 	End Sub
 
-	Public Sub New(ID As String, dateImport As DateTime)
-		Me._ID = ID
-		Me._dateImport = dateImport
-	End Sub
+   Public Sub New(ID As String, importDate As DateTime)
+      Me._ID = ID
+      Me._importDate = importDate
+   End Sub
 
-	Property ID() As String
+   Property ID() As String
 		Get
 			Return _ID
 		End Get
@@ -19,12 +19,12 @@
 		End Set
 	End Property
 
-	Property DateImport() As DateTime
-		Get
-			Return _dateImport
-		End Get
-		Set(ByVal Value As DateTime)
-			_dateImport = Value
-		End Set
-	End Property
+   Property ImportDate() As DateTime
+      Get
+         Return _importDate
+      End Get
+      Set(ByVal Value As DateTime)
+         _importDate = Value
+      End Set
+   End Property
 End Class
