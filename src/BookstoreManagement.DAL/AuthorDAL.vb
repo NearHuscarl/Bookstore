@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -14,11 +15,11 @@ Public Class AuthorDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 
 		Dim query As String = String.Empty
-		query &= "SELECT TOP 1 [ID]"
-		query &= "FROM [Author]"
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [Author] "
 		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
@@ -35,7 +36,7 @@ Public Class AuthorDAL
 					conn.Open()
 
 					Dim author As SqlDataReader
-					Dim idOnDB As Integer
+					Dim idOnDB As String
 
 					author = comm.ExecuteReader()
 					idOnDB = Nothing
@@ -46,17 +47,17 @@ Public Class AuthorDAL
 						End While
 					End If
 
+					Dim IdPrefix As String = "AUTHOR"
+					Dim IdNumber As Integer
+
 					If IsNothing(idOnDB) Then
-						nextId = "AUTHOR0001"
-
+						IdNumber = 1
 					Else
-						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
-						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
-
+						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
 						IdNumber += 1
-
-						nextId = IdPrefix + IdNumber.ToString("D4")
 					End If
+					nextId = IdPrefix + IdNumber.ToString("D3")
+
 
 				Catch exception As Exception
 
@@ -78,8 +79,8 @@ Public Class AuthorDAL
 	Public Function insert(author As AuthorDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [Author] ([ID], [Name]) "
-		query &= " VALUES (@ID, @Name) "
+		query &= "INSERT INTO [Author] ([ID], [Name]) "
+		query &= "VALUES (@ID, @Name)"
 
 		Dim nextID = String.Empty
 		Dim result As Result
@@ -127,8 +128,8 @@ Public Class AuthorDAL
 	Public Function selectAll(ByRef authors As List(Of AuthorDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [Name] "
-		query &= " FROM [Author] "
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [Author]"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -173,9 +174,9 @@ Public Class AuthorDAL
 	Public Function update(author As AuthorDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " UPDATE [Author] SET "
-		query &= " [Name] = @Name "
-		query &= " WHERE [ID] = @ID "
+		query &= "UPDATE [Author] SET"
+		query &= "[Name] = @Name"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -213,8 +214,8 @@ Public Class AuthorDAL
 	Public Function delete(authorID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [Author] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [Author]"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -83,7 +83,7 @@ Public Class frmImport
 		result = importDetailBUS.selectAll_ByImport(importID, importDetails)
 
 		If (result.FlagResult = False) Then
-			importDetails.Add(New ImportDetailDTO(0, 0, Nothing, Nothing, Nothing, Nothing))
+			importDetails.Add(New ImportDetailDTO(0, 0, Nothing, Nothing, Nothing))
 		End If
 
 		LoadBooks()
@@ -94,7 +94,7 @@ Public Class frmImport
 			dgvImportDetail.Rows(currentIndex).Cells("colImportDetailID").Value = importDetail.ID
 			dgvImportDetail.Rows(currentIndex).Cells("colBookID").Value = importDetail.BookID
 			dgvImportDetail.Rows(currentIndex).Cells("colImportAmount").Value = importDetail.ImportAmount
-			dgvImportDetail.Rows(currentIndex).Cells("colCurrentAmount").Value = importDetail.CurrentAmount
+			'dgvImportDetail.Rows(currentIndex).Cells("colCurrentAmount").Value = importDetail.CurrentAmount
 			dgvImportDetail.Rows(currentIndex).Cells("colImportPrice").Value = importDetail.ImportPrice
 		Next
 
@@ -134,7 +134,7 @@ Public Class frmImport
 		importDetail.ID = cells("colImportDetailID").Value
 		importDetail.BookID = cells("colBookID").Value
 		importDetail.ImportAmount = cells("colImportAmount").Value
-		importDetail.CurrentAmount = cells("colCurrentAmount").Value
+		'importDetail.CurrentAmount = cells("colCurrentAmount").Value
 		importDetail.ImportPrice = cells("colImportPrice").Value
 
 		Return importDetail

@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -14,12 +15,12 @@ Public Class ImportDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT TOP 1 [ID] "
-		query &= " FROM [Import] "
-		query &= " ORDER BY [ID] DESC "
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [Import] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -35,7 +36,7 @@ Public Class ImportDAL
 					conn.Open()
 
 					Dim import As SqlDataReader
-					Dim idOnDB As Integer
+					Dim idOnDB As String
 
 					import = comm.ExecuteReader()
 					idOnDB = Nothing
@@ -46,17 +47,17 @@ Public Class ImportDAL
 						End While
 					End If
 
+					Dim IdPrefix As String = "IMPORT"
+					Dim IdNumber As Integer
+
 					If IsNothing(idOnDB) Then
-						nextId = "IMPORT0001"
-
+						IdNumber = 1
 					Else
-						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
-						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
-
+						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
 						IdNumber += 1
-
-						nextId = IdPrefix + IdNumber.ToString("D4")
 					End If
+					nextId = IdPrefix + IdNumber.ToString("D3")
+
 				Catch exception As Exception
 
 					Debug.WriteLine("Get next import ID failed")
@@ -77,8 +78,8 @@ Public Class ImportDAL
 	Public Function insert(import As ImportDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [Import] ([ID], [ImportDate]) "
-		query &= " VALUES (@ID, @ImportDate) "
+		query &= "INSERT INTO [Import] ([ID], [ImportDate]) "
+		query &= "VALUES (@ID, @ImportDate)"
 
 		Dim nextID = 0
 		Dim result As Result
@@ -125,8 +126,8 @@ Public Class ImportDAL
 	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result 'trùng keyword
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ImportDate] "
-		query &= " FROM [Import]"
+		query &= "SELECT [ID], [ImportDate] "
+		query &= "FROM [Import]"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -171,9 +172,9 @@ Public Class ImportDAL
 	Public Function selectAll_ByImportDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ImportDate] "
-		query &= " FROM [Import]"
-		query &= " WHERE [Import].[ImportDate] = @ImportDate"
+		query &= "SELECT [ID], [ImportDate] "
+		query &= "FROM [Import] "
+		query &= "WHERE [Import].[ImportDate] = @ImportDate"
 
 
 		Using conn As New SqlConnection(connectionStr)
@@ -220,9 +221,9 @@ Public Class ImportDAL
 	Public Function update(import As ImportDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " UPDATE [Import] SET "
-		query &= " [ImportDate] = @ImportDate "
-		query &= " WHERE [ID] = @ID "
+		query &= "UPDATE [Import] SET "
+		query &= "[ImportDate] = @ImportDate"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -260,8 +261,8 @@ Public Class ImportDAL
 	Public Function delete(importID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [Import] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [Import] "
+		query &= "WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

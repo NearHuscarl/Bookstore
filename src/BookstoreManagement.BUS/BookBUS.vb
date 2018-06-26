@@ -13,7 +13,7 @@ Public Class BookBUS
 		bookDAL = New BookDAL(connectionStr)
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 		Return bookDAL.getNextId(nextId)
 	End Function
 

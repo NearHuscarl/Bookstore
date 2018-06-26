@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -35,7 +36,7 @@ Public Class InvoiceDetailDAL
 					conn.Open()
 
 					Dim invoiceDetail As SqlDataReader
-					Dim idOnDB As Integer
+					Dim idOnDB As String
 
 					invoiceDetail = comm.ExecuteReader()
 					idOnDB = Nothing
@@ -46,17 +47,17 @@ Public Class InvoiceDetailDAL
 						End While
 					End If
 
+					Dim IdPrefix As String = "INVOICEDETAIL"
+					Dim IdNumber As Integer
+
 					If IsNothing(idOnDB) Then
-						nextId = "INVDTL0001"
-
+						IdNumber = 1
 					Else
-						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
-						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
-
+						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
 						IdNumber += 1
-
-						nextId = IdPrefix + IdNumber.ToString("D4")
 					End If
+					nextId = IdPrefix + IdNumber.ToString("D3")
+
 
 				Catch exception As Exception
 

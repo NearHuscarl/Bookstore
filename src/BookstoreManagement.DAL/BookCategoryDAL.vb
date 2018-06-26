@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -14,12 +15,12 @@ Public Class BookCategoryDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT TOP 1 [ID] "
-		query &= " FROM [BookCategory] "
-		query &= " ORDER BY [ID] DESC "
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [BookCategory] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -35,7 +36,7 @@ Public Class BookCategoryDAL
 					conn.Open()
 
 					Dim bookCategory As SqlDataReader
-					Dim idOnDB As Integer
+					Dim idOnDB As String
 
 					bookCategory = comm.ExecuteReader()
 					idOnDB = Nothing
@@ -46,17 +47,16 @@ Public Class BookCategoryDAL
 						End While
 					End If
 
+					Dim IdPrefix As String = "CATEGORY"
+					Dim IdNumber As Integer
+
 					If IsNothing(idOnDB) Then
-						nextId = "BKCATE0001"
-
+						IdNumber = 1
 					Else
-						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
-						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
-
+						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
 						IdNumber += 1
-
-						nextId = IdPrefix + IdNumber.ToString("D4")
 					End If
+					nextId = idPrefix + IdNumber.ToString("D3")
 
 				Catch exception As Exception
 
@@ -78,8 +78,8 @@ Public Class BookCategoryDAL
 	Public Function insert(bookCategory As BookCategoryDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [BookCategory] ([ID], [Name]) "
-		query &= " VALUES (@ID, @Name) "
+		query &= "INSERT INTO [BookCategory] ([ID], [Name]) "
+		query &= "VALUES (@ID, @Name)"
 
 		Dim nextID = 0
 		Dim result As Result
@@ -126,8 +126,8 @@ Public Class BookCategoryDAL
 	Public Function selectAll(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [Name] "
-		query &= " FROM [BookCategory] "
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [BookCategory]"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -172,9 +172,9 @@ Public Class BookCategoryDAL
 	Public Function update(bookCategory As BookCategoryDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " UPDATE [BookCategory] SET "
-		query &= " [Name] = @Name "
-		query &= " WHERE [ID] = @ID "
+		query &= "UPDATE [BookCategory] SET "
+		query &= "[Name] = @Name"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -212,8 +212,8 @@ Public Class BookCategoryDAL
 	Public Function delete(bookCategoryID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [BookCategory] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [BookCategory] "
+		query &= "WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

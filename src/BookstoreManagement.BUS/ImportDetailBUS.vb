@@ -29,9 +29,9 @@ Public Class ImportDetailBUS
 				Return False
 			End If
 
-			If (importDetail.CurrentAmount > parameter.MinStockBeforeImport) Then
-				Return False
-			End If
+			'If (importDetail.CurrentAmount > parameter.MinStockBeforeImport) Then
+			'	Return False
+			'End If
 
 			Return True
 		End If
@@ -47,9 +47,9 @@ Public Class ImportDetailBUS
 
 		' TODO: remove
 		importDetails = New List(Of ImportDetailDTO)
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL000", "IMPORT00", "BOOK001", 50, 30, 50))
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL001", "IMPORT00", "BOOK002", 40, 100, 60))
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL002", "IMPORT00", "BOOK003", 20, 300, 40))
+		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL000", "IMPORT00", "BOOK001", 50, 50))
+		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL001", "IMPORT00", "BOOK002", 40, 60))
+		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL002", "IMPORT00", "BOOK003", 20, 40))
 
 		Return New Result(True)
 	End Function

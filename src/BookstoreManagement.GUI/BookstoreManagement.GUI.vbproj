@@ -141,7 +141,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookstoreManagement.BUS\BookstoreManagement.BUS.vbproj">
@@ -161,6 +160,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\ImportIcon.png" />
   </ItemGroup>
   <ItemGroup>
