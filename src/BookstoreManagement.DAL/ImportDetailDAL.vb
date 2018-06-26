@@ -224,7 +224,7 @@ Public Class ImportDetailDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByImportID(importID As String, ByRef importDetails As List(Of ImportDetailDTO))
+	Public Function selectAll_ByImport(importID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
 		Dim query As String = String.Empty
 		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "

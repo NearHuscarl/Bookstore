@@ -129,8 +129,10 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\BookstoreManagement.DTO.BookDTO.datasource" />
     <None Include="My Project\DataSources\BookstoreManagement.DTO.BookImportDTO.datasource" />
     <None Include="My Project\DataSources\BookstoreManagement.DTO.ImportDetailDTO.datasource" />
+    <None Include="My Project\DataSources\BookstoreManagement.DTO.ImportDTO.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
