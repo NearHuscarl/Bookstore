@@ -49,12 +49,13 @@ Public Class BookCategoryDAL
 					nextId = idOnDB + 1 'new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next book category ID failed")
 					Return New Result(False, "Get next book category ID failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -97,10 +98,12 @@ Public Class BookCategoryDAL
 					conn.Open()
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert book category failed")
 					Return New Result(False, "Insert book category failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -141,10 +144,12 @@ Public Class BookCategoryDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get book categories failed")
 					Return New Result(False, "Get book categories failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -179,10 +184,12 @@ Public Class BookCategoryDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update book category failed")
 					Return New Result(False, "Update book category failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -215,10 +222,12 @@ Public Class BookCategoryDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete book category failed")
 					Return New Result(False, "Delete book category failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

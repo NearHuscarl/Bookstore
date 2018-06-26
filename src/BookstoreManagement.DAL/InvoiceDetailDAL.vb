@@ -49,12 +49,13 @@ Public Class InvoiceDetailDAL
 					nextId = idOnDB + 1 'new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next invoice detail ID failed")
 					Return New Result(False, "Get next invoice detail ID failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -102,10 +103,12 @@ Public Class InvoiceDetailDAL
 					comm.ExecuteNonQuery()
 
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert invoice detail failed")
 					Return New Result(False, "Insert invoice detail failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -153,10 +156,12 @@ Public Class InvoiceDetailDAL
 						comm.ExecuteNonQuery()
 					Next
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert invoice details failed")
 					Return New Result(False, "Insert invoice details failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -197,10 +202,12 @@ Public Class InvoiceDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoice details failed")
 					Return New Result(False, "Get invoice details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -243,10 +250,12 @@ Public Class InvoiceDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoice details failed")
 					Return New Result(False, "Get invoice details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -289,10 +298,12 @@ Public Class InvoiceDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoice details failed")
 					Return New Result(False, "Get invoice details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -335,10 +346,12 @@ Public Class InvoiceDetailDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update invoice detail failed")
 					Return New Result(False, "Update invoice detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -371,10 +384,12 @@ Public Class InvoiceDetailDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete invoice detail failed")
 					Return New Result(False, "Delete invoice detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

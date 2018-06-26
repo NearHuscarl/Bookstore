@@ -31,32 +31,31 @@ Public Class CustomerDAL
                .CommandText = query
             End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim customer As SqlDataReader
-               Dim idOnDB As Integer
+					Dim customer As SqlDataReader
+					Dim idOnDB As Integer
 
-               customer = comm.ExecuteReader()
-               idOnDB = Nothing
+					customer = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If customer.HasRows = True Then
-                  While customer.Read()
-                     idOnDB = customer("ID")
-                  End While
-               End If
+					If customer.HasRows = True Then
+						While customer.Read()
+							idOnDB = customer("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
+					nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
-
-               nextId = 1
+				Catch exception As Exception
+					nextId = 1
 
 					Debug.WriteLine("Get next customer ID failed")
-
 					Return New Result(False, "Get next customer ID failed", exception.StackTrace)
 
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -103,10 +102,12 @@ Public Class CustomerDAL
 					conn.Open()
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert customer failed")
 					Return New Result(False, "insert customer failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -146,10 +147,12 @@ Public Class CustomerDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get customers failed")
 					Return New Result(False, "Get customers failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -191,10 +194,12 @@ Public Class CustomerDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update customer failed")
 					Return New Result(False, "Update customer failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -227,10 +232,12 @@ Public Class CustomerDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete customer failed")
 					Return New Result(False, "Delete customer failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

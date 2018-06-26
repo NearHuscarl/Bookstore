@@ -49,12 +49,13 @@ Public Class InvoiceDAL
 					nextId = idOnDB + 1 'new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next invoice ID failed")
 					Return New Result(False, "Get next invoice ID failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -101,10 +102,12 @@ Public Class InvoiceDAL
 					comm.ExecuteNonQuery()
 
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert invoice failed")
 					Return New Result(False, "Insert invoice failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -145,10 +148,12 @@ Public Class InvoiceDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -191,10 +196,12 @@ Public Class InvoiceDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -237,10 +244,12 @@ Public Class InvoiceDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -281,10 +290,12 @@ Public Class InvoiceDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update invoice failed")
 					Return New Result(False, "Update invoice failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -317,10 +328,12 @@ Public Class InvoiceDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete invoice failed")
 					Return New Result(False, "Delete invoice failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

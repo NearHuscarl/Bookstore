@@ -49,13 +49,13 @@ Public Class BookDAL
 					nextId = idOnDB + 1 'new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next book ID failed")
 					Return New Result(False, "Get next book ID failed", exception.StackTrace)
 
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -103,10 +103,12 @@ Public Class BookDAL
 					conn.Open()
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert book failed")
 					Return New Result(False, "Insert book failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -147,10 +149,12 @@ Public Class BookDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -193,10 +197,12 @@ Public Class BookDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -239,10 +245,12 @@ Public Class BookDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -285,10 +293,12 @@ Public Class BookDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update book failed")
 					Return New Result(False, "Update book failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -322,10 +332,12 @@ Public Class BookDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete book failed")
 					Return New Result(False, "Delete book failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

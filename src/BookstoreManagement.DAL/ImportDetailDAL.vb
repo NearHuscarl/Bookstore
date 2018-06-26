@@ -49,13 +49,13 @@ Public Class ImportDetailDAL
 					nextId = idOnDB + 1 ' new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next import detail ID failed")
 					Return New Result(False, "Get next import detail ID failed", exception.StackTrace)
 
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -101,10 +101,12 @@ Public Class ImportDetailDAL
 					conn.Open()
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert import detail failed")
 					Return New Result(False, "Insert import detail failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -152,10 +154,12 @@ Public Class ImportDetailDAL
 						comm.ExecuteNonQuery()
 					Next
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert import details failed")
 					Return New Result(False, "Insert import details failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -196,10 +200,12 @@ Public Class ImportDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -242,10 +248,12 @@ Public Class ImportDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -289,10 +297,12 @@ Public Class ImportDetailDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -335,10 +345,12 @@ Public Class ImportDetailDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update import detail failed")
 					Return New Result(False, "Update import detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -370,10 +382,12 @@ Public Class ImportDetailDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete import detail failed")
 					Return New Result(False, "Delete import detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

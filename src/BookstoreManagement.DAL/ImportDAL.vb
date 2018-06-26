@@ -49,13 +49,13 @@ Public Class ImportDAL
 					nextId = idOnDB + 1 ' new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next import ID failed")
 					Return New Result(False, "Get next import ID failed", exception.StackTrace)
 
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -98,10 +98,12 @@ Public Class ImportDAL
 					conn.Open()
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert import failed")
 					Return New Result(False, "Insert import failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -142,10 +144,12 @@ Public Class ImportDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get imports failed")
 					Return New Result(False, "Get imports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -189,10 +193,12 @@ Public Class ImportDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get imports failed")
 					Return New Result(False, "Get imports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -227,10 +233,12 @@ Public Class ImportDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update import failed")
 					Return New Result(False, "Update import failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -263,10 +271,12 @@ Public Class ImportDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete import failed")
 					Return New Result(False, "Delete import failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using

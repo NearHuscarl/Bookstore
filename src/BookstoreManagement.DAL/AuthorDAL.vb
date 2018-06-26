@@ -49,12 +49,13 @@ Public Class AuthorDAL
 					nextId = idOnDB + 1 'new ID = current ID + 1
 
 				Catch exception As Exception
-					conn.Close()
-
 					nextId = 1
 
 					Debug.WriteLine("Get next author ID failed")
 					Return New Result(False, "Get next author ID failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -98,10 +99,12 @@ Public Class AuthorDAL
 					comm.ExecuteNonQuery()
 
 				Catch exception As Exception
-					conn.Close()
 
 					Debug.WriteLine("Insert author failed")
 					Return New Result(False, "Insert author failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -142,10 +145,12 @@ Public Class AuthorDAL
 					End If
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Get authors failed")
 					Return New Result(False, "Get authors failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -180,10 +185,12 @@ Public Class AuthorDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Update author failed")
 					Return New Result(False, "Update author failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
@@ -216,10 +223,12 @@ Public Class AuthorDAL
 					comm.ExecuteNonQuery()
 
 				Catch ex As Exception
-					conn.Close()
 
 					Debug.WriteLine("Delete author failed")
 					Return New Result(False, "Delete author failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
 				End Try
 
 			End Using
