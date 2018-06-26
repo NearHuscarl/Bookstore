@@ -3,7 +3,6 @@
 	Private _importID As String
 	Private _bookID As String
 	Private _importAmount As Integer
-	Private _currentAmount As Integer
 	Private _importPrice As Integer
 
 	Public Sub New()
@@ -14,7 +13,6 @@
 		importID As String,
 		bookID As String,
 		importAmount As Integer,
-		currentAmount As Integer,
 		importPrice As Integer
 		)
 
@@ -22,7 +20,6 @@
 		Me._importID = importID
 		Me._bookID = bookID
 		Me._importAmount = importAmount
-		Me._currentAmount = currentAmount
 		Me._importPrice = importPrice
 	End Sub
 
@@ -59,15 +56,6 @@
 		End Get
 		Set(ByVal Value As Integer)
 			_importAmount = Value
-		End Set
-	End Property
-
-	Property CurrentAmount() As Integer
-		Get
-			Return _currentAmount
-		End Get
-		Set(ByVal Value As Integer)
-			_currentAmount = Value
 		End Set
 	End Property
 

@@ -2,24 +2,18 @@
 	Private _ID As String
 	Private _customerID As String
 	Private _invoiceDate As DateTime
-	Private _amount As Integer
-   Private _debtBeforeSales As Integer
 
-   Public Sub New()
+	Public Sub New()
    End Sub
 
 	Public Sub New(
 		  ID As String,
 		  customerID As String,
-		  invoiceDate As DateTime,
-		  amount As Integer,
-		  debtBeforeSales As Integer)
+		  invoiceDate As DateTime)
 
 		Me._ID = ID
 		Me._customerID = customerID
 		Me._invoiceDate = invoiceDate
-		Me._amount = amount
-		Me._debtBeforeSales = debtBeforeSales
 	End Sub
 
 	Property ID() As String
@@ -48,22 +42,4 @@
 			_invoiceDate = Value
 		End Set
 	End Property
-
-	Property Amount() As Integer
-      Get
-         Return _amount
-      End Get
-      Set(ByVal Value As Integer)
-         _amount = Value
-      End Set
-   End Property
-
-   Property DebtBeforeSales() As Integer
-      Get
-         Return _debtBeforeSales
-      End Get
-      Set(ByVal Value As Integer)
-         _debtBeforeSales = Value
-      End Set
-   End Property
 End Class

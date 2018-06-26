@@ -46,10 +46,19 @@ Public Class BookDAL
 						End While
 					End If
 
-					nextId = idOnDB + 1 'new ID = current ID + 1
+					If IsNothing(idOnDB) Then
+						nextId = "BOOK000001"
+
+					Else
+						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
+						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
+
+						IdNumber += 1
+
+						nextId = IdPrefix + IdNumber.ToString("D6")
+					End If
 
 				Catch exception As Exception
-					nextId = 1
 
 					Debug.WriteLine("Get next book ID failed")
 					Return New Result(False, "Get next book ID failed", exception.StackTrace)

@@ -46,10 +46,19 @@ Public Class InvoiceDAL
 						End While
 					End If
 
-					nextId = idOnDB + 1 'new ID = current ID + 1
+					If IsNothing(idOnDB) Then
+						nextId = "INVOIC0001"
+
+					Else
+						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
+						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
+
+						IdNumber += 1
+
+						nextId = IdPrefix + IdNumber.ToString("D4")
+					End If
 
 				Catch exception As Exception
-					nextId = 1
 
 					Debug.WriteLine("Get next invoice ID failed")
 					Return New Result(False, "Get next invoice ID failed", exception.StackTrace)
@@ -69,8 +78,8 @@ Public Class InvoiceDAL
 	Public Function insert(invoice As InvoiceDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales]) "
-		query &= " VALUES (@ID, @CustomerID, @InvoiceDate, @Amount, @DebtBeforeSales) "
+		query &= " INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate]) "
+		query &= " VALUES (@ID, @CustomerID, @InvoiceDate) "
 
 		Dim nextID = 0
 		Dim result As Result
@@ -93,8 +102,6 @@ Public Class InvoiceDAL
 					.Parameters.AddWithValue("@ID", invoice.ID)
 					.Parameters.AddWithValue("@CustomerID", invoice.CustomerID)
 					.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate)
-					.Parameters.AddWithValue("@Amount", invoice.Amount)
-					.Parameters.AddWithValue("@DebtBeforeSales", invoice.DebtBeforeSales)
 				End With
 
 				Try
@@ -121,7 +128,7 @@ Public Class InvoiceDAL
 	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate]"
 		query &= " FROM [Invoice] "
 
 		Using conn As New SqlConnection(connectionStr)
@@ -143,7 +150,7 @@ Public Class InvoiceDAL
 					If invoice.HasRows = True Then
 						invoices.Clear()
 						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
 						End While
 					End If
 
@@ -167,7 +174,7 @@ Public Class InvoiceDAL
 	Public Function selectAll_ByInvoiceDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate]"
 		query &= " FROM [Invoice]"
 		query &= " WHERE [Invoice].[InvoiceDate] = @InvoiceDate"
 
@@ -191,7 +198,7 @@ Public Class InvoiceDAL
 					If invoice.HasRows = True Then
 						invoices.Clear()
 						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
 						End While
 					End If
 
@@ -215,7 +222,7 @@ Public Class InvoiceDAL
 	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate], [Amount], [DebtBeforeSales] "
+		query &= " SELECT [ID], [CustomerID], [InvoiceDate] "
 		query &= " FROM [Invoice]"
 		query &= " WHERE [Invoice].[CustomerID] = @CustomerID"
 
@@ -239,7 +246,7 @@ Public Class InvoiceDAL
 					If invoice.HasRows = True Then
 						invoices.Clear()
 						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate"), invoice("Amount"), invoice("DebtBeforeSales")))
+							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
 						End While
 					End If
 
@@ -266,8 +273,6 @@ Public Class InvoiceDAL
 		query &= " UPDATE [Invoice] SET "
 		query &= " [CustomerID] = @CustomerID ,"
 		query &= " [InvoiceDate] = @InvoiceDate ,"
-		query &= " [Amount] = @Amount ,"
-		query &= " [DebtBeforeSales] = @DebtBeforeSales "
 		query &= " WHERE [ID] = @ID "
 
 		Using conn As New SqlConnection(connectionStr)
@@ -281,8 +286,6 @@ Public Class InvoiceDAL
 					.Parameters.AddWithValue("@ID", invoice.ID)
 					.Parameters.AddWithValue("@CustomerID", invoice.CustomerID)
 					.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate)
-					.Parameters.AddWithValue("@Amount", invoice.Amount)
-					.Parameters.AddWithValue("@DebtBeforeSales", invoice.DebtBeforeSales)
 				End With
 
 				Try

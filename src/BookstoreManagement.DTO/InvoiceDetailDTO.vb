@@ -2,30 +2,27 @@
    Private _ID As String
    Private _invoiceID As String
    Private _bookID As String
-   Private _amount As Integer
-   Private _stockBeforeSales As Integer
-   Private _salesPrice As Integer
+	Private _amount As Integer
+	Private _salesPrice As Integer
 
    Public Sub New()
    End Sub
 
-   Public Sub New(
-        ID As String,
-        invoiceID As String,
-        bookID As String,
-        amount As Integer,
-        stockBeforeSales As Integer,
-        salesPrice As Integer)
+	Public Sub New(
+		  ID As String,
+		  invoiceID As String,
+		  bookID As String,
+		  amount As Integer,
+		  salesPrice As Integer)
 
-      Me._ID = ID
-      Me._invoiceID = invoiceID
-      Me._bookID = bookID
-      Me._amount = amount
-      Me._stockBeforeSales = stockBeforeSales
-      Me._salesPrice = salesPrice
-   End Sub
+		Me._ID = ID
+		Me._invoiceID = invoiceID
+		Me._bookID = bookID
+		Me._amount = amount
+		Me._salesPrice = salesPrice
+	End Sub
 
-   Property ID() As String
+	Property ID() As String
       Get
          Return _ID
       End Get
@@ -52,25 +49,16 @@
       End Set
    End Property
 
-   Property Amount() As Integer
-      Get
-         Return _amount
-      End Get
-      Set(ByVal Value As Integer)
-         _amount = Value
-      End Set
-   End Property
+	Property Amount() As Integer
+		Get
+			Return _amount
+		End Get
+		Set(ByVal Value As Integer)
+			_amount = Value
+		End Set
+	End Property
 
-   Property StockBeforeSales() As Integer
-      Get
-         Return _stockBeforeSales
-      End Get
-      Set(ByVal Value As Integer)
-         _stockBeforeSales = Value
-      End Set
-   End Property
-
-   Property SalesPrice() As Integer
+	Property SalesPrice() As Integer
       Get
          Return _salesPrice
       End Get

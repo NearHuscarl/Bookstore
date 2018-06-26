@@ -46,7 +46,17 @@ Public Class ImportDetailDAL
 						End While
 					End If
 
-					nextId = idOnDB + 1 ' new ID = current ID + 1
+					If IsNothing(idOnDB) Then
+						nextId = "IMPDTL0001"
+
+					Else
+						Dim IdPrefix As String = Regex.Replace(idOnDB, "[\d]", "")
+						Dim IdNumber As Integer = Regex.Replace(idOnDB, "[^\d]", "")
+
+						IdNumber += 1
+
+						nextId = IdPrefix + IdNumber.ToString("D4")
+					End If
 
 				Catch exception As Exception
 					nextId = 1
@@ -69,8 +79,8 @@ Public Class ImportDetailDAL
 	Public Function insert(importDetail As ImportDetailDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
-		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
+		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [ImportPrice]) "
+		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @ImportPrice) "
 
 		Dim nextID = 0
 		Dim result As Result
@@ -93,7 +103,6 @@ Public Class ImportDetailDAL
 					.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
 					.Parameters.AddWithValue("@BookID", importDetail.BookID)
 					.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-					.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
 					.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
 				End With
 
@@ -120,8 +129,8 @@ Public Class ImportDetailDAL
 	Public Function insertAll(importDetails As List(Of ImportDetailDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice]) "
-		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @CurrentAmount, @ImportPrice) "
+		query &= " INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [ImportPrice]) "
+		query &= " VALUES (@ID, @ImportID, @BookID, @ImportAmount, @ImportPrice) "
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -146,7 +155,6 @@ Public Class ImportDetailDAL
 							.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
 							.Parameters.AddWithValue("@BookID", importDetail.BookID)
 							.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-							.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
 							.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
 						End With
 
@@ -173,7 +181,7 @@ Public Class ImportDetailDAL
 	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO))
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
 		query &= " FROM [ImportDetail] "
 
 		Using conn As New SqlConnection(connectionStr)
@@ -195,7 +203,7 @@ Public Class ImportDetailDAL
 					If importDetail.HasRows = True Then
 						importDetails.Clear()
 						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
 						End While
 					End If
 
@@ -219,7 +227,7 @@ Public Class ImportDetailDAL
 	Public Function selectAll_ByImportID(importID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
 		query &= " FROM [ImportDetail]"
 		query &= " WHERE [ImportDetail].[ImportID] = @ImportID"
 
@@ -243,7 +251,7 @@ Public Class ImportDetailDAL
 					If importDetail.HasRows = True Then
 						importDetails.Clear()
 						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
 						End While
 					End If
 
@@ -268,7 +276,7 @@ Public Class ImportDetailDAL
 
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [CurrentAmount], [ImportPrice] "
+		query &= " SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
 		query &= " FROM [ImportDetail] "
 		query &= " WHERE [ImportDetail].[BookID] = @BookID "
 
@@ -292,7 +300,7 @@ Public Class ImportDetailDAL
 					If importDetail.HasRows = True Then
 						importDetails.Clear()
 						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("CurrentAmount"), importDetail("ImportPrice")))
+							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
 						End While
 					End If
 
@@ -320,7 +328,6 @@ Public Class ImportDetailDAL
 		query &= " [ImportID] = @ImportID , "
 		query &= " [BookID] = @BookID , "
 		query &= " [ImportAmount] = @ImportAmount , "
-		query &= " [CurrentAmount] = @CurrentAmount , "
 		query &= " [ImportPrice] = @ImportPrice "
 		query &= " WHERE [ID] = @ID "
 
@@ -336,7 +343,6 @@ Public Class ImportDetailDAL
 					.Parameters.AddWithValue("@ImportID", importDetail.ImportID)
 					.Parameters.AddWithValue("@BookID", importDetail.BookID)
 					.Parameters.AddWithValue("@ImportAmount", importDetail.ImportAmount)
-					.Parameters.AddWithValue("@CurrentAmount", importDetail.CurrentAmount)
 					.Parameters.AddWithValue("@ImportPrice", importDetail.ImportPrice)
 				End With
 
