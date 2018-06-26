@@ -1,6 +1,5 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
-Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -51,7 +50,6 @@ Public Class ImportDetailDAL
 					nextId = idOnDB
 
 				Catch exception As Exception
-					nextId = 1
 
 					Debug.WriteLine("Get next import detail ID failed")
 					Return New Result(False, "Get next import detail ID failed", exception.StackTrace)
@@ -74,7 +72,7 @@ Public Class ImportDetailDAL
 		query &= "INSERT INTO [ImportDetail] ([ID], [ImportID], [BookID], [ImportAmount], [ImportPrice]) "
 		query &= "VALUES (@ID, @ImportID, @BookID, @ImportAmount, @ImportPrice)"
 
-		Dim nextID = 0
+		Dim nextID = String.Empty
 		Dim result As Result
 
 		result = getNextId(nextID)
@@ -130,7 +128,9 @@ Public Class ImportDetailDAL
 
 				Try
 					For Each importDetail As ImportDetailDTO In importDetails
-						Dim nextID As String
+						conn.Close()
+
+						Dim nextID = String.Empty
 						Dim result As Result
 
 						result = getNextId(nextID)

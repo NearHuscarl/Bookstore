@@ -73,7 +73,7 @@ Public Class InvoiceDetailDAL
 		query &= " INSERT INTO [InvoiceDetail] ([ID], [InvoiceID], [BookID], [Amount], [SalesPrice]) "
 		query &= " VALUES (@ID, @InvoiceID, @BookID, @Amount, @SalesPrice) "
 
-		Dim nextID = 0
+		Dim nextID = String.Empty
 		Dim result As Result
 
 		result = getNextId(nextID)
@@ -131,7 +131,9 @@ Public Class InvoiceDetailDAL
 
 				Try
 					For Each invoiceDetail As InvoiceDetailDTO In invoiceDetails
-						Dim nextID = 0
+						conn.Close()
+
+						Dim nextID = String.Empty
 						Dim result As Result
 
 						result = getNextId(nextID)

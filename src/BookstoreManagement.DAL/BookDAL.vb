@@ -1,9 +1,7 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
-Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
-Imports Utility.StringExtensions
 
 
 Public Class BookDAL
@@ -49,7 +47,7 @@ Public Class BookDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("BOOK", "D4")
+					idOnDB.IncrementID("BOOK", "D8")
 					nextId = idOnDB
 
 				Catch exception As Exception
@@ -76,7 +74,7 @@ Public Class BookDAL
 		query &= "INSERT INTO [Book] ([ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price]) "
 		query &= "VALUES (@ID, @Name, @AuthorID, @BookCategoryID, @Stock, @Price)"
 
-		Dim nextID = 0
+		Dim nextID = String.Empty
 		Dim result As Result
 
 		result = getNextId(nextID)

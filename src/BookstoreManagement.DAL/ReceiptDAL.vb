@@ -14,58 +14,58 @@ Public Class ReceiptDAL
       Me.connectionStr = connectionStr
    End Sub
 
-   Public Function getNextId(ByRef nextId As Integer) As Result
-      Dim query As String = String.Empty
+	Public Function getNextId(ByRef nextId As String) As Result
 
-      query &= "SELECT TOP 1 [ID]"
-      query &= "FROM [Receipt]"
-      query &= "ORDER BY [ID] DESC"
+		Dim query As String = String.Empty
+		query &= " SELECT TOP 1 [ID] "
+		query &= " FROM [Receipt] "
+		query &= " ORDER BY [ID] DESC "
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim reader As SqlDataReader
-               Dim idOnDB As Integer
+					Dim Receipt As SqlDataReader
+					Dim idOnDB As String
 
-               reader = comm.ExecuteReader()
-               idOnDB = Nothing
+					Receipt = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If reader.HasRows = True Then
-                  While reader.Read()
-                     idOnDB = reader("ID")
-                  End While
-               End If
+					If Receipt.HasRows = True Then
+						While Receipt.Read()
+							idOnDB = Receipt("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+					idOnDB.IncrementID("RECEIPT", "D8")
+					nextId = idOnDB
 
-               nextId = 1
+				Catch exception As Exception
 
-               Console.WriteLine("Get Next Reader ID Failed") 'for debug
+					Debug.WriteLine("Get next receipt ID failed")
+					Return New Result(False, "Get next receipt ID failed", exception.StackTrace)
 
-               Return New Result(False, "Get Next Reader ID Failed", exception.StackTrace)
+				Finally
+					conn.Close()
+				End Try
 
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
-
-      Return New Result(True)
-
-   End Function
+		Debug.WriteLine("Get next receipt ID succeed")
+		Return New Result(True)
+	End Function
 
 	Public Function insert(receipt As ReceiptDTO) As Result
 		Return New Result(True)

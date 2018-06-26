@@ -73,7 +73,7 @@ Public Class InvoiceDAL
 		query &= " INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate]) "
 		query &= " VALUES (@ID, @CustomerID, @InvoiceDate) "
 
-		Dim nextID = 0
+		Dim nextID = String.Empty
 		Dim result As Result
 
 		result = getNextId(nextID)

@@ -1,6 +1,5 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
-Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
 
@@ -73,7 +72,7 @@ Public Class BookCategoryDAL
 		query &= "INSERT INTO [BookCategory] ([ID], [Name]) "
 		query &= "VALUES (@ID, @Name)"
 
-		Dim nextID = 0
+		Dim nextID = String.Empty
 		Dim result As Result
 
 		result = getNextId(nextID)
