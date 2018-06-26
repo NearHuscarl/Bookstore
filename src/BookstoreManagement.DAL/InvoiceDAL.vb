@@ -47,17 +47,8 @@ Public Class InvoiceDAL
 						End While
 					End If
 
-					Dim IdPrefix As String = "INVOICE"
-					Dim IdNumber As Integer
-
-					If IsNothing(idOnDB) Then
-						IdNumber = 1
-					Else
-						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
-						IdNumber += 1
-					End If
-					nextId = IdPrefix + IdNumber.ToString("D3")
-
+					idOnDB.IncrementID("INVOICE", "D8")
+					nextId = idOnDB
 
 				Catch exception As Exception
 

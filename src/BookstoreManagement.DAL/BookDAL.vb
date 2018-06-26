@@ -3,6 +3,8 @@ Imports System.Data.SqlClient
 Imports System.Text.RegularExpressions
 Imports BookstoreManagement.DTO
 Imports Utility
+Imports Utility.StringExtensions
+
 
 Public Class BookDAL
 	Private connectionStr As String
@@ -47,16 +49,8 @@ Public Class BookDAL
 						End While
 					End If
 
-					Dim IdPrefix As String = "BOOK"
-					Dim IdNumber As Integer
-
-					If IsNothing(idOnDB) Then
-						IdNumber = 1
-					Else
-						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
-						IdNumber += 1
-					End If
-					nextId = IdPrefix + IdNumber.ToString("D3")
+					idOnDB.IncrementID("BOOK", "D4")
+					nextId = idOnDB
 
 				Catch exception As Exception
 

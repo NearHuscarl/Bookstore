@@ -93,7 +93,6 @@
     <Compile Include="ReceiptDAL.vb" />
     <Compile Include="StockReportDAL.vb" />
     <Compile Include="StockReportDetailDAL.vb" />
-    <Compile Include="TestingGround.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

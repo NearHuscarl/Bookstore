@@ -47,17 +47,8 @@ Public Class AuthorDAL
 						End While
 					End If
 
-					Dim IdPrefix As String = "AUTHOR"
-					Dim IdNumber As Integer
-
-					If IsNothing(idOnDB) Then
-						IdNumber = 1
-					Else
-						IdNumber = Regex.Replace(idOnDB, "[^\d]", "")
-						IdNumber += 1
-					End If
-					nextId = IdPrefix + IdNumber.ToString("D3")
-
+					idOnDB.IncrementID("AUTHOR", "D8")
+					nextId = idOnDB
 
 				Catch exception As Exception
 
