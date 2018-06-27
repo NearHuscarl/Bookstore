@@ -122,6 +122,7 @@ Public Class InvoiceDAL
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
 		query &= "FROM [Invoice] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -169,6 +170,7 @@ Public Class InvoiceDAL
 		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
 		query &= "FROM [Invoice] "
 		query &= "WHERE [Invoice].[InvoiceDate] = @InvoiceDate"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -217,6 +219,7 @@ Public Class InvoiceDAL
 		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
 		query &= "FROM [Invoice] "
 		query &= "WHERE [Invoice].[CustomerID] = @CustomerID"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 

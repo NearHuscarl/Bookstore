@@ -118,7 +118,8 @@ Public Class BookCategoryDAL
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name] "
-		query &= "FROM [BookCategory]"
+		query &= "FROM [BookCategory] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 

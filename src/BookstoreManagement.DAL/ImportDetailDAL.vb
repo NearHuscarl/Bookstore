@@ -174,7 +174,8 @@ Public Class ImportDetailDAL
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
-		query &= "FROM [ImportDetail]"
+		query &= "FROM [ImportDetail] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -222,6 +223,7 @@ Public Class ImportDetailDAL
 		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
 		query &= "FROM [ImportDetail] "
 		query &= "WHERE [ImportDetail].[ImportID] = @ImportID"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -271,6 +273,7 @@ Public Class ImportDetailDAL
 		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
 		query &= "FROM [ImportDetail] "
 		query &= "WHERE [ImportDetail].[BookID] = @BookID"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -121,7 +121,8 @@ Public Class CustomerDAL
 	Public Function selectAll(ByRef customers As List(Of CustomerDTO)) As Result
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [Address], [Email], [PhoneNumber], [CurrentDebt] "
-		query &= "FROM [Customer]"
+		query &= "FROM [Customer] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -124,7 +124,8 @@ Public Class BookDAL
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
-		query &= "FROM [Book]"
+		query &= "FROM [Book] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -172,6 +173,7 @@ Public Class BookDAL
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
 		query &= "FROM [Book] "
 		query &= "WHERE [Book].[AuthorID] = @AuthorID"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -220,6 +222,7 @@ Public Class BookDAL
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
 		query &= "FROM [Book] "
 		query &= "WHERE [Book].[BookCategoryID] = @BookCategoryID"
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
