@@ -14,76 +14,280 @@ Public Class StockReportDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
-      Dim query As String = String.Empty
+	Public Function getNextId(ByRef nextId As String) As Result
 
-      query &= "SELECT TOP 1 [ID]"
-      query &= "FROM [StockReport]"
-      query &= "ORDER BY [ID] DESC"
+		Dim query As String = String.Empty
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [StockReport] "
+		query &= "ORDER BY [ID] DESC"
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim reader As SqlDataReader
-               Dim idOnDB As Integer
+					Dim stockReport As SqlDataReader
+					Dim idOnDB As String
 
-               reader = comm.ExecuteReader()
-               idOnDB = Nothing
+					stockReport = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If reader.HasRows = True Then
-                  While reader.Read()
-                     idOnDB = reader("ID")
-                  End While
-               End If
+					If stockReport.HasRows = True Then
+						While stockReport.Read()
+							idOnDB = stockReport("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+					idOnDB.IncrementID("STOCKREPORT", "D8")
+					nextId = idOnDB
 
-               nextId = 1
+				Catch exception As Exception
 
-               Console.WriteLine("Get Next Reader ID Failed") 'for debug
+					Debug.WriteLine("Get next stock report ID failed")
+					Return New Result(False, "Get next stock report ID failed", exception.StackTrace)
 
-               Return New Result(False, "Get Next Reader ID Failed", exception.StackTrace)
+				Finally
+					conn.Close()
+				End Try
 
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
-
-      Return New Result(True)
-
-   End Function
+		Debug.WriteLine("Get next stock report ID succeed")
+		Return New Result(True)
+	End Function
 
 	Public Function insert(stockReport As StockReportDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "INSERT INTO [StockReport] ([ID], [ReportDate]) "
+		query &= "VALUES (@ID, @ReportDate)"
+
+		Dim nextID = String.Empty
+		Dim result As Result
+
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		stockReport.ID = nextID
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+
+					.Parameters.AddWithValue("@ID", stockReport.ID)
+					.Parameters.AddWithValue("@ReportDate", stockReport.ReportDate)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch exception As Exception
+
+					Debug.WriteLine("Insert stock report failed")
+					Return New Result(False, "Insert stock report failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Insert stock report succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL(ByRef stockReports As List(Of StockReportDTO)) As Result
+	Public Function selectAll(ByRef stockReports As List(Of StockReportDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ReportDate] "
+		query &= " FROM [StockReport] "
+		query &= " ORDER BY [ID] DESC"
+
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim stockReport As SqlDataReader
+					stockReport = comm.ExecuteReader()
+
+					If stockReport.HasRows = True Then
+						stockReports.Clear()
+						While stockReport.Read()
+							stockReports.Add(New StockReportDTO(stockReport("ID"), stockReport("ReportDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get stock reports failed")
+					Return New Result(False, "Get stock reports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get stock reports succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL_ByDate(dateReported As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
+	Public Function selectAll_ByDate(reportDate As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ReportDate] "
+		query &= " FROM [StockReport]"
+		query &= " WHERE [StockReport].[ReportDate] = @ReportDate"
+		query &= " ORDER BY [ID] DESC"
+
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ReportDate", reportDate)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim stockReport As SqlDataReader
+					stockReport = comm.ExecuteReader()
+
+					If stockReport.HasRows = True Then
+						stockReports.Clear()
+						While stockReport.Read()
+							stockReports.Add(New StockReportDTO(stockReport("ID"), stockReport("ReportDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get stock reports failed")
+					Return New Result(False, "Get stock reports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get stock reports succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function update(stockReport As StockReportDTO) As Result
+		Dim query As String = String.Empty
+		query &= "UPDATE [StockReport] SET "
+		query &= "[ReportDate] = @ReportDate"
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", stockReport.ID)
+					.Parameters.AddWithValue("@ReportDate", stockReport.ReportDate)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Update stock report failed")
+					Return New Result(False, "Update stock report failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Update stock report succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function delete(stockReportID As String) As Result
+
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [StockReport] "
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", stockReportID)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Delete stock report failed")
+					Return New Result(False, "Delete stock report failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Delete stock report succeed")
 		Return New Result(True)
 	End Function
 End Class

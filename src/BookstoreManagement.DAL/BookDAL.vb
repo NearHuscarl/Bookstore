@@ -167,7 +167,7 @@ Public Class BookDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByAuthorID(authorID As String, ByRef books As List(Of BookDTO)) As Result
+	Public Function selectAll_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
@@ -216,7 +216,7 @@ Public Class BookDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByBookCategoryID(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
+	Public Function selectAll_ByBookCategory(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "

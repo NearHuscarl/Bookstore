@@ -1,13 +1,13 @@
 ﻿Public Class StockReportDTO
 	Private _ID As String
-	Private _dateReport As DateTime
+	Private _reportDate As DateTime
 
 	Public Sub New()
 	End Sub
 
-	Public Sub New(ID As String, dateReport As DateTime)
+	Public Sub New(ID As String, reportDate As DateTime)
 		Me._ID = ID
-		Me._dateReport = dateReport
+		Me._reportDate = reportDate
 	End Sub
 
 	Property ID() As String
@@ -19,12 +19,12 @@
 		End Set
 	End Property
 
-	Property DateReport() As DateTime
+	Property ReportDate() As DateTime
 		Get
-			Return _dateReport
+			Return _reportDate
 		End Get
 		Set(ByVal Value As DateTime)
-			_dateReport = Value
+			_reportDate = Value
 		End Set
 	End Property
 End Class

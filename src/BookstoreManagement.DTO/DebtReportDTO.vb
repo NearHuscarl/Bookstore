@@ -1,16 +1,16 @@
 ﻿Public Class DebtReportDTO
    Private _ID As String
-   Private _dateReport As DateTime
+	Private _reportDate As DateTime
 
-   Public Sub New()
+	Public Sub New()
    End Sub
 
-   Public Sub New(ID As String, dateReport As DateTime)
-      Me._ID = ID
-      Me._dateReport = dateReport
-   End Sub
+	Public Sub New(ID As String, reportDate As DateTime)
+		Me._ID = ID
+		Me._reportDate = reportDate
+	End Sub
 
-   Property ID() As String
+	Property ID() As String
       Get
          Return _ID
       End Get
@@ -19,12 +19,12 @@
       End Set
    End Property
 
-   Property DateReport() As DateTime
-      Get
-         Return _dateReport
-      End Get
-      Set(ByVal Value As DateTime)
-         _dateReport = Value
-      End Set
-   End Property
+	Property ReportDate() As DateTime
+		Get
+			Return _reportDate
+		End Get
+		Set(ByVal Value As DateTime)
+			_reportDate = Value
+		End Set
+	End Property
 End Class

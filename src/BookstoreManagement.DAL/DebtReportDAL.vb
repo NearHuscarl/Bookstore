@@ -14,76 +14,280 @@ Public Class DebtReportDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
-      Dim query As String = String.Empty
+	Public Function getNextId(ByRef nextId As String) As Result
 
-      query &= "SELECT TOP 1 [ID]"
-      query &= "FROM [DebtReport]"
-      query &= "ORDER BY [ID] DESC"
+		Dim query As String = String.Empty
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [DebtReport] "
+		query &= "ORDER BY [ID] DESC"
 
-      Using conn As New SqlConnection(connectionStr)
+		Using conn As New SqlConnection(connectionStr)
 
-         Using comm As New SqlCommand()
+			Using comm As New SqlCommand()
 
-            With comm
-               .Connection = conn
-               .CommandType = CommandType.Text
-               .CommandText = query
-            End With
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
 
-            Try
-               conn.Open()
+				Try
+					conn.Open()
 
-               Dim reader As SqlDataReader
-               Dim idOnDB As Integer
+					Dim debtReport As SqlDataReader
+					Dim idOnDB As String
 
-               reader = comm.ExecuteReader()
-               idOnDB = Nothing
+					debtReport = comm.ExecuteReader()
+					idOnDB = Nothing
 
-               If reader.HasRows = True Then
-                  While reader.Read()
-                     idOnDB = reader("ID")
-                  End While
-               End If
+					If debtReport.HasRows = True Then
+						While debtReport.Read()
+							idOnDB = debtReport("ID")
+						End While
+					End If
 
-               nextId = idOnDB + 1 'new ID = current ID + 1
 
-            Catch exception As Exception
-               conn.Close()
+					idOnDB.IncrementID("DEBTREPORT", "D8")
+					nextId = idOnDB
 
-               nextId = 1
+				Catch exception As Exception
 
-               Console.WriteLine("Get Next Reader ID Failed") 'for debug
+					Debug.WriteLine("Get next debt report ID failed")
+					Return New Result(False, "Get next debt report ID failed", exception.StackTrace)
 
-               Return New Result(False, "Get Next Reader ID Failed", exception.StackTrace)
+				Finally
+					conn.Close()
+				End Try
 
-            End Try
+			End Using
 
-         End Using
+		End Using
 
-      End Using
-
-      Return New Result(True)
-
-   End Function
+		Debug.WriteLine("Get next debt report ID succeed")
+		Return New Result(True)
+	End Function
 
 	Public Function insert(debtReport As DebtReportDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "INSERT INTO [DebtReport] ([ID], [ReportDate]) "
+		query &= "VALUES (@ID, @ReportDate)"
+
+		Dim nextID = String.Empty
+		Dim result As Result
+
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		debtReport.ID = nextID
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+
+					.Parameters.AddWithValue("@ID", debtReport.ID)
+					.Parameters.AddWithValue("@ReportDate", debtReport.ReportDate)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch exception As Exception
+
+					Debug.WriteLine("Insert debt report failed")
+					Return New Result(False, "Insert debt report failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Insert debt report succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL(ByRef debtReports As List(Of DebtReportDTO)) As Result
+	Public Function selectAll(ByRef debtReports As List(Of DebtReportDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ReportDate] "
+		query &= " FROM [DebtReport] "
+		query &= " ORDER BY [ID] DESC"
+
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim debtReport As SqlDataReader
+					debtReport = comm.ExecuteReader()
+
+					If debtReport.HasRows = True Then
+						debtReports.Clear()
+						While debtReport.Read()
+							debtReports.Add(New DebtReportDTO(debtReport("ID"), debtReport("ReportDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get debt reports failed")
+					Return New Result(False, "Get debt reports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get debt reports succeed")
 		Return New Result(True)
 	End Function
 
-	Public Function sellectALL_ByDate(dateReport As DateTime, ByRef debtReports As List(Of DebtReportDTO)) As Result
+	Public Function selectAll_ByDate(reportDate As DateTime, ByRef debtReports As List(Of DebtReportDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= " SELECT [ID], [ReportDate] "
+		query &= " FROM [DebtReport]"
+		query &= " WHERE [DebtReport].[ReportDate] = @ReportDate"
+		query &= " ORDER BY [ID] DESC"
+
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ReportDate", reportDate)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim debtReport As SqlDataReader
+					debtReport = comm.ExecuteReader()
+
+					If debtReport.HasRows = True Then
+						debtReports.Clear()
+						While debtReport.Read()
+							debtReports.Add(New DebtReportDTO(debtReport("ID"), debtReport("ReportDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get debt reports failed")
+					Return New Result(False, "Get debt reports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get debt reports succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function update(debtReport As DebtReportDTO) As Result
+		Dim query As String = String.Empty
+		query &= "UPDATE [DebtReport] SET "
+		query &= "[ReportDate] = @ReportDate"
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", debtReport.ID)
+					.Parameters.AddWithValue("@ReportDate", debtReport.ReportDate)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Update debt report failed")
+					Return New Result(False, "Update debt report failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Update debt report succeed")
 		Return New Result(True)
 	End Function
 
 	Public Function delete(debtReportID As String) As Result
+
+		Dim query As String = String.Empty
+		query &= " DELETE FROM [DebtReport] "
+		query &= " WHERE [ID] = @ID "
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", debtReportID)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Delete debt report failed")
+					Return New Result(False, "Delete debt report failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Delete debt report succeed")
 		Return New Result(True)
 	End Function
 End Class
