@@ -15,12 +15,12 @@ Public Class InvoiceDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT TOP 1 [ID] "
-		query &= " FROM [Invoice] "
-		query &= " ORDER BY [ID] DESC "
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [Invoice] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -70,8 +70,8 @@ Public Class InvoiceDAL
 	Public Function insert(invoice As InvoiceDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate]) "
-		query &= " VALUES (@ID, @CustomerID, @InvoiceDate) "
+		query &= "INSERT INTO [Invoice] ([ID], [CustomerID], [InvoiceDate]) "
+		query &= "VALUES (@ID, @CustomerID, @InvoiceDate)"
 
 		Dim nextID = String.Empty
 		Dim result As Result
@@ -120,8 +120,8 @@ Public Class InvoiceDAL
 	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate]"
-		query &= " FROM [Invoice] "
+		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
+		query &= "FROM [Invoice] "
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -166,9 +166,9 @@ Public Class InvoiceDAL
 	Public Function selectAll_ByInvoiceDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate]"
-		query &= " FROM [Invoice]"
-		query &= " WHERE [Invoice].[InvoiceDate] = @InvoiceDate"
+		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
+		query &= "FROM [Invoice] "
+		query &= "WHERE [Invoice].[InvoiceDate] = @InvoiceDate"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -214,9 +214,9 @@ Public Class InvoiceDAL
 	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [CustomerID], [InvoiceDate] "
-		query &= " FROM [Invoice]"
-		query &= " WHERE [Invoice].[CustomerID] = @CustomerID"
+		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
+		query &= "FROM [Invoice] "
+		query &= "WHERE [Invoice].[CustomerID] = @CustomerID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -262,10 +262,10 @@ Public Class InvoiceDAL
 	Public Function update(invoice As InvoiceDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " UPDATE [Invoice] SET "
-		query &= " [CustomerID] = @CustomerID ,"
-		query &= " [InvoiceDate] = @InvoiceDate ,"
-		query &= " WHERE [ID] = @ID "
+		query &= "UPDATE [Invoice] SET "
+		query &= "[CustomerID] = @CustomerID, "
+		query &= "[InvoiceDate] = @InvoiceDate"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -304,8 +304,8 @@ Public Class InvoiceDAL
 	Public Function delete(invoiceID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [Invoice] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [Invoice] "
+		query &= "WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

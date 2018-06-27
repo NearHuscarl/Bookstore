@@ -14,7 +14,7 @@ Public Class CustomerDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 		Dim query As String = String.Empty
 
 		query &= "SELECT TOP 1 [ID] "

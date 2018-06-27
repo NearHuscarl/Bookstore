@@ -15,12 +15,12 @@ Public Class InvoiceDetailDAL
 		Me.connectionStr = connectionStr
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT TOP 1 [ID] "
-		query &= " FROM [InvoiceDetail] "
-		query &= " ORDER BY [ID] DESC "
+		query &= "SELECT TOP 1 [ID] "
+		query &= "FROM [InvoiceDetail] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -70,8 +70,8 @@ Public Class InvoiceDetailDAL
 	Public Function insert(invoiceDetail As InvoiceDetailDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [InvoiceDetail] ([ID], [InvoiceID], [BookID], [Amount], [SalesPrice]) "
-		query &= " VALUES (@ID, @InvoiceID, @BookID, @Amount, @SalesPrice) "
+		query &= "INSERT INTO [InvoiceDetail] ([ID], [InvoiceID], [BookID], [Amount], [SalesPrice]) "
+		query &= "VALUES (@ID, @InvoiceID, @BookID, @Amount, @SalesPrice)"
 
 		Dim nextID = String.Empty
 		Dim result As Result
@@ -122,8 +122,8 @@ Public Class InvoiceDetailDAL
 	Public Function insertAll(invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " INSERT INTO [InvoiceDetail] ([ID], [InvoiceID], [BookID], [Amount], [SalesPrice]) "
-		query &= " VALUES (@ID, @InvoiceID, @BookID, @Amount, @SalesPrice) "
+		query &= "INSERT INTO [InvoiceDetail] ([ID], [InvoiceID], [BookID], [Amount], [SalesPrice]) "
+		query &= "VALUES (@ID, @InvoiceID, @BookID, @Amount, @SalesPrice)"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -176,8 +176,8 @@ Public Class InvoiceDetailDAL
 	Public Function selectAll(ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
-		query &= " FROM [InvoiceDetail] "
+		query &= "SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
+		query &= "FROM [InvoiceDetail]"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -222,9 +222,9 @@ Public Class InvoiceDetailDAL
 	Public Function selectAll_ByInvoiceID(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
-		query &= " FROM [InvoiceDetail]"
-		query &= " WHERE [InvoiceDetail].[InvoiceID] = @InvoiceID"
+		query &= "SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
+		query &= "FROM [InvoiceDetail] "
+		query &= "WHERE [InvoiceDetail].[InvoiceID] = @InvoiceID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -270,9 +270,9 @@ Public Class InvoiceDetailDAL
 	Public Function selectAll_ByBookID(bookID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
-		query &= " FROM [InvoiceDetail]"
-		query &= " WHERE [InvoiceDetail].[BookID] = @BookID"
+		query &= "SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
+		query &= "FROM [InvoiceDetail] "
+		query &= "WHERE [InvoiceDetail].[BookID] = @BookID"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -318,11 +318,11 @@ Public Class InvoiceDetailDAL
 	Public Function update(invoiceDetail As InvoiceDetailDTO) As Result
 
 		Dim query As String = String.Empty
-		query &= " UPDATE [InvoiceDetail] SET "
-		query &= " [InvoiceID] = @InvoiceID , "
-		query &= " [BookID] = @BookID , "
-		query &= " [Amount] = @Amount , "
-		query &= " [SalesPrice] = @SalesPrice "
+		query &= "UPDATE [InvoiceDetail] SET "
+		query &= "[InvoiceID] = @InvoiceID, "
+		query &= "[BookID] = @BookID, "
+		query &= "[Amount] = @Amount, "
+		query &= "[SalesPrice] = @SalesPrice"
 		query &= " WHERE [ID] = @ID "
 
 		Using conn As New SqlConnection(connectionStr)
@@ -364,8 +364,8 @@ Public Class InvoiceDetailDAL
 	Public Function delete(invoiceDetailID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [InvoiceDetail] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [InvoiceDetail] "
+		query &= "WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -68,6 +68,51 @@ Public Class ReceiptDAL
 	End Function
 
 	Public Function insert(receipt As ReceiptDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= " INSERT INTO [Receipt] ([ID], [CustomerID], [) "
+		query &= " VALUES (@ID, @Name) "
+
+		Dim nextID = String.Empty
+		Dim result As Result
+
+		result = getNextId(nextID)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+		receipt.ID = nextID
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+
+					.Parameters.AddWithValue("@ID", receipt.ID)
+					.Parameters.AddWithValue("@Name", receipt.Name)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch exception As Exception
+
+					Debug.WriteLine("Insert Receipt failed")
+					Return New Result(False, "Insert Receipt failed", exception.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Insert Receipt succeed")
 		Return New Result(True)
 	End Function
 

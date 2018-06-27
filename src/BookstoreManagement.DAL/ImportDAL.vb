@@ -118,7 +118,8 @@ Public Class ImportDAL
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [ImportDate] "
-		query &= "FROM [Import]"
+		query &= "FROM [Import] "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -166,7 +167,7 @@ Public Class ImportDAL
 		query &= "SELECT [ID], [ImportDate] "
 		query &= "FROM [Import] "
 		query &= "WHERE [Import].[ImportDate] = @ImportDate"
-
+		query &= " ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
