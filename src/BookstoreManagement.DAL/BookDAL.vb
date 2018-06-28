@@ -167,6 +167,53 @@ Public Class BookDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(bookID As String, ByRef book As BookDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
+		query &= "FROM [Book] "
+		query &= "WHERE [Book].[ID] = @ID"
+		query &= " ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", bookID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						book = New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get books failed")
+					Return New Result(False, "Get books failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get books succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result
 
 		Dim query As String = String.Empty

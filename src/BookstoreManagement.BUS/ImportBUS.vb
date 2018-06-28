@@ -22,7 +22,15 @@ Public Class ImportBUS
 	End Function
 
 	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result
-		Return importDAL.selectAll(_imports)
+		Dim result = importDAL.selectAll(_imports)
+
+		If (result.FlagResult = True) Then
+			For Each _import As ImportDTO In _imports
+				_import.ImportDate = _import.ImportDate.ToShortDateString()
+			Next
+		End If
+
+		Return result
 	End Function
 
 	Public Function insert(import As ImportDTO) As Result
@@ -34,7 +42,7 @@ Public Class ImportBUS
 		Return importDAL.update(import)
 	End Function
 
-	Public Function delete(import As String) As Result
-		Return importDAL.delete(import)
+	Public Function delete(importID As String) As Result
+		Return importDAL.delete(importID)
 	End Function
 End Class

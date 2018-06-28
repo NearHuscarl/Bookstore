@@ -51,15 +51,11 @@ Public Class frmImport
 
 			If (result.FlagResult = True) Then
 				_imports.Add(New ImportDTO(nextImportID, Date.Now.ToShortDateString()))
-
-				'TODO: Remove the lambda after do the trimming part in db
 				_imports = _imports.OrderByDescending(Function(import) import.ID).ToList()
 
 				For Each _import As ImportDTO In _imports
 					Dim currentIndex = dgvImport.Rows.Add()
-
-					dgvImport.Rows(currentIndex).Cells("colImportID").Value = _import.ID
-					dgvImport.Rows(currentIndex).Cells("colImportDate").Value = _import.ImportDate.ToShortDateString()
+					SetImportFromCellsIndex(currentIndex, _import)
 				Next
 			Else
 				MetroMessageBox.Show(Me, "Cannot get next ID of import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -105,7 +101,6 @@ Public Class frmImport
 				dgvImportDetail.Rows(currentIndex).Cells("colImportDetailID").Value = importDetail.ID
 				dgvImportDetail.Rows(currentIndex).Cells("colBookID").Value = importDetail.BookID
 				dgvImportDetail.Rows(currentIndex).Cells("colImportAmount").Value = importDetail.ImportAmount
-				'dgvImportDetail.Rows(currentIndex).Cells("colCurrentAmount").Value = importDetail.CurrentAmount
 				dgvImportDetail.Rows(currentIndex).Cells("colImportPrice").Value = importDetail.ImportPrice
 			Next
 		Else
@@ -124,12 +119,7 @@ Public Class frmImport
 
 		result = bookBUS.selectAll(books)
 
-		'TODO: Remove the lambda after do the trimming part in db
-		books = books.OrderByDescending(Function(import) import.ID).Select(
-		Function(import)
-			import.ID = import.ID.Trim()
-			Return import
-		End Function).ToList()
+		books = books.OrderBy(Function(import) import.ID).ToList() 'Sort alphabetically
 
 		If (result.FlagResult = True) Then
 			colBookID.DataSource = books
@@ -177,8 +167,28 @@ Public Class frmImport
 		importDetail.ID = selectedCells("colImportDetailID").Value
 		importDetail.ImportID = selectedImportCells("colImportID").Value
 		importDetail.BookID = selectedCells("colBookID").Value
-		importDetail.ImportAmount = selectedCells("colImportAmount").Value
-		importDetail.ImportPrice = selectedCells("colImportPrice").Value
+
+		Try
+			Dim importAmount = Convert.ToInt32(selectedCells("colImportAmount").Value)
+			importDetail.ImportAmount = importAmount
+		Catch ex As FormatException
+			importDetail.ImportAmount = 0
+			selectedCells("colImportAmount").Value = importDetail.ImportAmount
+
+			MetroMessageBox.Show(Me, "Import amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(ex.StackTrace)
+		End Try
+
+		Try
+			Dim importPrice = Convert.ToInt32(selectedCells("colImportPrice").Value)
+			importDetail.ImportPrice = importPrice
+		Catch ex As FormatException
+			importDetail.ImportPrice = 0
+			selectedCells("colImportPrice").Value = importDetail.ImportPrice
+
+			MetroMessageBox.Show(Me, "Import price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(ex.StackTrace)
+		End Try
 
 		Return importDetail
 	End Function
@@ -214,6 +224,10 @@ Public Class frmImport
 	End Sub
 
 	Private Sub LoadImportDetailsFromSelectedImport()
+		If (SelectedImport Is Nothing) Then
+			Return
+		End If
+
 		Dim selectedImportID = SelectedImport.ID
 
 		If (selectedImportID Is Nothing) Then
@@ -259,7 +273,18 @@ Public Class frmImport
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Import detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 		Else
-			MetroMessageBox.Show(Me, "Failed to add import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			If (import.ID = nextImportID) Then
+				importBUS.delete(import.ID)
+			End If
+
+			Dim errorMessage As String = ""
+
+			errorMessage &= "Failed to add import detail"
+			errorMessage &= Environment.NewLine
+			errorMessage &= Environment.NewLine
+			errorMessage &= result.ApplicationMessage
+
+			MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 
@@ -352,7 +377,7 @@ Public Class frmImport
 		If (changedImportDetail.ID = Nothing) Then
 			nextImportDetailID.IncrementID("IMPORTDETAIL", "D4")
 			changedImportDetail.ID = nextImportDetailID
-			SelectedImportDetail = changedImportDetail 'TODO: remove this line?
+			SelectedImportDetail = changedImportDetail
 			Return
 		End If
 
