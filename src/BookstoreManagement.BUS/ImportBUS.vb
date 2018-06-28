@@ -18,23 +18,7 @@ Public Class ImportBUS
 	End Sub
 
 	Public Function getNextId(ByRef nextId As String) As Result
-		Dim latestId As String = "IMPORT002"
-		Dim result As New Result(True)
-
-		'TODO: Remove to use getLatestId()
-		'result = importDAL.getLatestId(latestId)
-		If (result.FlagResult = True) Then
-			Dim IdPrefix As String = Regex.Replace(latestId, "[\d]", "")
-			Dim IdNumber As Integer = Regex.Replace(latestId, "[^\d]", "")
-
-			IdNumber += 1
-
-			nextId = IdPrefix + (IdNumber).ToString("D3")
-		Else
-			nextId = Nothing
-		End If
-
-		Return result
+		Return importDAL.getNextId(nextId)
 	End Function
 
 	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result

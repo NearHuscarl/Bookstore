@@ -16,7 +16,7 @@ Public Class ImportDetailBUS
 		parameterBUS = New ParameterBUS()
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 		Return importDetailDAL.getNextId(nextId)
 	End Function
 
@@ -39,19 +39,11 @@ Public Class ImportDetailBUS
 	End Function
 
 	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO)) As Result
-		Return importDetailDAL.selectALL(importDetails)
+		Return importDetailDAL.selectAll(importDetails)
 	End Function
 
 	Public Function selectAll_ByImport(importID As String, ByRef importDetails As List(Of ImportDetailDTO)) As Result
-		'Return importDetailDAL.selectALL_ByImport(importID, importDetails)
-
-		' TODO: remove
-		importDetails = New List(Of ImportDetailDTO)
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL000", "IMPORT00", "BOOK001", 50, 50))
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL001", "IMPORT00", "BOOK002", 40, 60))
-		importDetails.Add(New ImportDetailDTO("IMPORTDETAIL002", "IMPORT00", "BOOK003", 20, 40))
-
-		Return New Result(True)
+		Return importDetailDAL.selectAll_ByImport(importID, importDetails)
 	End Function
 
 	Public Function insertAll(importDetails As List(Of ImportDetailDTO)) As Result
