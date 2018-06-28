@@ -25,11 +25,11 @@ Public Class InvoiceBUS
 		Return invoiceDAL.selectAll(invoices)
 	End Function
 
-	Public Function selectAll_ByInvoiceDate(InvoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return invoiceDAL.selectAll_ByInvoiceDate(InvoiceDate, invoices)
+	Public Function selectAll_ByDate(InvoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+		Return invoiceDAL.selectAll_ByDate(InvoiceDate, invoices)
 	End Function
 	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
-		Return invoiceDAL.selectAll_ByCustomerID(customerID, invoices)
+		Return invoiceDAL.selectAll_ByCustomer(customerID, invoices)
 	End Function
 
 	Public Function update(invoice As InvoiceDTO) As Result

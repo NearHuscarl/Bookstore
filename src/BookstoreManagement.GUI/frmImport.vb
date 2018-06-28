@@ -45,7 +45,7 @@ Public Class frmImport
 		Dim _imports As List(Of ImportDTO) = New List(Of ImportDTO)
 		Dim result As Result
 
-		result = importBUS.selectALL(_imports)
+		result = importBUS.selectAll(_imports)
 
 		If (result.FlagResult = True) Then ' Add next Import ID
 			result = importBUS.getNextId(nextImportID)

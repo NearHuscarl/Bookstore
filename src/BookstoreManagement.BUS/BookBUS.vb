@@ -25,12 +25,12 @@ Public Class BookBUS
 		Return bookDAL.selectAll(books)
 	End Function
 
-	Public Function selectAll_ByAuthorID(authorID As String, ByRef books As List(Of BookDTO)) As Result
-		Return bookDAL.selectAll_ByAuthorID(authorID, books)
+	Public Function selectAll_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll_ByAuthor(authorID, books)
 	End Function
 
-	Public Function selectAll_ByBookCategoryID(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
-		Return bookDAL.selectAll_ByBookCategoryID(bookCategoryID, books)
+	Public Function selectAll_ByBookCategory(bookCategoryID As String, ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll_ByBookCategory(bookCategoryID, books)
 	End Function
 
 	Public Function update(book As BookDTO) As Result

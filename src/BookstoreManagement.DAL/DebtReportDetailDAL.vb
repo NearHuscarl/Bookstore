@@ -130,6 +130,9 @@ Public Class DebtReportDetailDAL
 
 				Try
 					For Each debtReportDetail As DebtReportDetailDTO In debtReportDetails
+						conn.Close()
+						comm.Parameters.Clear()
+
 						Dim nextID = String.Empty
 						Dim result As Result
 

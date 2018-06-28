@@ -25,16 +25,16 @@ Public Class DebtReportDetailBUS
 		Return debtReportDetailDAL.insertAll(debtReportDetails)
 	End Function
 
-	Public Function sellectALL(ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
-		Return debtReportDetailDAL.sellectALL(debtReportDetails)
+	Public Function selectAll(ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.selectAll(debtReportDetails)
 	End Function
 
-	Public Function sellectALL_ByDebtReport(debtReportID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
-		Return debtReportDetailDAL.sellectALL_ByDebtReport(debtReportID, debtReportDetails)
+	Public Function selectAll_ByDebtReport(debtReportID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.selectAll_ByDebtReport(debtReportID, debtReportDetails)
 	End Function
 
-	Public Function sellectALL_ByCustomer(customerID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
-		Return debtReportDetailDAL.sellectALL_ByCustomer(customerID, debtReportDetails)
+	Public Function selectAll_ByCustomer(customerID As String, ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
+		Return debtReportDetailDAL.selectAll_ByCustomer(customerID, debtReportDetails)
 	End Function
 
 	Public Function update(debtReportDetail As DebtReportDetailDTO) As Result

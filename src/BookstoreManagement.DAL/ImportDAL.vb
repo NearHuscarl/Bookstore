@@ -161,7 +161,7 @@ Public Class ImportDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByImportDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
+	Public Function selectAll_ByDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [ImportDate] "

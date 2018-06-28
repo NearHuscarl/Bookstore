@@ -119,9 +119,9 @@ Public Class StockReportDAL
 	Public Function selectAll(ByRef stockReports As List(Of StockReportDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ReportDate] "
-		query &= " FROM [StockReport] "
-		query &= " ORDER BY [ID] DESC"
+		query &= "SELECT [ID], [ReportDate] "
+		query &= "FROM [StockReport] "
+		query &= "ORDER BY [ID] DESC"
 
 
 		Using conn As New SqlConnection(connectionStr)
@@ -167,9 +167,9 @@ Public Class StockReportDAL
 	Public Function selectAll_ByDate(reportDate As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
 
 		Dim query As String = String.Empty
-		query &= " SELECT [ID], [ReportDate] "
-		query &= " FROM [StockReport]"
-		query &= " WHERE [StockReport].[ReportDate] = @ReportDate"
+		query &= "SELECT [ID], [ReportDate] "
+		query &= "FROM [StockReport] "
+		query &= "WHERE [StockReport].[ReportDate] = @ReportDate"
 		query &= " ORDER BY [ID] DESC"
 
 
@@ -256,8 +256,8 @@ Public Class StockReportDAL
 	Public Function delete(stockReportID As String) As Result
 
 		Dim query As String = String.Empty
-		query &= " DELETE FROM [StockReport] "
-		query &= " WHERE [ID] = @ID "
+		query &= "DELETE FROM [StockReport] "
+		query &= "WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -164,7 +164,7 @@ Public Class InvoiceDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByInvoiceDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+	Public Function selectAll_ByDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
@@ -213,7 +213,7 @@ Public Class InvoiceDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByCustomerID(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
+	Public Function selectAll_ByCustomer(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "

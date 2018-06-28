@@ -132,6 +132,7 @@ Public Class InvoiceDetailDAL
 				Try
 					For Each invoiceDetail As InvoiceDetailDTO In invoiceDetails
 						conn.Close()
+						comm.Parameters.Clear()
 
 						Dim nextID = String.Empty
 						Dim result As Result
@@ -220,7 +221,7 @@ Public Class InvoiceDetailDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByInvoiceID(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+	Public Function selectAll_ByInvoice(invoiceID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "
@@ -269,7 +270,7 @@ Public Class InvoiceDetailDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByBookID(bookID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
+	Public Function selectAll_ByBook(bookID As String, ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [InvoiceID], [BookID], [Amount], [SalesPrice] "

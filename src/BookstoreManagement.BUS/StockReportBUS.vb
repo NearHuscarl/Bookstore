@@ -14,26 +14,26 @@ Public Class StockReportBUS
 	End Sub
 
 	Public Function getNextId(ByRef nextId As Integer) As Result
-		Return getNextId(nextId)
+		Return stockReportDAL.getNextId(nextId)
 	End Function
 
 	Public Function insert(stockReport As StockReportDTO) As Result
-		Return insert(stockReport)
+		Return stockReportDAL.insert(stockReport)
 	End Function
 
-	Public Function sellectALL(ByRef stockReports As List(Of StockReportDTO)) As Result
-		Return sellectALL(stockReports)
+	Public Function selectAll(ByRef stockReports As List(Of StockReportDTO)) As Result
+		Return stockReportDAL.selectAll(stockReports)
 	End Function
 
-	Public Function sellectALL_ByDate(dateReported As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
-		Return sellectALL_ByDate(dateReported, stockReports)
+	Public Function selectAll_ByDate(dateReported As DateTime, ByRef stockReports As List(Of StockReportDTO)) As Result
+		Return stockReportDAL.selectAll_ByDate(dateReported, stockReports)
 	End Function
 
 	Public Function update(stockReport As StockReportDTO) As Result
-		Return update(stockReport)
+		Return stockReportDAL.update(stockReport)
 	End Function
 
 	Public Function delete(stockReportID As String) As Result
-		Return delete(stockReportID)
+		Return stockReportDAL.delete(stockReportID)
 	End Function
 End Class

@@ -37,7 +37,7 @@ Public Class ImportBUS
 		Return result
 	End Function
 
-	Public Function selectALL(ByRef _imports As List(Of ImportDTO)) As Result
+	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result
 		Return importDAL.selectAll(_imports)
 	End Function
 

@@ -129,6 +129,7 @@ Public Class ImportDetailDAL
 				Try
 					For Each importDetail As ImportDetailDTO In importDetails
 						conn.Close()
+						comm.Parameters.Clear()
 
 						Dim nextID = String.Empty
 						Dim result As Result
@@ -266,8 +267,7 @@ Public Class ImportDetailDAL
 		Return New Result(True)
 	End Function
 
-	Public Function selectAll_ByBookID(bookID As String, ByRef importDetails As List(Of ImportDetailDTO))
-
+	Public Function selectAll_ByBook(bookID As String, ByRef importDetails As List(Of ImportDetailDTO))
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "

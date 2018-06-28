@@ -21,12 +21,12 @@ Public Class DebtReportBUS
 		Return debtReportDAL.insert(debtReport)
 	End Function
 
-	Public Function sellectALL(ByRef debtReports As List(Of DebtReportDTO)) As Result
-		Return debtReportDAL.sellectALL(debtReports)
+	Public Function selectAll(ByRef debtReports As List(Of DebtReportDTO)) As Result
+		Return debtReportDAL.selectAll(debtReports)
 	End Function
 
-	Public Function sellectALL_ByDate(dateReport As DateTime, ByRef debtReports As List(Of DebtReportDTO)) As Result
-		Return debtReportDAL.sellectALL_ByDate(dateReport, debtReports)
+	Public Function selectAll_ByDate(dateReport As DateTime, ByRef debtReports As List(Of DebtReportDTO)) As Result
+		Return debtReportDAL.selectAll_ByDate(dateReport, debtReports)
 	End Function
 
 	Public Function update(debtReport As DebtReportDTO) As Result
