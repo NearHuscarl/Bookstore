@@ -46,7 +46,7 @@ Public Class ImportDetailDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("IMPORTDETAIL", "D8")
+					idOnDB.IncrementID("IMPORTDETAIL", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

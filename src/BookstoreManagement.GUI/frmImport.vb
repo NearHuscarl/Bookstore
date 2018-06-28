@@ -350,7 +350,7 @@ Public Class frmImport
 		Dim changedImportDetail = GetImportDetailFromCellsIndex(e.RowIndex)
 
 		If (changedImportDetail.ID = Nothing) Then
-			nextImportDetailID.IncrementID("IMPORTDETAIL", "D8")
+			nextImportDetailID.IncrementID("IMPORTDETAIL", "D4")
 			changedImportDetail.ID = nextImportDetailID
 			SelectedImportDetail = changedImportDetail 'TODO: remove this line?
 			Return

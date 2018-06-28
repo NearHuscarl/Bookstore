@@ -62,6 +62,48 @@ Public Class ParameterDAL
 	End Function
 
 	Public Function update(parameters As ParameterDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "UPDATE [Parameter] SET "
+		query &= " [MinImportAmount] = @MinImportAmount"
+		query &= " [MinStockBeforeImport] = @MinStockBeforeImport"
+		query &= " [MinStockAfterSales] = @MinStockAfterSales"
+		query &= " [MaxDebt] = @MaxDebt"
+		query &= " [UseRegulation] = @UseRegulation"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@MinImportAmount", parameters.MinImportAmount)
+					.Parameters.AddWithValue("@MinStockBeforeImport", parameters.MinStockBeforeImport)
+					.Parameters.AddWithValue("@MinStockAfterSales", parameters.MinStockAfterSales)
+					.Parameters.AddWithValue("@MaxDebt", parameters.MaxDebt)
+					.Parameters.AddWithValue("@UseRegulation", parameters.UseRegulation)
+				End With
+
+				Try
+					conn.Open()
+					comm.ExecuteNonQuery()
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Update parameters failed")
+					Return New Result(False, "Update parameters failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Update parameters succeed")
 		Return New Result(True)
 	End Function
 

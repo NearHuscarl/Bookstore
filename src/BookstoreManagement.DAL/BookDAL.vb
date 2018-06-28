@@ -47,7 +47,7 @@ Public Class BookDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("BOOK", "D8")
+					idOnDB.IncrementID("BOOK", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

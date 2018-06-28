@@ -3,7 +3,7 @@ Imports System.Text.RegularExpressions
 
 Public Module StringExtensions
 	<Extension()>
-	Public Sub IncrementID(ByRef this As String, IdPrefix As String, Optional format As String = "D3")
+	Public Sub IncrementID(ByRef this As String, IdPrefix As String, Optional format As String = "D4")
 
 		Dim IdNumber As Integer
 

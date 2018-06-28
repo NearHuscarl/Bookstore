@@ -46,7 +46,7 @@ Public Class BookCategoryDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("CATEGORY", "D8")
+					idOnDB.IncrementID("CATEGORY", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

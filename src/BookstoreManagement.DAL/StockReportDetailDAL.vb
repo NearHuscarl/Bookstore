@@ -46,7 +46,7 @@ Public Class StockReportDetailDAL
 					End If
 
 
-					idOnDB.IncrementID("STOCKRPDTL", "D8")
+					idOnDB.IncrementID("STOCKRPDTL", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

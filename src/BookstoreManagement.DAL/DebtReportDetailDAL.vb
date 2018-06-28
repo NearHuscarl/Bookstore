@@ -46,7 +46,7 @@ Public Class DebtReportDetailDAL
 					End If
 
 
-					idOnDB.IncrementID("DEBTRPDTL", "D8")
+					idOnDB.IncrementID("DEBTRPDTL", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

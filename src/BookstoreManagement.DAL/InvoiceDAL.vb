@@ -47,7 +47,7 @@ Public Class InvoiceDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("INVOICE", "D8")
+					idOnDB.IncrementID("INVOICE", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

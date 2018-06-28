@@ -46,7 +46,7 @@ Public Class AuthorDAL
 						End While
 					End If
 
-					idOnDB.IncrementID("AUTHOR", "D8")
+					idOnDB.IncrementID("AUTHOR", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception

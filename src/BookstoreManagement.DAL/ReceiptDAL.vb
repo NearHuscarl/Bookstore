@@ -47,7 +47,7 @@ Public Class ReceiptDAL
 					End If
 
 
-					idOnDB.IncrementID("RECEIPT", "D8")
+					idOnDB.IncrementID("RECEIPT", "D4")
 					nextId = idOnDB
 
 				Catch exception As Exception
