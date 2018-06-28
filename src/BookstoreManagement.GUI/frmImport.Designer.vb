@@ -23,28 +23,26 @@ Partial Class frmImport
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Me.btnAdd = New MetroFramework.Controls.MetroButton()
-		Me.btnClear = New MetroFramework.Controls.MetroButton()
 		Me.dgvImportDetail = New MetroFramework.Controls.MetroGrid()
+		Me.colImportDetailID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colBookID = New System.Windows.Forms.DataGridViewComboBoxColumn()
 		Me.BookBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+		Me.colImportAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colImportPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.dgvImport = New MetroFramework.Controls.MetroGrid()
+		Me.colImportID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colImportDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.lblImportDetail = New MetroFramework.Controls.MetroLabel()
 		Me.lblImport = New MetroFramework.Controls.MetroLabel()
 		Me.btnUpdate = New MetroFramework.Controls.MetroButton()
 		Me.btnDelete = New MetroFramework.Controls.MetroButton()
-		Me.colImportID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colImportDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colImportDetailID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colBookID = New System.Windows.Forms.DataGridViewComboBoxColumn()
-		Me.colImportAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colCurrentAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colImportPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		CType(Me.dgvImportDetail, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.BookBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -52,21 +50,12 @@ Partial Class frmImport
 		'
 		'btnAdd
 		'
-		Me.btnAdd.Location = New System.Drawing.Point(189, 365)
+		Me.btnAdd.Location = New System.Drawing.Point(250, 366)
 		Me.btnAdd.Name = "btnAdd"
 		Me.btnAdd.Size = New System.Drawing.Size(75, 23)
 		Me.btnAdd.TabIndex = 5
 		Me.btnAdd.Text = "Add"
 		Me.btnAdd.UseSelectable = True
-		'
-		'btnClear
-		'
-		Me.btnClear.Location = New System.Drawing.Point(555, 365)
-		Me.btnClear.Name = "btnClear"
-		Me.btnClear.Size = New System.Drawing.Size(75, 23)
-		Me.btnClear.TabIndex = 6
-		Me.btnClear.Text = "Clear"
-		Me.btnClear.UseSelectable = True
 		'
 		'dgvImportDetail
 		'
@@ -75,46 +64,81 @@ Partial Class frmImport
 		Me.dgvImportDetail.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.dgvImportDetail.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
 		Me.dgvImportDetail.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvImportDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvImportDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
 		Me.dgvImportDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-		Me.dgvImportDetail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colImportDetailID, Me.colBookID, Me.colImportAmount, Me.colCurrentAmount, Me.colImportPrice})
-		DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
-		DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.dgvImportDetail.DefaultCellStyle = DataGridViewCellStyle8
+		Me.dgvImportDetail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colImportDetailID, Me.colBookID, Me.colImportAmount, Me.colImportPrice})
+		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+		DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.dgvImportDetail.DefaultCellStyle = DataGridViewCellStyle2
 		Me.dgvImportDetail.EnableHeadersVisualStyles = False
 		Me.dgvImportDetail.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvImportDetail.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
 		Me.dgvImportDetail.Location = New System.Drawing.Point(291, 145)
 		Me.dgvImportDetail.Name = "dgvImportDetail"
 		Me.dgvImportDetail.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvImportDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvImportDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
 		Me.dgvImportDetail.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+		Me.dgvImportDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 		Me.dgvImportDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-		Me.dgvImportDetail.Size = New System.Drawing.Size(499, 185)
+		Me.dgvImportDetail.Size = New System.Drawing.Size(504, 185)
 		Me.dgvImportDetail.TabIndex = 9
+		'
+		'colImportDetailID
+		'
+		Me.colImportDetailID.FillWeight = 123.8739!
+		Me.colImportDetailID.HeaderText = "ID"
+		Me.colImportDetailID.Name = "colImportDetailID"
+		Me.colImportDetailID.ReadOnly = True
+		Me.colImportDetailID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colImportDetailID.Width = 130
+		'
+		'colBookID
+		'
+		Me.colBookID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colBookID.DataSource = Me.BookBindingSource
+		Me.colBookID.FillWeight = 172.2907!
+		Me.colBookID.HeaderText = "Book"
+		Me.colBookID.Name = "colBookID"
+		Me.colBookID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colBookID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
 		'
 		'BookBindingSource
 		'
 		Me.BookBindingSource.DataSource = GetType(System.Collections.Generic.List(Of String))
+		'
+		'colImportAmount
+		'
+		Me.colImportAmount.FillWeight = 60.14212!
+		Me.colImportAmount.HeaderText = "Import Amount"
+		Me.colImportAmount.Name = "colImportAmount"
+		Me.colImportAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colImportAmount.Width = 115
+		'
+		'colImportPrice
+		'
+		Me.colImportPrice.FillWeight = 75.38008!
+		Me.colImportPrice.HeaderText = "Import Price"
+		Me.colImportPrice.Name = "colImportPrice"
+		Me.colImportPrice.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
 		'
 		'dgvImport
 		'
@@ -123,24 +147,24 @@ Partial Class frmImport
 		Me.dgvImport.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.dgvImport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
 		Me.dgvImport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvImport.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+		DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvImport.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
 		Me.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.dgvImport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colImportID, Me.colImportDate})
-		DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
-		DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.dgvImport.DefaultCellStyle = DataGridViewCellStyle11
+		DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+		DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.dgvImport.DefaultCellStyle = DataGridViewCellStyle5
 		Me.dgvImport.EnableHeadersVisualStyles = False
 		Me.dgvImport.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvImport.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -148,18 +172,37 @@ Partial Class frmImport
 		Me.dgvImport.MultiSelect = False
 		Me.dgvImport.Name = "dgvImport"
 		Me.dgvImport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvImport.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+		DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvImport.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
 		Me.dgvImport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+		Me.dgvImport.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 		Me.dgvImport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
 		Me.dgvImport.Size = New System.Drawing.Size(262, 185)
 		Me.dgvImport.TabIndex = 14
+		'
+		'colImportID
+		'
+		Me.colImportID.DataPropertyName = "ID"
+		Me.colImportID.FillWeight = 39.61353!
+		Me.colImportID.HeaderText = "ID"
+		Me.colImportID.Name = "colImportID"
+		Me.colImportID.ReadOnly = True
+		Me.colImportID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colImportID.Width = 110
+		'
+		'colImportDate
+		'
+		Me.colImportDate.DataPropertyName = "ImportDate"
+		Me.colImportDate.FillWeight = 160.3865!
+		Me.colImportDate.HeaderText = "Import Date"
+		Me.colImportDate.Name = "colImportDate"
+		Me.colImportDate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
 		'
 		'lblImportDetail
 		'
@@ -182,7 +225,7 @@ Partial Class frmImport
 		'btnUpdate
 		'
 		Me.btnUpdate.Enabled = False
-		Me.btnUpdate.Location = New System.Drawing.Point(311, 365)
+		Me.btnUpdate.Location = New System.Drawing.Point(372, 366)
 		Me.btnUpdate.Name = "btnUpdate"
 		Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
 		Me.btnUpdate.TabIndex = 15
@@ -191,73 +234,12 @@ Partial Class frmImport
 		'
 		'btnDelete
 		'
-		Me.btnDelete.Location = New System.Drawing.Point(433, 365)
+		Me.btnDelete.Location = New System.Drawing.Point(494, 366)
 		Me.btnDelete.Name = "btnDelete"
 		Me.btnDelete.Size = New System.Drawing.Size(75, 23)
 		Me.btnDelete.TabIndex = 16
 		Me.btnDelete.Text = "Delete"
 		Me.btnDelete.UseSelectable = True
-		'
-		'colImportID
-		'
-		Me.colImportID.DataPropertyName = "ID"
-		Me.colImportID.FillWeight = 39.61353!
-		Me.colImportID.HeaderText = "ID"
-		Me.colImportID.Name = "colImportID"
-		Me.colImportID.ReadOnly = True
-		Me.colImportID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colImportID.Width = 110
-		'
-		'colImportDate
-		'
-		Me.colImportDate.DataPropertyName = "ImportDate"
-		Me.colImportDate.FillWeight = 160.3865!
-		Me.colImportDate.HeaderText = "Import Date"
-		Me.colImportDate.Name = "colImportDate"
-		Me.colImportDate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		'
-		'colImportDetailID
-		'
-		Me.colImportDetailID.FillWeight = 123.8739!
-		Me.colImportDetailID.HeaderText = "ID"
-		Me.colImportDetailID.Name = "colImportDetailID"
-		Me.colImportDetailID.ReadOnly = True
-		Me.colImportDetailID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colImportDetailID.Width = 110
-		'
-		'colBookID
-		'
-		Me.colBookID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colBookID.DataSource = Me.BookBindingSource
-		Me.colBookID.FillWeight = 172.2907!
-		Me.colBookID.HeaderText = "Book"
-		Me.colBookID.Name = "colBookID"
-		Me.colBookID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colBookID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-		'
-		'colImportAmount
-		'
-		Me.colImportAmount.FillWeight = 60.14212!
-		Me.colImportAmount.HeaderText = "Import Amount"
-		Me.colImportAmount.Name = "colImportAmount"
-		Me.colImportAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colImportAmount.Width = 53
-		'
-		'colCurrentAmount
-		'
-		Me.colCurrentAmount.FillWeight = 68.3132!
-		Me.colCurrentAmount.HeaderText = "Current Amount"
-		Me.colCurrentAmount.Name = "colCurrentAmount"
-		Me.colCurrentAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colCurrentAmount.Width = 61
-		'
-		'colImportPrice
-		'
-		Me.colImportPrice.FillWeight = 75.38008!
-		Me.colImportPrice.HeaderText = "Import Price"
-		Me.colImportPrice.Name = "colImportPrice"
-		Me.colImportPrice.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colImportPrice.Width = 67
 		'
 		'frmImport
 		'
@@ -270,7 +252,6 @@ Partial Class frmImport
 		Me.Controls.Add(Me.lblImport)
 		Me.Controls.Add(Me.dgvImportDetail)
 		Me.Controls.Add(Me.lblImportDetail)
-		Me.Controls.Add(Me.btnClear)
 		Me.Controls.Add(Me.btnAdd)
 		Me.Name = "frmImport"
 		Me.ShowIcon = False
@@ -283,7 +264,6 @@ Partial Class frmImport
 
 	End Sub
 	Friend WithEvents btnAdd As MetroFramework.Controls.MetroButton
-	Friend WithEvents btnClear As MetroFramework.Controls.MetroButton
 	Friend WithEvents NameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 	Friend WithEvents CategoryDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 	Friend WithEvents AuthorDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
@@ -303,6 +283,5 @@ Partial Class frmImport
 	Friend WithEvents colImportDetailID As DataGridViewTextBoxColumn
 	Friend WithEvents colBookID As DataGridViewComboBoxColumn
 	Friend WithEvents colImportAmount As DataGridViewTextBoxColumn
-	Friend WithEvents colCurrentAmount As DataGridViewTextBoxColumn
 	Friend WithEvents colImportPrice As DataGridViewTextBoxColumn
 End Class

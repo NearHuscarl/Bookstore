@@ -13,9 +13,10 @@ Public Class frmImport
 	Private bookBUS As BookBUS
 
 	''' <summary>
-	''' If selected import ID = nextImportID, enable add button, otherwise enable update button
+	''' If selected import ID = nextImportID, enable add button, otherwise disable it
 	''' </summary>
 	Private nextImportID As String
+	Private nextImportDetailID As String
 
 	''' <summary>
 	''' List of ImportDetailDTO that has changed since last add/update
@@ -23,12 +24,7 @@ Public Class frmImport
 	Private importDetailsToUpdate As List(Of ImportDetailDTO) = New List(Of ImportDetailDTO)
 
 	Public Sub New()
-
-		' This call is required by the designer.
 		InitializeComponent()
-
-		' Add any initialization after the InitializeComponent() call.
-
 	End Sub
 
 	Private Sub frmImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -41,6 +37,9 @@ Public Class frmImport
 
 	Private Sub LoadImport()
 		isImportLoading = True
+
+		dgvImport.Rows.Clear() 'Remove old data
+		dgvImport.Refresh()
 
 		Dim _imports As List(Of ImportDTO) = New List(Of ImportDTO)
 		Dim result As Result
@@ -63,40 +62,56 @@ Public Class frmImport
 					dgvImport.Rows(currentIndex).Cells("colImportDate").Value = _import.ImportDate.ToShortDateString()
 				Next
 			Else
-				MessageBox.Show("Cannot get next ID of import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				MetroMessageBox.Show(Me, "Cannot get next ID of import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				Console.WriteLine(result.SystemMessage)
 			End If
 		Else
-			MessageBox.Show("Cannot load import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, "Cannot load import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 
+		LoadImportDetailsFromSelectedImport()
 		isImportLoading = False
 	End Sub
 
 	Private Sub LoadImportDetail(importID As String)
 		isImportDetailLoading = True
 
+		dgvImportDetail.Rows.Clear() 'Remove old data
+		dgvImportDetail.Refresh()
+
 		Dim importDetails As List(Of ImportDetailDTO) = New List(Of ImportDetailDTO)
-		Dim result As Result
+		Dim result As Result = New Result(True)
 
-		result = importDetailBUS.selectAll_ByImport(importID, importDetails)
+		If (importID = nextImportID) Then
+			result = importDetailBUS.getNextId(nextImportDetailID)
 
-		If (result.FlagResult = False) Then
-			importDetails.Add(New ImportDetailDTO(0, 0, Nothing, Nothing, Nothing))
+			If (result.FlagResult = True) Then
+				importDetails.Add(New ImportDetailDTO(nextImportDetailID, nextImportID, Nothing, Nothing, Nothing))
+			Else
+				MetroMessageBox.Show(Me, "Cannot get next Import Detail ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				Console.WriteLine(result.SystemMessage)
+			End If
+		Else
+			result = importDetailBUS.selectAll_ByImport(importID, importDetails)
 		End If
 
-		LoadBooks()
+		If (result.FlagResult = True) Then
+			LoadBooks()
 
-		For Each importDetail As ImportDetailDTO In importDetails
-			Dim currentIndex = dgvImportDetail.Rows.Add()
+			For Each importDetail As ImportDetailDTO In importDetails
+				Dim currentIndex = dgvImportDetail.Rows.Add()
 
-			dgvImportDetail.Rows(currentIndex).Cells("colImportDetailID").Value = importDetail.ID
-			dgvImportDetail.Rows(currentIndex).Cells("colBookID").Value = importDetail.BookID
-			dgvImportDetail.Rows(currentIndex).Cells("colImportAmount").Value = importDetail.ImportAmount
-			'dgvImportDetail.Rows(currentIndex).Cells("colCurrentAmount").Value = importDetail.CurrentAmount
-			dgvImportDetail.Rows(currentIndex).Cells("colImportPrice").Value = importDetail.ImportPrice
-		Next
+				dgvImportDetail.Rows(currentIndex).Cells("colImportDetailID").Value = importDetail.ID
+				dgvImportDetail.Rows(currentIndex).Cells("colBookID").Value = importDetail.BookID
+				dgvImportDetail.Rows(currentIndex).Cells("colImportAmount").Value = importDetail.ImportAmount
+				'dgvImportDetail.Rows(currentIndex).Cells("colCurrentAmount").Value = importDetail.CurrentAmount
+				dgvImportDetail.Rows(currentIndex).Cells("colImportPrice").Value = importDetail.ImportPrice
+			Next
+		Else
+			MetroMessageBox.Show(Me, "Cannot load Import Detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(result.SystemMessage)
+		End If
 
 		isImportDetailLoading = False
 	End Sub
@@ -121,58 +136,130 @@ Public Class frmImport
 			colBookID.ValueMember = "ID"
 			colBookID.DisplayMember = "Name"
 		Else
-			MessageBox.Show("Cannot load books", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, "Cannot load books", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 
 		isImportLoading = False
 	End Sub
 
-	Private Function GetImportDetailFromCells(cells As DataGridViewCellCollection) As ImportDetailDTO
-		Dim importDetail As ImportDetailDTO = New ImportDetailDTO()
+	Property SelectedImport() As ImportDTO
+		Get
+			If (dgvImport.CurrentRow IsNot Nothing) Then
+				Return GetImportFromCellsIndex(dgvImport.CurrentRow.Index)
+			End If
+			Return Nothing
+		End Get
 
-		importDetail.ID = cells("colImportDetailID").Value
-		importDetail.BookID = cells("colBookID").Value
-		importDetail.ImportAmount = cells("colImportAmount").Value
-		'importDetail.CurrentAmount = cells("colCurrentAmount").Value
-		importDetail.ImportPrice = cells("colImportPrice").Value
+		Set(ByVal Value As ImportDTO)
+			SetImportFromCellsIndex(dgvImport.CurrentRow.Index, Value)
+		End Set
+	End Property
+
+	Property SelectedImportDetail() As ImportDetailDTO
+		Get
+			If (dgvImportDetail.CurrentRow IsNot Nothing) Then
+				Return GetImportDetailFromCellsIndex(dgvImportDetail.CurrentRow.Index)
+			End If
+			Return Nothing
+		End Get
+
+		Set(ByVal Value As ImportDetailDTO)
+			SetImportDetailFromCellsIndex(dgvImportDetail.CurrentRow.Index, Value)
+		End Set
+	End Property
+
+	Private Function GetImportDetailFromCellsIndex(index As Integer) As ImportDetailDTO
+		Dim importDetail As ImportDetailDTO = New ImportDetailDTO()
+		Dim selectedCells = dgvImportDetail.Rows(index).Cells
+		Dim selectedImportCells = dgvImport.Rows(dgvImport.CurrentRow.Index).Cells
+
+		importDetail.ID = selectedCells("colImportDetailID").Value
+		importDetail.ImportID = selectedImportCells("colImportID").Value
+		importDetail.BookID = selectedCells("colBookID").Value
+		importDetail.ImportAmount = selectedCells("colImportAmount").Value
+		importDetail.ImportPrice = selectedCells("colImportPrice").Value
 
 		Return importDetail
 	End Function
 
-	Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-		Dim importDTO = New ImportDTO()
-		Dim importDetails = New List(Of ImportDetailDTO)
+	Private Sub SetImportDetailFromCellsIndex(index As Integer, value As ImportDetailDTO)
+		dgvImportDetail.Rows(index).Cells("colImportDetailID").Value = value.ID
+		dgvImportDetail.Rows(index).Cells("colBookID").Value = value.BookID
+		dgvImportDetail.Rows(index).Cells("colImportAmount").Value = value.ImportAmount
+		dgvImportDetail.Rows(index).Cells("colImportPrice").Value = value.ImportPrice
+	End Sub
 
-		'txtImportID.Text = dgvImportDetail.Rows(0).Cells("ImportID").Value
+	Private Function GetImportFromCellsIndex(index As Integer) As ImportDTO
+		Dim import As ImportDTO = New ImportDTO()
+		Dim selectedCells = dgvImport.Rows(index).Cells
+		Dim dateString = selectedCells("colImportDate").Value
+
+		import.ID = selectedCells("colImportID").Value
+
+		If (dateString <> Nothing) Then
+			import.ImportDate = Date.ParseExact(
+				dateString,
+				New String() {"MM/dd/yyyy", "MM/d/yyyy", "M/dd/yyyy", "M/d/yyyy"},
+				Globalization.CultureInfo.InvariantCulture,
+				Globalization.DateTimeStyles.None)
+		End If
+
+		Return import
+	End Function
+
+	Private Sub SetImportFromCellsIndex(index As Integer, value As ImportDTO)
+		dgvImport.Rows(index).Cells("colImportID").Value = value.ID
+		dgvImport.Rows(index).Cells("colImportDate").Value = value.ImportDate
+	End Sub
+
+	Private Sub LoadImportDetailsFromSelectedImport()
+		Dim selectedImportID = SelectedImport.ID
+
+		If (selectedImportID Is Nothing) Then
+			Return
+		End If
+
+		If (selectedImportID = nextImportID) Then
+			btnAdd.Enabled = True
+		Else
+			btnAdd.Enabled = False
+		End If
+		btnUpdate.Enabled = False
+
+		LoadImportDetail(selectedImportID)
+	End Sub
+
+	Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+		Dim import = SelectedImport
+		Dim result As Result
+
+		result = importBUS.insert(import)
+
+		If (result.FlagResult = True) Then
+			MetroMessageBox.Show(Me, "Import is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+		Else
+			MetroMessageBox.Show(Me, "Failed to add import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(result.SystemMessage)
+		End If
+
+		Dim importDetails = New List(Of ImportDetailDTO)
 
 		For Each row As DataGridViewRow In dgvImportDetail.Rows
 			If (row.IsNewRow) Then
 				Exit For
 			End If
 
-			Dim importDetail As ImportDetailDTO = GetImportDetailFromCells(row.Cells)
+			Dim importDetail = GetImportDetailFromCellsIndex(row.Index)
 			importDetails.Add(importDetail)
 		Next
-
-		Dim result As Result
-
-		'importDTO.DateImport = dtpReceivedDate.Value
-		result = importBUS.insert(importDTO)
-
-		If (result.FlagResult = True) Then
-			MessageBox.Show("Import is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
-		Else
-			MessageBox.Show("Failed to add import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(result.SystemMessage)
-		End If
 
 		result = importDetailBUS.insertAll(importDetails)
 
 		If (result.FlagResult = True) Then
-			MessageBox.Show("Import detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+			MetroMessageBox.Show(Me, "Import detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 		Else
-			MessageBox.Show("Failed to add import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, "Failed to add import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 
@@ -182,14 +269,12 @@ Public Class frmImport
 	Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 		Dim importDetails = New List(Of ImportDetailDTO)
 
-		'txtImportID.Text = dgvImportDetail.Rows(0).Cells("ImportID").Value
-
 		For Each row As DataGridViewRow In dgvImportDetail.Rows
 			If (row.IsNewRow) Then
 				Exit For
 			End If
 
-			Dim importDetail As ImportDetailDTO = GetImportDetailFromCells(row.Cells)
+			Dim importDetail As ImportDetailDTO = GetImportDetailFromCellsIndex(row.Index)
 			importDetails.Add(importDetail)
 		Next
 
@@ -199,9 +284,9 @@ Public Class frmImport
 			result = importDetailBUS.update(importDetail)
 
 			If (result.FlagResult = True) Then
-				MessageBox.Show("Import detail is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+				MetroMessageBox.Show(Me, "Import detail is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 			Else
-				MessageBox.Show("Failed to update import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				MetroMessageBox.Show(Me, "Failed to update import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				Console.WriteLine(result.SystemMessage)
 				Exit For
 			End If
@@ -211,6 +296,24 @@ Public Class frmImport
 		importDetailsToUpdate.Clear()
 
 		btnUpdate.Enabled = False
+	End Sub
+
+	Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+		Dim selectedImportDetailID = SelectedImportDetail.ID
+		Dim result As Result
+
+		result = importDetailBUS.delete(selectedImportDetailID)
+
+		If (result.FlagResult = True) Then
+			MetroMessageBox.Show(Me, String.Format("Import detail {0} is deleted", selectedImportDetailID),
+										"Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+		Else
+			MetroMessageBox.Show(Me, String.Format("Failed to delete import detail {0}", selectedImportDetailID),
+										"Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(result.SystemMessage)
+		End If
+
+		LoadImportDetailsFromSelectedImport()
 	End Sub
 
 	Private isChangingImportSelection As Boolean = False
@@ -229,7 +332,7 @@ Public Class frmImport
 			If (dialogResult = DialogResult.Yes) Then
 				LoadImportDetailsFromSelectedImport()
 			Else
-				dgvImport.Rows(lastImportSelectionIndex).Selected = True
+				dgvImport.Rows(lastImportSelectionIndex).Selected = True 'Trigger recursion
 			End If
 		Else
 			LoadImportDetailsFromSelectedImport()
@@ -239,32 +342,20 @@ Public Class frmImport
 		isChangingImportSelection = False
 	End Sub
 
-	Private Sub LoadImportDetailsFromSelectedImport()
-		Dim selectedImportID = dgvImport.Rows(dgvImport.CurrentRow.Index).Cells("colImportID").Value
-
-		If (selectedImportID Is Nothing) Then
-			Return
-		End If
-
-		If (selectedImportID = nextImportID) Then
-			btnAdd.Enabled = True
-		Else
-			btnAdd.Enabled = False
-		End If
-		btnUpdate.Enabled = False
-
-		dgvImportDetail.Rows.Clear()
-		dgvImportDetail.Refresh()
-
-		LoadImportDetail(selectedImportID)
-	End Sub
-
 	Private Sub dgvImportDetail_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvImportDetail.CellValueChanged
 		If (e.RowIndex = -1 Or isImportDetailLoading) Then
 			Return
 		End If
 
-		Dim changedImportDetail = GetImportDetailFromCells(dgvImportDetail.Rows(e.RowIndex).Cells)
+		Dim changedImportDetail = GetImportDetailFromCellsIndex(e.RowIndex)
+
+		If (changedImportDetail.ID = Nothing) Then
+			nextImportDetailID.IncrementID("IMPORTDETAIL", "D8")
+			changedImportDetail.ID = nextImportDetailID
+			SelectedImportDetail = changedImportDetail 'TODO: remove this line?
+			Return
+		End If
+
 		Dim duplicatedItems = importDetailsToUpdate.
 			Where(Function(detail) detail.ID = changedImportDetail.ID)
 
@@ -275,6 +366,8 @@ Public Class frmImport
 			importDetailsToUpdate(oldIndex) = changedImportDetail
 		End If
 
-		btnUpdate.Enabled = True
+		If (SelectedImport IsNot Nothing And SelectedImport.ID IsNot nextImportID) Then
+			btnUpdate.Enabled = True
+		End If
 	End Sub
 End Class
