@@ -52,7 +52,7 @@ Public Class StockReportDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next stock report ID failed")
+					'Debug.WriteLine("Get next stock report ID failed")
 					Return New Result(False, "Get next stock report ID failed", exception.StackTrace)
 
 				Finally
@@ -63,7 +63,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get next stock report ID succeed")
+		'Debug.WriteLine("Get next stock report ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -101,7 +101,7 @@ Public Class StockReportDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert stock report failed")
+					'Debug.WriteLine("Insert stock report failed")
 					Return New Result(False, "Insert stock report failed", exception.StackTrace)
 
 				Finally
@@ -112,7 +112,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Insert stock report succeed")
+		'Debug.WriteLine("Insert stock report succeed")
 		Return New Result(True)
 	End Function
 
@@ -147,7 +147,7 @@ Public Class StockReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get stock report failed")
+					'Debug.WriteLine("Get stock report failed")
 					Return New Result(False, "Get stock report failed", ex.StackTrace)
 
 				Finally
@@ -158,7 +158,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get stock report succeed")
+		'Debug.WriteLine("Get stock report succeed")
 		Return New Result(True)
 	End Function
 
@@ -195,7 +195,7 @@ Public Class StockReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get stock reports failed")
+					'Debug.WriteLine("Get stock reports failed")
 					Return New Result(False, "Get stock reports failed", ex.StackTrace)
 
 				Finally
@@ -206,7 +206,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get stock reports succeed")
+		'Debug.WriteLine("Get stock reports succeed")
 		Return New Result(True)
 	End Function
 
@@ -245,7 +245,7 @@ Public Class StockReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get stock reports failed")
+					'Debug.WriteLine("Get stock reports failed")
 					Return New Result(False, "Get stock reports failed", ex.StackTrace)
 
 				Finally
@@ -256,7 +256,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get stock reports succeed")
+		'Debug.WriteLine("Get stock reports succeed")
 		Return New Result(True)
 	End Function
 
@@ -284,7 +284,7 @@ Public Class StockReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update stock report failed")
+					'Debug.WriteLine("Update stock report failed")
 					Return New Result(False, "Update stock report failed", ex.StackTrace)
 
 				Finally
@@ -295,7 +295,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Update stock report succeed")
+		'Debug.WriteLine("Update stock report succeed")
 		Return New Result(True)
 	End Function
 
@@ -322,7 +322,7 @@ Public Class StockReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete stock report failed")
+					'Debug.WriteLine("Delete stock report failed")
 					Return New Result(False, "Delete stock report failed", ex.StackTrace)
 
 				Finally
@@ -333,7 +333,7 @@ Public Class StockReportDAL
 
 		End Using
 
-		Debug.WriteLine("Delete stock report succeed")
+		'Debug.WriteLine("Delete stock report succeed")
 		Return New Result(True)
 	End Function
 End Class

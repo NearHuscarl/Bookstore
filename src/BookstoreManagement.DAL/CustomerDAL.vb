@@ -51,7 +51,7 @@ Public Class CustomerDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next customer ID failed")
+					'Debug.WriteLine("Get next customer ID failed")
 					Return New Result(False, "Get next customer ID failed", exception.StackTrace)
 
 				Finally
@@ -62,7 +62,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Get next customer ID succeed")
+		'Debug.WriteLine("Get next customer ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -103,7 +103,7 @@ Public Class CustomerDAL
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert customer failed")
+					'Debug.WriteLine("Insert customer failed")
 					Return New Result(False, "insert customer failed", exception.StackTrace)
 
 				Finally
@@ -114,7 +114,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Insert customer succeed")
+		'Debug.WriteLine("Insert customer succeed")
 		Return New Result(True)
 	End Function
 
@@ -149,7 +149,7 @@ Public Class CustomerDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get customer failed")
+					'Debug.WriteLine("Get customer failed")
 					Return New Result(False, "Get customer failed", ex.StackTrace)
 
 				Finally
@@ -160,7 +160,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Get customer succeed")
+		'Debug.WriteLine("Get customer succeed")
 		Return New Result(True)
 	End Function
 
@@ -195,7 +195,7 @@ Public Class CustomerDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get customers failed")
+					'Debug.WriteLine("Get customers failed")
 					Return New Result(False, "Get customers failed", ex.StackTrace)
 
 				Finally
@@ -206,7 +206,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Get customers succeed")
+		'Debug.WriteLine("Get customers succeed")
 		Return New Result(True)
 	End Function
 
@@ -244,7 +244,7 @@ Public Class CustomerDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get customers failed")
+					'Debug.WriteLine("Get customers failed")
 					Return New Result(False, "Get customers failed", ex.StackTrace)
 
 				Finally
@@ -255,7 +255,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Get customers succeed")
+		'Debug.WriteLine("Get customers succeed")
 		Return New Result(True)
 	End Function
 
@@ -291,7 +291,7 @@ Public Class CustomerDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update customer failed")
+					'Debug.WriteLine("Update customer failed")
 					Return New Result(False, "Update customer failed", ex.StackTrace)
 
 				Finally
@@ -302,7 +302,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Update customer succeed")
+		'Debug.WriteLine("Update customer succeed")
 		Return New Result(True)
 	End Function
 
@@ -329,7 +329,7 @@ Public Class CustomerDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete customer failed")
+					'Debug.WriteLine("Delete customer failed")
 					Return New Result(False, "Delete customer failed", ex.StackTrace)
 
 				Finally
@@ -340,7 +340,7 @@ Public Class CustomerDAL
 
 		End Using
 
-		Debug.WriteLine("Delete customer succeed")
+		'Debug.WriteLine("Delete customer succeed")
 		Return New Result(True)
 	End Function
 End Class

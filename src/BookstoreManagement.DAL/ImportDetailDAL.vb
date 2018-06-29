@@ -51,7 +51,7 @@ Public Class ImportDetailDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next import detail ID failed")
+					'Debug.WriteLine("Get next import detail ID failed")
 					Return New Result(False, "Get next import detail ID failed", exception.StackTrace)
 
 				Finally
@@ -62,7 +62,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Get next import detail ID succeed")
+		'Debug.WriteLine("Get next import detail ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -101,7 +101,7 @@ Public Class ImportDetailDAL
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert import detail failed")
+					'Debug.WriteLine("Insert import detail failed")
 					Return New Result(False, "Insert import detail failed", exception.StackTrace)
 
 				Finally
@@ -112,7 +112,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Insert import detail succeed")
+		'Debug.WriteLine("Insert import detail succeed")
 		Return New Result(True)
 	End Function
 
@@ -156,7 +156,7 @@ Public Class ImportDetailDAL
 					Next
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert import details failed")
+					'Debug.WriteLine("Insert import details failed")
 					Return New Result(False, "Insert import details failed", exception.StackTrace)
 
 				Finally
@@ -167,7 +167,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Insert import details succeed")
+		'Debug.WriteLine("Insert import details succeed")
 		Return New Result(True)
 	End Function
 
@@ -202,7 +202,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get import detail failed")
+					'Debug.WriteLine("Get import detail failed")
 					Return New Result(False, "Get import detail failed", ex.StackTrace)
 
 				Finally
@@ -213,7 +213,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Get import detail succeed")
+		'Debug.WriteLine("Get import detail succeed")
 		Return New Result(True)
 	End Function
 
@@ -249,7 +249,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get import details failed")
+					'Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
 
 				Finally
@@ -260,7 +260,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Get import details succeed")
+		'Debug.WriteLine("Get import details succeed")
 		Return New Result(True)
 	End Function
 
@@ -298,7 +298,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get import details failed")
+					'Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
 
 				Finally
@@ -309,7 +309,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Get import details succeed")
+		'Debug.WriteLine("Get import details succeed")
 		Return New Result(True)
 	End Function
 
@@ -347,7 +347,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get import details failed")
+					'Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
 
 				Finally
@@ -358,7 +358,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Get import details succeed")
+		'Debug.WriteLine("Get import details succeed")
 		Return New Result(True)
 	End Function
 
@@ -393,7 +393,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update import detail failed")
+					'Debug.WriteLine("Update import detail failed")
 					Return New Result(False, "Update import detail failed", ex.StackTrace)
 
 				Finally
@@ -404,7 +404,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Update import detail succeed")
+		'Debug.WriteLine("Update import detail succeed")
 		Return New Result(True)
 	End Function
 
@@ -430,7 +430,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete import detail failed")
+					'Debug.WriteLine("Delete import detail failed")
 					Return New Result(False, "Delete import detail failed", ex.StackTrace)
 
 				Finally
@@ -441,7 +441,7 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		Debug.WriteLine("Delete import detail succeed")
+		'Debug.WriteLine("Delete import detail succeed")
 		Return New Result(True)
 	End Function
 End Class

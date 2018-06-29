@@ -52,7 +52,7 @@ Public Class ReceiptDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next receipt ID failed")
+					'Debug.WriteLine("Get next receipt ID failed")
 					Return New Result(False, "Get next receipt ID failed", exception.StackTrace)
 
 				Finally
@@ -63,7 +63,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Get next receipt ID succeed")
+		'Debug.WriteLine("Get next receipt ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -103,7 +103,7 @@ Public Class ReceiptDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert receipt failed")
+					'Debug.WriteLine("Insert receipt failed")
 					Return New Result(False, "Insert receipt failed", exception.StackTrace)
 
 				Finally
@@ -114,7 +114,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Insert receipt succeed")
+		'Debug.WriteLine("Insert receipt succeed")
 		Return New Result(True)
 	End Function
 
@@ -149,7 +149,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get receipt failed")
+					'Debug.WriteLine("Get receipt failed")
 					Return New Result(False, "Get receipt failed", ex.StackTrace)
 
 				Finally
@@ -160,7 +160,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Get receipt succeed")
+		'Debug.WriteLine("Get receipt succeed")
 		Return New Result(True)
 	End Function
 
@@ -198,7 +198,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get receipts failed")
+					'Debug.WriteLine("Get receipts failed")
 					Return New Result(False, "Get receipts failed", ex.StackTrace)
 
 				Finally
@@ -209,7 +209,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Get receipts succeed")
+		'Debug.WriteLine("Get receipts succeed")
 		Return New Result(True)
 	End Function
 
@@ -248,7 +248,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get receipts failed")
+					'Debug.WriteLine("Get receipts failed")
 					Return New Result(False, "Get receipts failed", ex.StackTrace)
 
 				Finally
@@ -259,7 +259,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Get receipts succeed")
+		'Debug.WriteLine("Get receipts succeed")
 		Return New Result(True)
 	End Function
 	Public Function selectAll_ByCustomer(customerID As String, ByRef receipts As List(Of ReceiptDTO)) As Result
@@ -279,7 +279,7 @@ Public Class ReceiptDAL
 					.Connection = conn
 					.CommandType = CommandType.Text
 					.CommandText = query
-					.Parameters.AddWithValue("@CustomerID", CustomerID)
+					.Parameters.AddWithValue("@CustomerID", customerID)
 				End With
 
 				Try
@@ -297,7 +297,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get receipts failed")
+					'Debug.WriteLine("Get receipts failed")
 					Return New Result(False, "Get receipts failed", ex.StackTrace)
 
 				Finally
@@ -308,7 +308,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Get receipts succeed")
+		'Debug.WriteLine("Get receipts succeed")
 		Return New Result(True)
 	End Function
 
@@ -341,7 +341,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update receipt failed")
+					'Debug.WriteLine("Update receipt failed")
 					Return New Result(False, "Update receipt failed", ex.StackTrace)
 
 				Finally
@@ -352,7 +352,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Update receipt succeed")
+		'Debug.WriteLine("Update receipt succeed")
 		Return New Result(True)
 	End Function
 
@@ -379,7 +379,7 @@ Public Class ReceiptDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete receipt failed")
+					'Debug.WriteLine("Delete receipt failed")
 					Return New Result(False, "Delete receipt failed", ex.StackTrace)
 
 				Finally
@@ -390,7 +390,7 @@ Public Class ReceiptDAL
 
 		End Using
 
-		Debug.WriteLine("Delete receipt succeed")
+		'Debug.WriteLine("Delete receipt succeed")
 		Return New Result(True)
 	End Function
 End Class

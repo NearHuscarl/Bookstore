@@ -51,7 +51,7 @@ Public Class BookCategoryDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next book category ID failed")
+					'Debug.WriteLine("Get next book category ID failed")
 					Return New Result(False, "Get next book category ID failed", exception.StackTrace)
 
 				Finally
@@ -62,7 +62,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Get next book category ID succeed")
+		'Debug.WriteLine("Get next book category ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -99,7 +99,7 @@ Public Class BookCategoryDAL
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert book category failed")
+					'Debug.WriteLine("Insert book category failed")
 					Return New Result(False, "Insert book category failed", exception.StackTrace)
 
 				Finally
@@ -110,7 +110,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Insert book category succeed")
+		'Debug.WriteLine("Insert book category succeed")
 		Return New Result(True)
 	End Function
 
@@ -145,7 +145,7 @@ Public Class BookCategoryDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get book category failed")
+					'Debug.WriteLine("Get book category failed")
 					Return New Result(False, "Get book category failed", ex.StackTrace)
 
 				Finally
@@ -156,7 +156,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Get book category succeed")
+		'Debug.WriteLine("Get book category succeed")
 		Return New Result(True)
 	End Function
 
@@ -192,7 +192,7 @@ Public Class BookCategoryDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get book categories failed")
+					'Debug.WriteLine("Get book categories failed")
 					Return New Result(False, "Get book categories failed", ex.StackTrace)
 
 				Finally
@@ -203,7 +203,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Get book categories succeed")
+		'Debug.WriteLine("Get book categories succeed")
 		Return New Result(True)
 	End Function
 
@@ -241,7 +241,7 @@ Public Class BookCategoryDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get book categories failed")
+					'Debug.WriteLine("Get book categories failed")
 					Return New Result(False, "Get book categories failed", ex.StackTrace)
 
 				Finally
@@ -252,7 +252,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Get book categories succeed")
+		'Debug.WriteLine("Get book categories succeed")
 		Return New Result(True)
 	End Function
 
@@ -281,7 +281,7 @@ Public Class BookCategoryDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update book category failed")
+					'Debug.WriteLine("Update book category failed")
 					Return New Result(False, "Update book category failed", ex.StackTrace)
 
 				Finally
@@ -292,7 +292,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Update book category succeed")
+		'Debug.WriteLine("Update book category succeed")
 		Return New Result(True)
 	End Function
 
@@ -319,7 +319,7 @@ Public Class BookCategoryDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete book category failed")
+					'Debug.WriteLine("Delete book category failed")
 					Return New Result(False, "Delete book category failed", ex.StackTrace)
 
 				Finally
@@ -330,7 +330,7 @@ Public Class BookCategoryDAL
 
 		End Using
 
-		Debug.WriteLine("Delete book category succeed")
+		'Debug.WriteLine("Delete book category succeed")
 		Return New Result(True)
 	End Function
 End Class

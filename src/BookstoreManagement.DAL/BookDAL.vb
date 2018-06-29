@@ -52,7 +52,7 @@ Public Class BookDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next book ID failed")
+					'Debug.WriteLine("Get next book ID failed")
 					Return New Result(False, "Get next book ID failed", exception.StackTrace)
 
 				Finally
@@ -63,7 +63,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get next book ID succeed")
+		'Debug.WriteLine("Get next book ID succeed")
 		Return New Result(True)
 
 	End Function
@@ -105,7 +105,7 @@ Public Class BookDAL
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert book failed")
+					'Debug.WriteLine("Insert book failed")
 					Return New Result(False, "Insert book failed", exception.StackTrace)
 
 				Finally
@@ -116,7 +116,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Insert book succeed")
+		'Debug.WriteLine("Insert book succeed")
 		Return New Result(True)
 	End Function
 
@@ -151,7 +151,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get book failed")
+					'Debug.WriteLine("Get book failed")
 					Return New Result(False, "Get book failed", ex.StackTrace)
 
 				Finally
@@ -162,7 +162,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get book succeed")
+		'Debug.WriteLine("Get book succeed")
 		Return New Result(True)
 	End Function
 
@@ -198,7 +198,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get books failed")
+					'Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
 
 				Finally
@@ -209,7 +209,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get books succeed")
+		'Debug.WriteLine("Get books succeed")
 		Return New Result(True)
 	End Function
 
@@ -247,7 +247,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get books failed")
+					'Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
 
 				Finally
@@ -258,7 +258,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get books succeed")
+		'Debug.WriteLine("Get books succeed")
 		Return New Result(True)
 	End Function
 
@@ -296,7 +296,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get books failed")
+					'Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
 
 				Finally
@@ -307,7 +307,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get books succeed")
+		'Debug.WriteLine("Get books succeed")
 		Return New Result(True)
 	End Function
 
@@ -345,7 +345,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get books failed")
+					'Debug.WriteLine("Get books failed")
 					Return New Result(False, "Get books failed", ex.StackTrace)
 
 				Finally
@@ -356,7 +356,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Get books succeed")
+		'Debug.WriteLine("Get books succeed")
 		Return New Result(True)
 	End Function
 
@@ -393,7 +393,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update book failed")
+					'Debug.WriteLine("Update book failed")
 					Return New Result(False, "Update book failed", ex.StackTrace)
 
 				Finally
@@ -404,7 +404,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Update book succeed")
+		'Debug.WriteLine("Update book succeed")
 		Return New Result(True)
 	End Function
 
@@ -431,7 +431,7 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete book failed")
+					'Debug.WriteLine("Delete book failed")
 					Return New Result(False, "Delete book failed", ex.StackTrace)
 
 				Finally
@@ -442,7 +442,7 @@ Public Class BookDAL
 
 		End Using
 
-		Debug.WriteLine("Delete book succeed")
+		'Debug.WriteLine("Delete book succeed")
 		Return New Result(True)
 	End Function
 End Class

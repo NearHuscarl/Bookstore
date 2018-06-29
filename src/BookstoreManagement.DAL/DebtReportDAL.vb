@@ -52,7 +52,7 @@ Public Class DebtReportDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next debt report ID failed")
+					'Debug.WriteLine("Get next debt report ID failed")
 					Return New Result(False, "Get next debt report ID failed", exception.StackTrace)
 
 				Finally
@@ -63,7 +63,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get next debt report ID succeed")
+		'Debug.WriteLine("Get next debt report ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -101,7 +101,7 @@ Public Class DebtReportDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert debt report failed")
+					'Debug.WriteLine("Insert debt report failed")
 					Return New Result(False, "Insert debt report failed", exception.StackTrace)
 
 				Finally
@@ -112,7 +112,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Insert debt report succeed")
+		'Debug.WriteLine("Insert debt report succeed")
 		Return New Result(True)
 	End Function
 
@@ -148,7 +148,7 @@ Public Class DebtReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get debt report failed")
+					'Debug.WriteLine("Get debt report failed")
 					Return New Result(False, "Get debt report failed", ex.StackTrace)
 
 				Finally
@@ -159,7 +159,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get debt report succeed")
+		'Debug.WriteLine("Get debt report succeed")
 		Return New Result(True)
 	End Function
 
@@ -196,7 +196,7 @@ Public Class DebtReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get debt reports failed")
+					'Debug.WriteLine("Get debt reports failed")
 					Return New Result(False, "Get debt reports failed", ex.StackTrace)
 
 				Finally
@@ -207,7 +207,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get debt reports succeed")
+		'Debug.WriteLine("Get debt reports succeed")
 		Return New Result(True)
 	End Function
 
@@ -246,7 +246,7 @@ Public Class DebtReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get debt reports failed")
+					'Debug.WriteLine("Get debt reports failed")
 					Return New Result(False, "Get debt reports failed", ex.StackTrace)
 
 				Finally
@@ -257,7 +257,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Get debt reports succeed")
+		'Debug.WriteLine("Get debt reports succeed")
 		Return New Result(True)
 	End Function
 
@@ -285,7 +285,7 @@ Public Class DebtReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update debt report failed")
+					'Debug.WriteLine("Update debt report failed")
 					Return New Result(False, "Update debt report failed", ex.StackTrace)
 
 				Finally
@@ -296,7 +296,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Update debt report succeed")
+		'Debug.WriteLine("Update debt report succeed")
 		Return New Result(True)
 	End Function
 
@@ -323,7 +323,7 @@ Public Class DebtReportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete debt report failed")
+					'Debug.WriteLine("Delete debt report failed")
 					Return New Result(False, "Delete debt report failed", ex.StackTrace)
 
 				Finally
@@ -334,7 +334,7 @@ Public Class DebtReportDAL
 
 		End Using
 
-		Debug.WriteLine("Delete debt report succeed")
+		'Debug.WriteLine("Delete debt report succeed")
 		Return New Result(True)
 	End Function
 End Class

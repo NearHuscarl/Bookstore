@@ -51,7 +51,7 @@ Public Class AuthorDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next author ID failed")
+					'Debug.WriteLine("Get next author ID failed")
 					Return New Result(False, "Get next author ID failed", exception.StackTrace)
 
 				Finally
@@ -62,7 +62,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Get next author ID succeed")
+		'Debug.WriteLine("Get next author ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -100,7 +100,7 @@ Public Class AuthorDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert author failed")
+					'Debug.WriteLine("Insert author failed")
 					Return New Result(False, "Insert author failed", exception.StackTrace)
 
 				Finally
@@ -111,7 +111,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Insert author succeed")
+		'Debug.WriteLine("Insert author succeed")
 		Return New Result(True)
 	End Function
 
@@ -146,7 +146,7 @@ Public Class AuthorDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get author failed")
+					'Debug.WriteLine("Get author failed")
 					Return New Result(False, "Get author failed", ex.StackTrace)
 
 				Finally
@@ -157,7 +157,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Get author succeed")
+		'Debug.WriteLine("Get author succeed")
 		Return New Result(True)
 	End Function
 
@@ -193,7 +193,7 @@ Public Class AuthorDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get authors failed")
+					'Debug.WriteLine("Get authors failed")
 					Return New Result(False, "Get authors failed", ex.StackTrace)
 
 				Finally
@@ -204,7 +204,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Get authors succeed")
+		'Debug.WriteLine("Get authors succeed")
 		Return New Result(True)
 	End Function
 
@@ -242,7 +242,7 @@ Public Class AuthorDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get authors failed")
+					'Debug.WriteLine("Get authors failed")
 					Return New Result(False, "Get authors failed", ex.StackTrace)
 
 				Finally
@@ -253,7 +253,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Get authors succeed")
+		'Debug.WriteLine("Get authors succeed")
 		Return New Result(True)
 	End Function
 
@@ -282,7 +282,7 @@ Public Class AuthorDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update author failed")
+					'Debug.WriteLine("Update author failed")
 					Return New Result(False, "Update author failed", ex.StackTrace)
 
 				Finally
@@ -293,7 +293,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Update author succeed")
+		'Debug.WriteLine("Update author succeed")
 		Return New Result(True)
 	End Function
 
@@ -320,7 +320,7 @@ Public Class AuthorDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete author failed")
+					'Debug.WriteLine("Delete author failed")
 					Return New Result(False, "Delete author failed", ex.StackTrace)
 
 				Finally
@@ -331,7 +331,7 @@ Public Class AuthorDAL
 
 		End Using
 
-		Debug.WriteLine("Delete author succeed")
+		'Debug.WriteLine("Delete author succeed")
 		Return New Result(True)
 	End Function
 

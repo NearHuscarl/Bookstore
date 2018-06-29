@@ -51,7 +51,7 @@ Public Class ImportDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next import ID failed")
+					'Debug.WriteLine("Get next import ID failed")
 					Return New Result(False, "Get next import ID failed", exception.StackTrace)
 
 				Finally
@@ -62,7 +62,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Get next import ID succeed")
+		'Debug.WriteLine("Get next import ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -99,7 +99,7 @@ Public Class ImportDAL
 					comm.ExecuteNonQuery()
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert import failed")
+					'Debug.WriteLine("Insert import failed")
 					Return New Result(False, "Insert import failed", exception.StackTrace)
 
 				Finally
@@ -110,7 +110,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Insert import succeed")
+		'Debug.WriteLine("Insert import succeed")
 		Return New Result(True)
 	End Function
 
@@ -145,7 +145,7 @@ Public Class ImportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get import failed")
+					'Debug.WriteLine("Get import failed")
 					Return New Result(False, "Get import failed", ex.StackTrace)
 
 				Finally
@@ -156,7 +156,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Get import succeed")
+		'Debug.WriteLine("Get import succeed")
 		Return New Result(True)
 	End Function
 
@@ -192,7 +192,7 @@ Public Class ImportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get imports failed")
+					'Debug.WriteLine("Get imports failed")
 					Return New Result(False, "Get imports failed", ex.StackTrace)
 
 				Finally
@@ -203,7 +203,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Get imports succeed")
+		'Debug.WriteLine("Get imports succeed")
 		Return New Result(True)
 	End Function
 
@@ -241,7 +241,7 @@ Public Class ImportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get imports failed")
+					'Debug.WriteLine("Get imports failed")
 					Return New Result(False, "Get imports failed", ex.StackTrace)
 
 				Finally
@@ -252,7 +252,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Get imports succeed")
+		'Debug.WriteLine("Get imports succeed")
 		Return New Result(True)
 	End Function
 
@@ -281,7 +281,7 @@ Public Class ImportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update import failed")
+					'Debug.WriteLine("Update import failed")
 					Return New Result(False, "Update import failed", ex.StackTrace)
 
 				Finally
@@ -292,7 +292,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Update import succeed")
+		'Debug.WriteLine("Update import succeed")
 		Return New Result(True)
 	End Function
 
@@ -319,7 +319,7 @@ Public Class ImportDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete import failed")
+					'Debug.WriteLine("Delete import failed")
 					Return New Result(False, "Delete import failed", ex.StackTrace)
 
 				Finally
@@ -330,7 +330,7 @@ Public Class ImportDAL
 
 		End Using
 
-		Debug.WriteLine("Delete import succeed")
+		'Debug.WriteLine("Delete import succeed")
 		Return New Result(True)
 	End Function
 End Class

@@ -52,7 +52,7 @@ Public Class InvoiceDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Get next invoice ID failed")
+					'Debug.WriteLine("Get next invoice ID failed")
 					Return New Result(False, "Get next invoice ID failed", exception.StackTrace)
 
 				Finally
@@ -63,7 +63,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Get next invoice ID succeed")
+		'Debug.WriteLine("Get next invoice ID succeed")
 		Return New Result(True)
 	End Function
 
@@ -102,7 +102,7 @@ Public Class InvoiceDAL
 
 				Catch exception As Exception
 
-					Debug.WriteLine("Insert invoice failed")
+					'Debug.WriteLine("Insert invoice failed")
 					Return New Result(False, "Insert invoice failed", exception.StackTrace)
 
 				Finally
@@ -113,7 +113,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Insert invoice succeed")
+		'Debug.WriteLine("Insert invoice succeed")
 		Return New Result(True)
 	End Function
 
@@ -148,7 +148,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get invoice failed")
+					'Debug.WriteLine("Get invoice failed")
 					Return New Result(False, "Get invoice failed", ex.StackTrace)
 
 				Finally
@@ -159,7 +159,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Get invoice succeed")
+		'Debug.WriteLine("Get invoice succeed")
 		Return New Result(True)
 	End Function
 
@@ -195,7 +195,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get invoices failed")
+					'Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
 
 				Finally
@@ -206,7 +206,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Get invoices succeed")
+		'Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
 
@@ -244,7 +244,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get invoices failed")
+					'Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
 
 				Finally
@@ -255,7 +255,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Get invoices succeed")
+		'Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
 
@@ -293,7 +293,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Get invoices failed")
+					'Debug.WriteLine("Get invoices failed")
 					Return New Result(False, "Get invoices failed", ex.StackTrace)
 
 				Finally
@@ -304,7 +304,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Get invoices succeed")
+		'Debug.WriteLine("Get invoices succeed")
 		Return New Result(True)
 	End Function
 
@@ -335,7 +335,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update invoice failed")
+					'Debug.WriteLine("Update invoice failed")
 					Return New Result(False, "Update invoice failed", ex.StackTrace)
 
 				Finally
@@ -346,7 +346,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Update invoice succeed")
+		'Debug.WriteLine("Update invoice succeed")
 		Return New Result(True)
 	End Function
 
@@ -373,7 +373,7 @@ Public Class InvoiceDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Delete invoice failed")
+					'Debug.WriteLine("Delete invoice failed")
 					Return New Result(False, "Delete invoice failed", ex.StackTrace)
 
 				Finally
@@ -384,7 +384,7 @@ Public Class InvoiceDAL
 
 		End Using
 
-		Debug.WriteLine("Delete invoice succeed")
+		'Debug.WriteLine("Delete invoice succeed")
 		Return New Result(True)
 	End Function
 End Class

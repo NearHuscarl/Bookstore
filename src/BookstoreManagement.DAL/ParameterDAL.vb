@@ -49,7 +49,7 @@ Public Class ParameterDAL
 					End If
 
 				Catch exception As Exception
-					Console.WriteLine(exception.StackTrace)
+
 					conn.Close()
 					Return New Result(False, "Retrieve parameters failed!", exception.StackTrace)
 				End Try
@@ -92,7 +92,7 @@ Public Class ParameterDAL
 
 				Catch ex As Exception
 
-					Debug.WriteLine("Update parameters failed")
+					'Debug.WriteLine("Update parameters failed")
 					Return New Result(False, "Update parameters failed", ex.StackTrace)
 
 				Finally
@@ -103,7 +103,7 @@ Public Class ParameterDAL
 
 		End Using
 
-		Debug.WriteLine("Update parameters succeed")
+		'Debug.WriteLine("Update parameters succeed")
 		Return New Result(True)
 	End Function
 End Class
