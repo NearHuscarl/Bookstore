@@ -35,15 +35,15 @@ Public Class InvoiceDetailDAL
 				Try
 					conn.Open()
 
-					Dim invoiceDetail As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					invoiceDetail = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If invoiceDetail.HasRows = True Then
-						While invoiceDetail.Read()
-							idOnDB = invoiceDetail("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -194,13 +194,13 @@ Public Class InvoiceDetailDAL
 				Try
 					conn.Open()
 
-					Dim invoiceDetail As SqlDataReader
-					invoiceDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoiceDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						invoiceDetails.Clear()
-						While invoiceDetail.Read()
-							invoiceDetails.Add(New InvoiceDetailDTO(invoiceDetail("ID"), invoiceDetail("InvoiceID"), invoiceDetail("BookID"), invoiceDetail("Amount"), invoiceDetail("SalesPrice")))
+						While reader.Read()
+							invoiceDetails.Add(New InvoiceDetailDTO(reader("ID"), reader("InvoiceID"), reader("BookID"), reader("Amount"), reader("SalesPrice")))
 						End While
 					End If
 
@@ -243,13 +243,13 @@ Public Class InvoiceDetailDAL
 				Try
 					conn.Open()
 
-					Dim invoiceDetail As SqlDataReader
-					invoiceDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoiceDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						invoiceDetails.Clear()
-						While invoiceDetail.Read()
-							invoiceDetails.Add(New InvoiceDetailDTO(invoiceDetail("ID"), invoiceDetail("InvoiceID"), invoiceDetail("BookID"), invoiceDetail("Amount"), invoiceDetail("SalesPrice")))
+						While reader.Read()
+							invoiceDetails.Add(New InvoiceDetailDTO(reader("ID"), reader("InvoiceID"), reader("BookID"), reader("Amount"), reader("SalesPrice")))
 						End While
 					End If
 
@@ -292,13 +292,13 @@ Public Class InvoiceDetailDAL
 				Try
 					conn.Open()
 
-					Dim invoiceDetail As SqlDataReader
-					invoiceDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoiceDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						invoiceDetails.Clear()
-						While invoiceDetail.Read()
-							invoiceDetails.Add(New InvoiceDetailDTO(invoiceDetail("ID"), invoiceDetail("InvoiceID"), invoiceDetail("BookID"), invoiceDetail("Amount"), invoiceDetail("SalesPrice")))
+						While reader.Read()
+							invoiceDetails.Add(New InvoiceDetailDTO(reader("ID"), reader("InvoiceID"), reader("BookID"), reader("Amount"), reader("SalesPrice")))
 						End While
 					End If
 

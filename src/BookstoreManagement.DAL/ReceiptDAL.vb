@@ -34,15 +34,15 @@ Public Class ReceiptDAL
 				Try
 					conn.Open()
 
-					Dim Receipt As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					Receipt = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If Receipt.HasRows = True Then
-						While Receipt.Read()
-							idOnDB = Receipt("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -189,13 +189,13 @@ Public Class ReceiptDAL
 				Try
 					conn.Open()
 
-					Dim receipt As SqlDataReader
-					receipt = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If receipt.HasRows = True Then
+					If reader.HasRows = True Then
 						receipts.Clear()
-						While receipt.Read()
-							receipts.Add(New ReceiptDTO(receipt("ID"), receipt("CustomerID"), receipt("CollectedDate"), receipt("CollectAmount")))
+						While reader.Read()
+							receipts.Add(New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectAmount")))
 						End While
 					End If
 
@@ -238,13 +238,13 @@ Public Class ReceiptDAL
 				Try
 					conn.Open()
 
-					Dim receipt As SqlDataReader
-					receipt = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If receipt.HasRows = True Then
+					If reader.HasRows = True Then
 						receipts.Clear()
-						While receipt.Read()
-							receipts.Add(New ReceiptDTO(receipt("ID"), receipt("CustomerID"), receipt("CustomerID"), receipt("CollectAmount")))
+						While reader.Read()
+							receipts.Add(New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CustomerID"), reader("CollectAmount")))
 						End While
 					End If
 

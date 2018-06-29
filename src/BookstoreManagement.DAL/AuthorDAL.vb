@@ -34,15 +34,15 @@ Public Class AuthorDAL
 				Try
 					conn.Open()
 
-					Dim author As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					author = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If author.HasRows = True Then
-						While author.Read()
-							idOnDB = author("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -135,13 +135,13 @@ Public Class AuthorDAL
 				Try
 					conn.Open()
 
-					Dim author As SqlDataReader
-					author = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If author.HasRows = True Then
+					If reader.HasRows = True Then
 						authors.Clear()
-						While author.Read()
-							authors.Add(New AuthorDTO(author("ID"), author("Name")))
+						While reader.Read()
+							authors.Add(New AuthorDTO(reader("ID"), reader("Name")))
 						End While
 					End If
 

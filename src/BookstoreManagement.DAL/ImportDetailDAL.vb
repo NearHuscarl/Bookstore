@@ -34,15 +34,15 @@ Public Class ImportDetailDAL
 				Try
 					conn.Open()
 
-					Dim importDetail As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					importDetail = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If importDetail.HasRows = True Then
-						While importDetail.Read()
-							idOnDB = importDetail("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -191,13 +191,13 @@ Public Class ImportDetailDAL
 				Try
 					conn.Open()
 
-					Dim importDetail As SqlDataReader
-					importDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If importDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						importDetails.Clear()
-						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
+						While reader.Read()
+							importDetails.Add(New ImportDetailDTO(reader("ID"), reader("ImportID"), reader("BookID"), reader("ImportAmount"), reader("ImportPrice")))
 						End While
 					End If
 
@@ -240,13 +240,13 @@ Public Class ImportDetailDAL
 				Try
 					conn.Open()
 
-					Dim importDetail As SqlDataReader
-					importDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If importDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						importDetails.Clear()
-						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
+						While reader.Read()
+							importDetails.Add(New ImportDetailDTO(reader("ID"), reader("ImportID"), reader("BookID"), reader("ImportAmount"), reader("ImportPrice")))
 						End While
 					End If
 
@@ -289,13 +289,13 @@ Public Class ImportDetailDAL
 				Try
 					conn.Open()
 
-					Dim importDetail As SqlDataReader
-					importDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If importDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						importDetails.Clear()
-						While importDetail.Read()
-							importDetails.Add(New ImportDetailDTO(importDetail("ID"), importDetail("ImportID"), importDetail("BookID"), importDetail("ImportAmount"), importDetail("ImportPrice")))
+						While reader.Read()
+							importDetails.Add(New ImportDetailDTO(reader("ID"), reader("ImportID"), reader("BookID"), reader("ImportAmount"), reader("ImportPrice")))
 						End While
 					End If
 

@@ -33,15 +33,15 @@ Public Class StockReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim stockReportDetail As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					stockReportDetail = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If stockReportDetail.HasRows = True Then
-						While stockReportDetail.Read()
-							idOnDB = stockReportDetail("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -195,13 +195,13 @@ Public Class StockReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim stockReportDetail As SqlDataReader
-					stockReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If stockReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						stockReportDetails.Clear()
-						While stockReportDetail.Read()
-							stockReportDetails.Add(New StockReportDetailDTO(stockReportDetail("ID"), stockReportDetail("StockReportID"), stockReportDetail("BookID"), stockReportDetail("OpeningStock"), stockReportDetail("NewStock"), stockReportDetail("ClosingStock")))
+						While reader.Read()
+							stockReportDetails.Add(New StockReportDetailDTO(reader("ID"), reader("StockReportID"), reader("BookID"), reader("OpeningStock"), reader("NewStock"), reader("ClosingStock")))
 						End While
 					End If
 
@@ -244,13 +244,13 @@ Public Class StockReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim stockReportDetail As SqlDataReader
-					stockReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If stockReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						stockReportDetails.Clear()
-						While stockReportDetail.Read()
-							stockReportDetails.Add(New StockReportDetailDTO(stockReportDetail("ID"), stockReportDetail("StockReportID"), stockReportDetail("BookID"), stockReportDetail("OpeningStock"), stockReportDetail("NewStock"), stockReportDetail("ClosingStock")))
+						While reader.Read()
+							stockReportDetails.Add(New StockReportDetailDTO(reader("ID"), reader("StockReportID"), reader("BookID"), reader("OpeningStock"), reader("NewStock"), reader("ClosingStock")))
 						End While
 					End If
 
@@ -294,13 +294,13 @@ Public Class StockReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim stockReportDetail As SqlDataReader
-					stockReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If stockReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						stockReportDetails.Clear()
-						While stockReportDetail.Read()
-							stockReportDetails.Add(New StockReportDetailDTO(stockReportDetail("ID"), stockReportDetail("StockReportID"), stockReportDetail("BookID"), stockReportDetail("OpeningStock"), stockReportDetail("NewStock"), stockReportDetail("ClosingStock")))
+						While reader.Read()
+							stockReportDetails.Add(New StockReportDetailDTO(reader("ID"), reader("StockReportID"), reader("BookID"), reader("OpeningStock"), reader("NewStock"), reader("ClosingStock")))
 						End While
 					End If
 

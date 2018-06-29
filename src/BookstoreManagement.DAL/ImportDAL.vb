@@ -34,15 +34,15 @@ Public Class ImportDAL
 				Try
 					conn.Open()
 
-					Dim import As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					import = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If import.HasRows = True Then
-						While import.Read()
-							idOnDB = import("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -134,13 +134,13 @@ Public Class ImportDAL
 				Try
 					conn.Open()
 
-					Dim import As SqlDataReader
-					import = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If import.HasRows = True Then
+					If reader.HasRows = True Then
 						_imports.Clear()
-						While import.Read()
-							_imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
+						While reader.Read()
+							_imports.Add(New ImportDTO(reader("ID"), reader("ImportDate")))
 						End While
 					End If
 
@@ -183,13 +183,13 @@ Public Class ImportDAL
 				Try
 					conn.Open()
 
-					Dim import As SqlDataReader
-					import = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If import.HasRows = True Then
+					If reader.HasRows = True Then
 						_imports.Clear()
-						While import.Read()
-							_imports.Add(New ImportDTO(import("ID"), import("ImportDate")))
+						While reader.Read()
+							_imports.Add(New ImportDTO(reader("ID"), reader("ImportDate")))
 						End While
 					End If
 

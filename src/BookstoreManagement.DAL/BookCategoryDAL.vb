@@ -34,15 +34,15 @@ Public Class BookCategoryDAL
 				Try
 					conn.Open()
 
-					Dim bookCategory As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					bookCategory = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If bookCategory.HasRows = True Then
-						While bookCategory.Read()
-							idOnDB = bookCategory("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -134,13 +134,13 @@ Public Class BookCategoryDAL
 				Try
 					conn.Open()
 
-					Dim bookCategory As SqlDataReader
-					bookCategory = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If bookCategory.HasRows = True Then
+					If reader.HasRows = True Then
 						bookCategories.Clear()
-						While bookCategory.Read()
-							bookCategories.Add(New BookCategoryDTO(bookCategory("ID"), bookCategory("Name")))
+						While reader.Read()
+							bookCategories.Add(New BookCategoryDTO(reader("ID"), reader("Name")))
 						End While
 					End If
 

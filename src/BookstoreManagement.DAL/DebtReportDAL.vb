@@ -34,15 +34,15 @@ Public Class DebtReportDAL
 				Try
 					conn.Open()
 
-					Dim debtReport As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					debtReport = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If debtReport.HasRows = True Then
-						While debtReport.Read()
-							idOnDB = debtReport("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -137,13 +137,13 @@ Public Class DebtReportDAL
 				Try
 					conn.Open()
 
-					Dim debtReport As SqlDataReader
-					debtReport = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If debtReport.HasRows = True Then
+					If reader.HasRows = True Then
 						debtReports.Clear()
-						While debtReport.Read()
-							debtReports.Add(New DebtReportDTO(debtReport("ID"), debtReport("ReportDate")))
+						While reader.Read()
+							debtReports.Add(New DebtReportDTO(reader("ID"), reader("ReportDate")))
 						End While
 					End If
 
@@ -187,13 +187,13 @@ Public Class DebtReportDAL
 				Try
 					conn.Open()
 
-					Dim debtReport As SqlDataReader
-					debtReport = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If debtReport.HasRows = True Then
+					If reader.HasRows = True Then
 						debtReports.Clear()
-						While debtReport.Read()
-							debtReports.Add(New DebtReportDTO(debtReport("ID"), debtReport("ReportDate")))
+						While reader.Read()
+							debtReports.Add(New DebtReportDTO(reader("ID"), reader("ReportDate")))
 						End While
 					End If
 

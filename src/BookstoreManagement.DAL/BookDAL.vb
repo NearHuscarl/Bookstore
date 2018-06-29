@@ -35,15 +35,15 @@ Public Class BookDAL
 				Try
 					conn.Open()
 
-					Dim book As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					book = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If book.HasRows = True Then
-						While book.Read()
-							idOnDB = book("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -140,13 +140,13 @@ Public Class BookDAL
 				Try
 					conn.Open()
 
-					Dim book As SqlDataReader
-					book = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If book.HasRows = True Then
+					If reader.HasRows = True Then
 						books.Clear()
-						While book.Read()
-							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						While reader.Read()
+							books.Add(New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price")))
 						End While
 					End If
 
@@ -189,13 +189,13 @@ Public Class BookDAL
 				Try
 					conn.Open()
 
-					Dim book As SqlDataReader
-					book = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If book.HasRows = True Then
+					If reader.HasRows = True Then
 						books.Clear()
-						While book.Read()
-							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						While reader.Read()
+							books.Add(New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price")))
 						End While
 					End If
 
@@ -238,13 +238,13 @@ Public Class BookDAL
 				Try
 					conn.Open()
 
-					Dim book As SqlDataReader
-					book = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If book.HasRows = True Then
+					If reader.HasRows = True Then
 						books.Clear()
-						While book.Read()
-							books.Add(New BookDTO(book("ID"), book("Name"), book("AuthorID"), book("BookCategoryID"), book("Stock"), book("Price")))
+						While reader.Read()
+							books.Add(New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price")))
 						End While
 					End If
 

@@ -35,15 +35,15 @@ Public Class InvoiceDAL
 				Try
 					conn.Open()
 
-					Dim invoice As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					invoice = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If invoice.HasRows = True Then
-						While invoice.Read()
-							idOnDB = invoice("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -137,13 +137,13 @@ Public Class InvoiceDAL
 				Try
 					conn.Open()
 
-					Dim invoice As SqlDataReader
-					invoice = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoice.HasRows = True Then
+					If reader.HasRows = True Then
 						invoices.Clear()
-						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
+						While reader.Read()
+							invoices.Add(New InvoiceDTO(reader("ID"), reader("CustomerID"), reader("InvoiceDate")))
 						End While
 					End If
 
@@ -186,13 +186,13 @@ Public Class InvoiceDAL
 				Try
 					conn.Open()
 
-					Dim invoice As SqlDataReader
-					invoice = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoice.HasRows = True Then
+					If reader.HasRows = True Then
 						invoices.Clear()
-						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
+						While reader.Read()
+							invoices.Add(New InvoiceDTO(reader("ID"), reader("CustomerID"), reader("InvoiceDate")))
 						End While
 					End If
 
@@ -235,13 +235,13 @@ Public Class InvoiceDAL
 				Try
 					conn.Open()
 
-					Dim invoice As SqlDataReader
-					invoice = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If invoice.HasRows = True Then
+					If reader.HasRows = True Then
 						invoices.Clear()
-						While invoice.Read()
-							invoices.Add(New InvoiceDTO(invoice("ID"), invoice("CustomerID"), invoice("InvoiceDate")))
+						While reader.Read()
+							invoices.Add(New InvoiceDTO(reader("ID"), reader("CustomerID"), reader("InvoiceDate")))
 						End While
 					End If
 

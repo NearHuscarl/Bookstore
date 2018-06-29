@@ -33,15 +33,15 @@ Public Class DebtReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim debtReportDetail As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					debtReportDetail = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If debtReportDetail.HasRows = True Then
-						While debtReportDetail.Read()
-							idOnDB = debtReportDetail("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -195,13 +195,13 @@ Public Class DebtReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim debtReportDetail As SqlDataReader
-					debtReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If debtReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						debtReportDetails.Clear()
-						While debtReportDetail.Read()
-							debtReportDetails.Add(New DebtReportDetailDTO(debtReportDetail("ID"), debtReportDetail("DebtReportID"), debtReportDetail("CustomerID"), debtReportDetail("OpeningDebt"), debtReportDetail("NewDebt"), debtReportDetail("ClosingDebt")))
+						While reader.Read()
+							debtReportDetails.Add(New DebtReportDetailDTO(reader("ID"), reader("DebtReportID"), reader("CustomerID"), reader("OpeningDebt"), reader("NewDebt"), reader("ClosingDebt")))
 						End While
 					End If
 
@@ -245,13 +245,13 @@ Public Class DebtReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim debtReportDetail As SqlDataReader
-					debtReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If debtReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						debtReportDetails.Clear()
-						While debtReportDetail.Read()
-							debtReportDetails.Add(New DebtReportDetailDTO(debtReportDetail("ID"), debtReportDetail("DebtReportID"), debtReportDetail("CustomerID"), debtReportDetail("OpeningDebt"), debtReportDetail("NewDebt"), debtReportDetail("ClosingDebt")))
+						While reader.Read()
+							debtReportDetails.Add(New DebtReportDetailDTO(reader("ID"), reader("DebtReportID"), reader("CustomerID"), reader("OpeningDebt"), reader("NewDebt"), reader("ClosingDebt")))
 						End While
 					End If
 
@@ -295,13 +295,13 @@ Public Class DebtReportDetailDAL
 				Try
 					conn.Open()
 
-					Dim debtReportDetail As SqlDataReader
-					debtReportDetail = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If debtReportDetail.HasRows = True Then
+					If reader.HasRows = True Then
 						debtReportDetails.Clear()
-						While debtReportDetail.Read()
-							debtReportDetails.Add(New DebtReportDetailDTO(debtReportDetail("ID"), debtReportDetail("DebtReportID"), debtReportDetail("CustomerID"), debtReportDetail("OpeningDebt"), debtReportDetail("NewDebt"), debtReportDetail("ClosingDebt")))
+						While reader.Read()
+							debtReportDetails.Add(New DebtReportDetailDTO(reader("ID"), reader("DebtReportID"), reader("CustomerID"), reader("OpeningDebt"), reader("NewDebt"), reader("ClosingDebt")))
 						End While
 					End If
 

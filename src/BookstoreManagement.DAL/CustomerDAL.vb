@@ -34,15 +34,15 @@ Public Class CustomerDAL
 				Try
 					conn.Open()
 
-					Dim customer As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					customer = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If customer.HasRows = True Then
-						While customer.Read()
-							idOnDB = customer("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -137,13 +137,13 @@ Public Class CustomerDAL
 				Try
 					conn.Open()
 
-					Dim customer As SqlDataReader
-					customer = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If customer.HasRows = True Then
+					If reader.HasRows = True Then
 						customers.Clear()
-						While customer.Read()
-							customers.Add(New CustomerDTO(customer("ID"), customer("Name"), customer("Address"), customer("Email"), customer("PhoneNumber"), customer("CurrentDebt")))
+						While reader.Read()
+							customers.Add(New CustomerDTO(reader("ID"), reader("Name"), reader("Address"), reader("Email"), reader("PhoneNumber"), reader("CurrentDebt")))
 						End While
 					End If
 

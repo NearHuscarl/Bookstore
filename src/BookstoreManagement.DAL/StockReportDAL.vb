@@ -34,15 +34,15 @@ Public Class StockReportDAL
 				Try
 					conn.Open()
 
-					Dim stockReport As SqlDataReader
+					Dim reader As SqlDataReader
 					Dim idOnDB As String
 
-					stockReport = comm.ExecuteReader()
+					reader = comm.ExecuteReader()
 					idOnDB = Nothing
 
-					If stockReport.HasRows = True Then
-						While stockReport.Read()
-							idOnDB = stockReport("ID")
+					If reader.HasRows = True Then
+						While reader.Read()
+							idOnDB = reader("ID")
 						End While
 					End If
 
@@ -137,13 +137,13 @@ Public Class StockReportDAL
 				Try
 					conn.Open()
 
-					Dim stockReport As SqlDataReader
-					stockReport = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If stockReport.HasRows = True Then
+					If reader.HasRows = True Then
 						stockReports.Clear()
-						While stockReport.Read()
-							stockReports.Add(New StockReportDTO(stockReport("ID"), stockReport("ReportDate")))
+						While reader.Read()
+							stockReports.Add(New StockReportDTO(reader("ID"), reader("ReportDate")))
 						End While
 					End If
 
@@ -187,13 +187,13 @@ Public Class StockReportDAL
 				Try
 					conn.Open()
 
-					Dim stockReport As SqlDataReader
-					stockReport = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If stockReport.HasRows = True Then
+					If reader.HasRows = True Then
 						stockReports.Clear()
-						While stockReport.Read()
-							stockReports.Add(New StockReportDTO(stockReport("ID"), stockReport("ReportDate")))
+						While reader.Read()
+							stockReports.Add(New StockReportDTO(reader("ID"), reader("ReportDate")))
 						End While
 					End If
 
