@@ -117,6 +117,52 @@ Public Class InvoiceDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(invoiceID As String, ByRef invoice As InvoiceDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
+		query &= "FROM [Invoice] "
+		query &= "WHERE [Invoice].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", invoiceID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						invoice = New InvoiceDTO(reader("ID"), reader("CustomerID"), reader("InvoiceDate"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get invoice failed")
+					Return New Result(False, "Get invoice failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get invoice succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty

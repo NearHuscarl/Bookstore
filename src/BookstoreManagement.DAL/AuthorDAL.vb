@@ -115,6 +115,52 @@ Public Class AuthorDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(authorID As String, ByRef author As AuthorDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [Author] "
+		query &= "WHERE [Author].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", authorID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						author = New AuthorDTO(reader("ID"), reader("Name"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get author failed")
+					Return New Result(False, "Get author failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get author succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef authors As List(Of AuthorDTO)) As Result
 
 		Dim query As String = String.Empty
@@ -130,6 +176,55 @@ Public Class AuthorDAL
 					.Connection = conn
 					.CommandType = CommandType.Text
 					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						authors.Clear()
+						While reader.Read()
+							authors.Add(New AuthorDTO(reader("ID"), reader("Name")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get authors failed")
+					Return New Result(False, "Get authors failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get authors succeed")
+		Return New Result(True)
+	End Function
+
+	Public Function selectAll_BySearch(name As String, ByRef authors As List(Of AuthorDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [Author] "
+		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= " ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@Name", name)
 				End With
 
 				Try

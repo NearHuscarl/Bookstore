@@ -114,6 +114,52 @@ Public Class BookCategoryDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(bookCategoryID As String, ByRef bookCategory As BookCategoryDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [BookCategory] "
+		query &= "WHERE [BookCategory].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", bookCategoryID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						bookCategory = New BookCategoryDTO(reader("ID"), reader("Name"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get book category failed")
+					Return New Result(False, "Get book category failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get book category succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
 
 		Dim query As String = String.Empty
@@ -129,6 +175,55 @@ Public Class BookCategoryDAL
 					.Connection = conn
 					.CommandType = CommandType.Text
 					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						bookCategories.Clear()
+						While reader.Read()
+							bookCategories.Add(New BookCategoryDTO(reader("ID"), reader("Name")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get book categories failed")
+					Return New Result(False, "Get book categories failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get book categories succeed")
+		Return New Result(True)
+	End Function
+
+	Public Function selectAll_BySearch(name As String, ByRef bookCategories As List(Of BookCategoryDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name] "
+		query &= "FROM [BookCategory] "
+		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@Name", name)
 				End With
 
 				Try

@@ -118,6 +118,52 @@ Public Class CustomerDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(customerID As String, ByRef customer As CustomerDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name], [Address], [Email], [PhoneNumber], [CurrentDebt] "
+		query &= "FROM [Customer] "
+		query &= "WHERE [Customer].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", customerID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						customer = New CustomerDTO(reader("ID"), reader("Name"), reader("Address"), reader("Email"), reader("PhoneNumber"), reader("CurrentDebt"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get customer failed")
+					Return New Result(False, "Get customer failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get customer succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef customers As List(Of CustomerDTO)) As Result
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [Address], [Email], [PhoneNumber], [CurrentDebt] "
@@ -132,6 +178,55 @@ Public Class CustomerDAL
 					.Connection = conn
 					.CommandType = CommandType.Text
 					.CommandText = query
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						customers.Clear()
+						While reader.Read()
+							customers.Add(New CustomerDTO(reader("ID"), reader("Name"), reader("Address"), reader("Email"), reader("PhoneNumber"), reader("CurrentDebt")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get customers failed")
+					Return New Result(False, "Get customers failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get customers succeed")
+		Return New Result(True)
+	End Function
+
+	Public Function selectAll_BySearch(name As String, ByRef customers As List(Of CustomerDTO)) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name], [Address], [Email], [PhoneNumber], [CurrentDebt] "
+		query &= "FROM [Customer] "
+		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@Name", name)
 				End With
 
 				Try

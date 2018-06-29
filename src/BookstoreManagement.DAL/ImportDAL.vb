@@ -114,6 +114,52 @@ Public Class ImportDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(importID As String, ByRef import As ImportDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [ImportDate] "
+		query &= "FROM [Import] "
+		query &= "WHERE [Import].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						import = New ImportDTO(reader("ID"), reader("ImportDate"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get import failed")
+					Return New Result(False, "Get import failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get import succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result 'trùng keyword
 
 		Dim query As String = String.Empty

@@ -118,6 +118,53 @@ Public Class ReceiptDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(receiptID As String, ByRef receipt As ReceiptDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [CustomerID], [CollectedDate], [CollectedAmount] "
+		query &= "FROM [Receipt] "
+		query &= "WHERE [Receipt].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", receiptID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						receipt = New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectAmount"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get receipt failed")
+					Return New Result(False, "Get receipt failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get receipt succeed")
+		Return New Result(True)
+	End Function
+
+
 	Public Function selectAll(ByRef receipts As List(Of ReceiptDTO)) As Result
 
 		Dim query As String = String.Empty
@@ -139,13 +186,13 @@ Public Class ReceiptDAL
 				Try
 					conn.Open()
 
-					Dim receipt As SqlDataReader
-					receipt = comm.ExecuteReader()
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
 
-					If receipt.HasRows = True Then
+					If reader.HasRows = True Then
 						receipts.Clear()
-						While receipt.Read()
-							receipts.Add(New ReceiptDTO(receipt("ID"), receipt("CustomerID"), receipt("CollectedDate"), receipt("CollectAmount")))
+						While reader.Read()
+							receipts.Add(New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectAmount")))
 						End While
 					End If
 

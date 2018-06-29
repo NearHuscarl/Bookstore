@@ -174,6 +174,52 @@ Public Class StockReportDetailDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(stockReportDetailID As String, ByRef stockReportDetail As StockReportDetailDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [StockReportID], [BookID], [OpeningStock], [NewStock], [ClosingStock] "
+		query &= "FROM [StockReportDetail] "
+		query &= "WHERE [StockReportDetail].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", stockReportDetailID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						stockReportDetail = New StockReportDetailDTO(reader("ID"), reader("StockReportID"), reader("BookID"), reader("OpeningStock"), reader("NewStock"), reader("ClosingStock"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get stockReportDetail failed")
+					Return New Result(False, "Get stockReportDetail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get stockReportDetail succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef stockReportDetails As List(Of StockReportDetailDTO)) As Result
 
 		Dim query As String = String.Empty

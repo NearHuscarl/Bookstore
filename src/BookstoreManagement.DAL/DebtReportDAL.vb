@@ -116,6 +116,53 @@ Public Class DebtReportDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(debtReportID As String, ByRef debtReport As DebtReportDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [ReportDate] "
+		query &= "FROM [DebtReport] "
+		query &= "WHERE [DebtReport].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", debtReportID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						debtReport = New DebtReportDTO(reader("ID"), reader("ReportDate"))
+
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get debt report failed")
+					Return New Result(False, "Get debt report failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get debt report succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef debtReports As List(Of DebtReportDTO)) As Result
 
 		Dim query As String = String.Empty

@@ -17,7 +17,7 @@ Public Class ParameterDAL
 	Public Function selectAll(ByRef parameter As ParameterDTO) As Result
 		Dim query As String = String.Empty
 
-		query &= " SELECT [MinImportAmount], [MaxStockBeforeImport], [MinStockAfterSales], [MaxDebt], [UseRegulation]"
+		query &= " SELECT [MinImportAmount], [MaxStockBeforeImport], [MaxDebt], [MinStockAfterSales], [UseRegulation]"
 		query &= " FROM [Parameter]"
 
 		Using conn As New SqlConnection(connectionStr)
@@ -41,8 +41,8 @@ Public Class ParameterDAL
 							parameter = New ParameterDTO(
 								reader("MinImportAmount"),
 								reader("MaxStockBeforeImport"),
-								reader("MinStockAfterSales"),
 								reader("MaxDebt"),
+								reader("MinStockAfterSales"),
 								reader("UseRegulation")
 								)
 						End While
@@ -66,9 +66,9 @@ Public Class ParameterDAL
 		Dim query As String = String.Empty
 		query &= "UPDATE [Parameter] SET "
 		query &= " [MinImportAmount] = @MinImportAmount"
-		query &= " [MinStockBeforeImport] = @MinStockBeforeImport"
-		query &= " [MinStockAfterSales] = @MinStockAfterSales"
+		query &= " [MaxStockBeforeImport] = @MaxStockBeforeImport"
 		query &= " [MaxDebt] = @MaxDebt"
+		query &= " [MinStockAfterSales] = @MinStockAfterSales"
 		query &= " [UseRegulation] = @UseRegulation"
 
 		Using conn As New SqlConnection(connectionStr)
@@ -80,9 +80,9 @@ Public Class ParameterDAL
 					.CommandType = CommandType.Text
 					.CommandText = query
 					.Parameters.AddWithValue("@MinImportAmount", parameters.MinImportAmount)
-					.Parameters.AddWithValue("@MinStockBeforeImport", parameters.MaxStockBeforeImport)
-					.Parameters.AddWithValue("@MinStockAfterSales", parameters.MinStockAfterSales)
+					.Parameters.AddWithValue("@MaxStockBeforeImport", parameters.MaxStockBeforeImport)
 					.Parameters.AddWithValue("@MaxDebt", parameters.MaxDebt)
+					.Parameters.AddWithValue("@MinStockAfterSales", parameters.MinStockAfterSales)
 					.Parameters.AddWithValue("@UseRegulation", parameters.UseRegulation)
 				End With
 
@@ -104,10 +104,6 @@ Public Class ParameterDAL
 		End Using
 
 		Debug.WriteLine("Update parameters succeed")
-		Return New Result(True)
-	End Function
-
-	Public Function delete(parameters As ParameterDTO) As Result
 		Return New Result(True)
 	End Function
 End Class

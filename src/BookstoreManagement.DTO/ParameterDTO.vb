@@ -1,8 +1,8 @@
 ﻿Public Class ParameterDTO
 	Private _minImportAmount As Integer
 	Private _maxStockBeforeImport As Integer
-	Private _minStockAfterSales As Integer
 	Private _maxDebt As Integer
+	Private _minStockAfterSales As Integer
 	Private _useRegulation As Boolean
 
 	Public Sub New()
@@ -11,16 +11,16 @@
 	Public Sub New(
 		  minImportAmount As Integer,
 		  maxStockBeforeImport As Integer,
-		  minStockAfterSales As Integer,
 		  maxDebt As Integer,
-		  useRegulation As Boolean
+		  MinStockAfterSales As Integer,
+		  UseRegulation As Boolean
 		  )
 
 		Me._minImportAmount = minImportAmount
 		Me._maxStockBeforeImport = maxStockBeforeImport
-		Me._minStockAfterSales = minStockAfterSales
 		Me._maxDebt = maxDebt
-		Me._useRegulation = useRegulation
+		Me._minStockAfterSales = MinStockAfterSales
+		Me._useRegulation = UseRegulation
 	End Sub
 
 	Property MinImportAmount() As Integer
@@ -41,22 +41,22 @@
 		End Set
 	End Property
 
-	Property MinStockAfterSales() As Integer
-      Get
-         Return _minStockAfterSales
-      End Get
-      Set(ByVal Value As Integer)
-         _minStockAfterSales = Value
-      End Set
-   End Property
+	Property MaxDebt() As Integer
+		Get
+			Return _maxDebt
+		End Get
+		Set(ByVal Value As Integer)
+			_maxDebt = Value
+		End Set
+	End Property
 
-   Property MaxDebt() As Integer
-      Get
-         Return _maxDebt
-      End Get
-      Set(ByVal Value As Integer)
-         _maxDebt = Value
-      End Set
+	Property MinStockAfterSales() As Integer
+		Get
+			Return _minStockAfterSales
+		End Get
+		Set(ByVal Value As Integer)
+			_minStockAfterSales = Value
+		End Set
 	End Property
 
 	Property UseRegulation() As Boolean

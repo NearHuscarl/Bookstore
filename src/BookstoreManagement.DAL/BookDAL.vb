@@ -120,6 +120,52 @@ Public Class BookDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(bookID As String, ByRef book As BookDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
+		query &= "FROM [Book] "
+		query &= "WHERE [Book].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", bookID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						book = New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get book failed")
+					Return New Result(False, "Get book failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get book succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef books As List(Of BookDTO)) As Result
 
 		Dim query As String = String.Empty
@@ -167,13 +213,13 @@ Public Class BookDAL
 		Return New Result(True)
 	End Function
 
-	Public Function select_ByID(bookID As String, ByRef book As BookDTO) As Result
+	Public Function selectAll_BySearch(name As String, ByRef books As List(Of BookDTO)) As Result
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
 		query &= "FROM [Book] "
-		query &= "WHERE [Book].[ID] = @ID"
-		query &= " ORDER BY [ID] DESC"
+		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
 
@@ -183,7 +229,7 @@ Public Class BookDAL
 					.Connection = conn
 					.CommandType = CommandType.Text
 					.CommandText = query
-					.Parameters.AddWithValue("@ID", bookID)
+					.Parameters.AddWithValue("@Name", name)
 				End With
 
 				Try
@@ -193,8 +239,10 @@ Public Class BookDAL
 					reader = comm.ExecuteReader()
 
 					If reader.HasRows = True Then
-						reader.Read()
-						book = New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price"))
+						books.Clear()
+						While reader.Read()
+							books.Add(New BookDTO(reader("ID"), reader("Name"), reader("AuthorID"), reader("BookCategoryID"), reader("Stock"), reader("Price")))
+						End While
 					End If
 
 				Catch ex As Exception

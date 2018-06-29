@@ -174,6 +174,52 @@ Public Class DebtReportDetailDAL
 		Return New Result(True)
 	End Function
 
+	Public Function select_ByID(debtReportDetailID As String, ByRef debtReportDetail As DebtReportDetailDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [DebtReportID], [CustomerID], [OpeningDebt], [NewDebt], [ClosingDebt] "
+		query &= "FROM [DebtReportDetail] "
+		query &= "WHERE [DebtReportDetail].[ID] = @ID"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", debtReportDetailID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						debtReportDetail = New DebtReportDetailDTO(reader("ID"), reader("DebtReportID"), reader("CustomerID"), reader("OpeningDebt"), reader("NewDebt"), reader("ClosingDebt"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get debt report detail failed")
+					Return New Result(False, "Get debt report detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get debt report detail succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll(ByRef debtReportDetails As List(Of DebtReportDetailDTO)) As Result
 
 		Dim query As String = String.Empty
@@ -276,8 +322,8 @@ Public Class DebtReportDetailDAL
 
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [DebtReportID], [CustomerID], [OpeningDebt], [NewDebt], [ClosingDebt] "
-		query &= "FROM [debtReportDetail] "
-		query &= "WHERE [debtReportDetail].[CustomerID] = @CustomerID"
+		query &= "FROM [DebtReportDetail] "
+		query &= "WHERE [DebtReportDetail].[CustomerID] = @CustomerID"
 		query &= " ORDER BY [ID] DESC"
 
 
