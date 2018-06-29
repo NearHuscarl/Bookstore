@@ -21,6 +21,15 @@ Public Class ImportBUS
 		Return importDAL.getNextId(nextId)
 	End Function
 
+	Public Function insert(import As ImportDTO) As Result
+		' Validate here
+		Return importDAL.insert(import)
+	End Function
+
+	Public Function select_ByID(importID As String, ByRef import As ImportDTO) As Result
+		Return importDAL.select_ByID(importID, import)
+	End Function
+
 	Public Function selectAll(ByRef _imports As List(Of ImportDTO)) As Result
 		Dim result = importDAL.selectAll(_imports)
 
@@ -31,11 +40,6 @@ Public Class ImportBUS
 		End If
 
 		Return result
-	End Function
-
-	Public Function insert(import As ImportDTO) As Result
-		' Validate here
-		Return importDAL.insert(import)
 	End Function
 
 	Public Function update(import As ImportDTO) As Result

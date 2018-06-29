@@ -21,6 +21,10 @@ Public Class DebtReportBUS
 		Return debtReportDAL.insert(debtReport)
 	End Function
 
+	Public Function select_ByID(debtReportID As String, ByRef debtReport As DebtReportDTO) As Result
+		Return debtReportDAL.select_ByID(debtReportID, debtReport)
+	End Function
+
 	Public Function selectAll(ByRef debtReports As List(Of DebtReportDTO)) As Result
 		Return debtReportDAL.selectAll(debtReports)
 	End Function

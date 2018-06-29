@@ -22,37 +22,8 @@ Public Class ImportDetailBUS
 		Return importDetailDAL.getNextId(nextId)
 	End Function
 
-	Public Function IsValidImportDetail(importDetail As ImportDetailDTO) As Result
-		Dim parameter As ParameterDTO
-		Dim result = parameterBUS.selectAll(parameter)
-		Dim book As BookDTO
-
-		If result.FlagResult = True Then
-			If (importDetail.BookID Is Nothing) Then
-				Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
-			End If
-
-			If (importDetail.ImportAmount < parameter.MinImportAmount) Then
-				Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
-			End If
-
-			result = bookBUS.select_ByID(importDetail.BookID, book)
-
-			If (result.FlagResult = True) Then
-				If (book.Stock > parameter.MaxStockBeforeImport) Then
-					Return New Result(False, $"Stock of {book.ID} is larger than minimum required to import ({book.Stock} > {parameter.MaxStockBeforeImport})", "")
-				End If
-			End If
-		End If
-		Return result
-	End Function
-
-	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO)) As Result
-		Return importDetailDAL.selectAll(importDetails)
-	End Function
-
-	Public Function selectAll_ByImport(importID As String, ByRef importDetails As List(Of ImportDetailDTO)) As Result
-		Return importDetailDAL.selectAll_ByImport(importID, importDetails)
+	Public Function insert(importDetail As ImportDetailDTO) As Result
+		Return importDetailDAL.insert(importDetail)
 	End Function
 
 	Public Function insertAll(importDetails As List(Of ImportDetailDTO)) As Result
@@ -80,6 +51,18 @@ Public Class ImportDetailBUS
 		Return importDetailDAL.insertAll(importDetails)
 	End Function
 
+	Public Function select_ByID(importDetailID As String, ByRef importDetail As ImportDetailDTO) As Result
+		Return importDetailDAL.select_ByID(importDetailID, importDetail)
+	End Function
+
+	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO)) As Result
+		Return importDetailDAL.selectAll(importDetails)
+	End Function
+
+	Public Function selectAll_ByImport(importID As String, ByRef importDetails As List(Of ImportDetailDTO)) As Result
+		Return importDetailDAL.selectAll_ByImport(importID, importDetails)
+	End Function
+
 	Public Function update(importDetail As ImportDetailDTO) As Result
 		Return importDetailDAL.update(importDetail)
 	End Function
@@ -87,4 +70,30 @@ Public Class ImportDetailBUS
 	Public Function delete(importDetailID As String) As Result
 		Return importDetailDAL.delete(importDetailID)
 	End Function
+
+	Public Function IsValidImportDetail(importDetail As ImportDetailDTO) As Result
+		Dim parameter As ParameterDTO
+		Dim result = parameterBUS.selectAll(parameter)
+		Dim book As BookDTO
+
+		If result.FlagResult = True Then
+			If (importDetail.BookID Is Nothing) Then
+				Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+			End If
+
+			If (importDetail.ImportAmount < parameter.MinImportAmount) Then
+				Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
+			End If
+
+			result = bookBUS.select_ByID(importDetail.BookID, book)
+
+			If (result.FlagResult = True) Then
+				If (book.Stock > parameter.MaxStockBeforeImport) Then
+					Return New Result(False, $"Stock of {book.ID} is larger than minimum required to import ({book.Stock} > {parameter.MaxStockBeforeImport})", "")
+				End If
+			End If
+		End If
+		Return result
+	End Function
+
 End Class

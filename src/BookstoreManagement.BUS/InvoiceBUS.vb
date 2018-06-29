@@ -21,6 +21,10 @@ Public Class InvoiceBUS
 		Return invoiceDAL.insert(invoice)
 	End Function
 
+	Public Function select_ByID(invoiceID As String, ByRef invoice As InvoiceDTO) As Result
+		Return invoiceDAL.select_ByID(invoiceID, invoice)
+	End Function
+
 	Public Function selectAll(ByRef invoices As List(Of InvoiceDTO)) As Result
 		Return invoiceDAL.selectAll(invoices)
 	End Function

@@ -21,6 +21,10 @@ Public Class StockReportBUS
 		Return stockReportDAL.insert(stockReport)
 	End Function
 
+	Public Function select_ByID(stockReportID As String, ByRef stockReport As StockReportDTO) As Result
+		Return stockReportDAL.select_ByID(stockReportID, stockReport)
+	End Function
+
 	Public Function selectAll(ByRef stockReports As List(Of StockReportDTO)) As Result
 		Return stockReportDAL.selectAll(stockReports)
 	End Function

@@ -20,13 +20,16 @@ Public Class BookBUS
 	Public Function insert(book As BookDTO) As Result
 		Return bookDAL.insert(book)
 	End Function
+	Public Function select_ByID(bookID As String, ByRef book As BookDTO) As Result
+		Return bookDAL.select_ByID(bookID, book)
+	End Function
 
 	Public Function selectAll(ByRef books As List(Of BookDTO)) As Result
 		Return bookDAL.selectAll(books)
 	End Function
 
-	Public Function select_ByID(bookID As String, ByRef book As BookDTO) As Result
-		Return bookDAL.select_ByID(bookID, book)
+	Public Function selectAll_BySearch(name As String, ByRef books As List(Of BookDTO)) As Result
+		Return bookDAL.selectAll_BySearch(name, books)
 	End Function
 
 	Public Function selectAll_ByAuthor(authorID As String, ByRef books As List(Of BookDTO)) As Result

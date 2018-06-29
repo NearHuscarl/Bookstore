@@ -25,6 +25,10 @@ Public Class InvoiceDetailBUS
 		Return invoiceDetailDAL.insertAll(invoiceDetails)
 	End Function
 
+	Public Function select_ByID(invoiceDetailID As String, ByRef invoiceDetail As InvoiceDetailDTO) As Result
+		Return invoiceDetailDAL.select_ByID(invoiceDetailID, invoiceDetail)
+	End Function
+
 	Public Function selectAll(ByRef invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 		Return invoiceDetailDAL.selectAll(invoiceDetails)
 	End Function

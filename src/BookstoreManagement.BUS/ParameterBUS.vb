@@ -21,8 +21,4 @@ Public Class ParameterBUS
 	Public Function update(parameters As ParameterDTO) As Result
 		Return parameterDAL.update(parameters)
 	End Function
-
-	Public Function delete(parameters As ParameterDTO) As Result
-		Return parameterDAL.delete(parameters)
-	End Function
 End Class

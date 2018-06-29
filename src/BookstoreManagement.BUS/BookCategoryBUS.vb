@@ -21,8 +21,16 @@ Public Class BookCategoryBUS
 		Return bookCategoryDAL.insert(category)
 	End Function
 
+	Public Function select_ByID(bookCategoryID As String, ByRef bookCategory As BookCategoryDTO) As Result
+		Return bookCategoryDAL.select_ByID(bookCategoryID, bookCategory)
+	End Function
+
 	Public Function selectAll(ByRef bookCategories As List(Of BookCategoryDTO)) As Result
 		Return bookCategoryDAL.selectAll(bookCategories)
+	End Function
+
+	Public Function selectAll_BySearch(name As String, ByRef bookCategories As List(Of BookCategoryDTO)) As Result
+		Return bookCategoryDAL.selectAll_BySearch(name, bookCategories)
 	End Function
 
 	Public Function update(bookCategory As BookCategoryDTO) As Result
