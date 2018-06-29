@@ -198,8 +198,8 @@ Public Class BookDAL
 
 				Catch ex As Exception
 
-					'Debug.WriteLine("Get books failed")
-					Return New Result(False, "Get books failed", ex.StackTrace)
+					Debug.WriteLine("Get books failed")
+					Return New Result(False, "Get book failed", ex.StackTrace)
 
 				Finally
 					conn.Close()
@@ -209,7 +209,7 @@ Public Class BookDAL
 
 		End Using
 
-		'Debug.WriteLine("Get books succeed")
+		Debug.WriteLine("Get book succeed")
 		Return New Result(True)
 	End Function
 

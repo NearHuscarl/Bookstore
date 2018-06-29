@@ -22,4 +22,9 @@ Public Class frmMain
 		'frm.MdiParent = Me
 		frm.ShowDialog()
 	End Sub
+
+	Private Sub tlInvoice_Click(sender As Object, e As EventArgs) Handles tlInvoice.Click
+		Dim frm As frmInvoice = New frmInvoice()
+		frm.ShowDialog()
+	End Sub
 End Class

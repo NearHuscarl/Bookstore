@@ -32,6 +32,7 @@ Public Class frmImport
 		importDetailBUS = New ImportDetailBUS()
 		bookBUS = New BookBUS()
 
+		LoadBooks() 'TODO: test this
 		LoadImport()
 	End Sub
 
@@ -93,15 +94,9 @@ Public Class frmImport
 		End If
 
 		If (result.FlagResult = True) Then
-			LoadBooks()
-
 			For Each importDetail As ImportDetailDTO In importDetails
 				Dim currentIndex = dgvImportDetail.Rows.Add()
-
-				dgvImportDetail.Rows(currentIndex).Cells("colImportDetailID").Value = importDetail.ID
-				dgvImportDetail.Rows(currentIndex).Cells("colBookID").Value = importDetail.BookID
-				dgvImportDetail.Rows(currentIndex).Cells("colImportAmount").Value = importDetail.ImportAmount
-				dgvImportDetail.Rows(currentIndex).Cells("colImportPrice").Value = importDetail.ImportPrice
+				SetImportDetailFromCellsIndex(currentIndex, importDetail) 'TODO: test this
 			Next
 		Else
 			MetroMessageBox.Show(Me, "Cannot load Import Detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -112,8 +107,6 @@ Public Class frmImport
 	End Sub
 
 	Private Sub LoadBooks()
-		isImportLoading = True
-
 		Dim books As List(Of BookDTO) = New List(Of BookDTO)
 		Dim result As Result
 
@@ -129,8 +122,6 @@ Public Class frmImport
 			MetroMessageBox.Show(Me, "Cannot load books", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
-
-		isImportLoading = False
 	End Sub
 
 	Property SelectedImport() As ImportDTO
@@ -234,11 +225,7 @@ Public Class frmImport
 			Return
 		End If
 
-		If (selectedImportID = nextImportID) Then
-			btnAdd.Enabled = True
-		Else
-			btnAdd.Enabled = False
-		End If
+		btnAdd.Enabled = False
 		btnUpdate.Enabled = False
 
 		LoadImportDetail(selectedImportID)
@@ -272,6 +259,8 @@ Public Class frmImport
 
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Import detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+			LoadImport() ' Reload import to reflect new changes and add nextId
+			btnAdd.Enabled = False
 		Else
 			If (import.ID = nextImportID) Then
 				importBUS.delete(import.ID)
@@ -287,8 +276,6 @@ Public Class frmImport
 			MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
-
-		LoadImport() ' Reload import to reflect new changes and add nextId
 	End Sub
 
 	Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
@@ -308,18 +295,23 @@ Public Class frmImport
 		For Each importDetail As ImportDetailDTO In importDetailsToUpdate
 			result = importDetailBUS.update(importDetail)
 
-			If (result.FlagResult = True) Then
-				MetroMessageBox.Show(Me, "Import detail is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
-			Else
-				MetroMessageBox.Show(Me, "Failed to update import detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			If (result.FlagResult = False) Then
+				Dim errorMessage As String = ""
+
+				errorMessage &= "Failed to update import detail"
+				errorMessage &= Environment.NewLine
+				errorMessage &= Environment.NewLine
+				errorMessage &= result.ApplicationMessage
+
+				MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				Console.WriteLine(result.SystemMessage)
-				Exit For
+				Return
 			End If
 		Next
 
+		MetroMessageBox.Show(Me, "Import details is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 		LoadImportDetailsFromSelectedImport()
 		importDetailsToUpdate.Clear()
-
 		btnUpdate.Enabled = False
 	End Sub
 
@@ -348,7 +340,7 @@ Public Class frmImport
 			Return
 		End If
 
-		If (btnUpdate.Enabled) Then 'Detect change in ImportDetail. warn to override
+		If (btnUpdate.Enabled Or btnAdd.Enabled) Then 'Detect change in ImportDetail. warn to override
 			isChangingImportSelection = True
 
 			Dim dialogResult = MetroMessageBox.Show(Me, "All changed in Import Detail will be overwrite. Do you want to switch?",
@@ -391,8 +383,12 @@ Public Class frmImport
 			importDetailsToUpdate(oldIndex) = changedImportDetail
 		End If
 
-		If (SelectedImport IsNot Nothing And SelectedImport.ID IsNot nextImportID) Then
-			btnUpdate.Enabled = True
+		If (SelectedImport IsNot Nothing) Then
+			If (SelectedImport.ID Is nextImportID) Then
+				btnAdd.Enabled = True
+			Else
+				btnUpdate.Enabled = True
+			End If
 		End If
 	End Sub
 End Class

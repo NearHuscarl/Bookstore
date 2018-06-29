@@ -171,52 +171,6 @@ Public Class ImportDetailDAL
 		Return New Result(True)
 	End Function
 
-	Public Function select_ByID(importDetailID As String, ByRef importDetail As ImportDetailDTO) As Result
-
-		Dim query As String = String.Empty
-		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
-		query &= "FROM [ImportDetail] "
-		query &= "WHERE [ImportDetail].[ID] = @ID"
-
-		Using conn As New SqlConnection(connectionStr)
-
-			Using comm As New SqlCommand()
-
-				With comm
-					.Connection = conn
-					.CommandType = CommandType.Text
-					.CommandText = query
-					.Parameters.AddWithValue("@ID", importDetailID)
-				End With
-
-				Try
-					conn.Open()
-
-					Dim reader As SqlDataReader
-					reader = comm.ExecuteReader()
-
-					If reader.HasRows = True Then
-						reader.Read()
-						importDetail = New ImportDetailDTO(reader("ID"), reader("ImportID"), reader("BookID"), reader("ImportAmount"), reader("ImportPrice"))
-					End If
-
-				Catch ex As Exception
-
-					'Debug.WriteLine("Get import detail failed")
-					Return New Result(False, "Get import detail failed", ex.StackTrace)
-
-				Finally
-					conn.Close()
-				End Try
-
-			End Using
-
-		End Using
-
-		'Debug.WriteLine("Get import detail succeed")
-		Return New Result(True)
-	End Function
-
 	Public Function selectAll(ByRef importDetails As List(Of ImportDetailDTO))
 
 		Dim query As String = String.Empty
@@ -249,7 +203,7 @@ Public Class ImportDetailDAL
 
 				Catch ex As Exception
 
-					'Debug.WriteLine("Get import details failed")
+					Debug.WriteLine("Get import details failed")
 					Return New Result(False, "Get import details failed", ex.StackTrace)
 
 				Finally
@@ -260,7 +214,54 @@ Public Class ImportDetailDAL
 
 		End Using
 
-		'Debug.WriteLine("Get import details succeed")
+		Debug.WriteLine("Get import details succeed")
+		Return New Result(True)
+	End Function
+
+	Public Function select_ByID(importDetailID As String, ByRef importDetail As ImportDetailDTO) As Result
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [ImportID], [BookID], [ImportAmount], [ImportPrice] "
+		query &= "FROM [ImportDetail] "
+		query &= "WHERE [ImportDetail].[ID] = @ID"
+		query &= " ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ID", importDetailID)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						reader.Read()
+						importDetail = New ImportDetailDTO(reader("ID"), reader("ImportID"), reader("BookID"), reader("ImportAmount"), reader("ImportPrice"))
+					End If
+
+				Catch ex As Exception
+
+					Debug.WriteLine("Get import detail failed")
+					Return New Result(False, "Get import detail failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		Debug.WriteLine("Get import detail succeed")
 		Return New Result(True)
 	End Function
 

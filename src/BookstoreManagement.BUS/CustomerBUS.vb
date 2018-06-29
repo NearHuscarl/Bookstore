@@ -21,16 +21,16 @@ Public Class CustomerBUS
 		Return customerDAL.insert(customer)
 	End Function
 
-	Public Function select_ByID(customerID As String, ByRef customer As CustomerDTO) As Result
-		Return customerDAL.select_ByID(customerID, customer)
-	End Function
-
 	Public Function selectAll(ByRef customers As List(Of CustomerDTO)) As Result
 		Return customerDAL.selectAll(customers)
 	End Function
 
 	Public Function selectAll_BySearch(name As String, ByRef customers As List(Of CustomerDTO)) As Result
 		Return customerDAL.selectAll_BySearch(name, customers)
+	End Function
+
+	Public Function select_ByID(customerID As String, ByRef customer As CustomerDTO) As Result
+		Return customerDAL.select_ByID(customerID, customer)
 	End Function
 
 	Public Function update(customer As CustomerDTO) As Result

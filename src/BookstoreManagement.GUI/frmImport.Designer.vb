@@ -22,7 +22,6 @@ Partial Class frmImport
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
-		Me.components = New System.ComponentModel.Container()
 		Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -33,7 +32,6 @@ Partial Class frmImport
 		Me.dgvImportDetail = New MetroFramework.Controls.MetroGrid()
 		Me.colImportDetailID = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colBookID = New System.Windows.Forms.DataGridViewComboBoxColumn()
-		Me.BookBindingSource = New System.Windows.Forms.BindingSource(Me.components)
 		Me.colImportAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colImportPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.dgvImport = New MetroFramework.Controls.MetroGrid()
@@ -44,12 +42,12 @@ Partial Class frmImport
 		Me.btnUpdate = New MetroFramework.Controls.MetroButton()
 		Me.btnDelete = New MetroFramework.Controls.MetroButton()
 		CType(Me.dgvImportDetail, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.BookBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'btnAdd
 		'
+		Me.btnAdd.Enabled = False
 		Me.btnAdd.Location = New System.Drawing.Point(250, 366)
 		Me.btnAdd.Name = "btnAdd"
 		Me.btnAdd.Size = New System.Drawing.Size(75, 23)
@@ -114,16 +112,11 @@ Partial Class frmImport
 		'colBookID
 		'
 		Me.colBookID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colBookID.DataSource = Me.BookBindingSource
 		Me.colBookID.FillWeight = 172.2907!
 		Me.colBookID.HeaderText = "Book"
 		Me.colBookID.Name = "colBookID"
 		Me.colBookID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
 		Me.colBookID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-		'
-		'BookBindingSource
-		'
-		Me.BookBindingSource.DataSource = GetType(System.Collections.Generic.List(Of String))
 		'
 		'colImportAmount
 		'
@@ -257,7 +250,6 @@ Partial Class frmImport
 		Me.ShowIcon = False
 		Me.Text = "Import Book"
 		CType(Me.dgvImportDetail, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.BookBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.dgvImport, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
@@ -277,7 +269,6 @@ Partial Class frmImport
 	Friend WithEvents lblImport As MetroFramework.Controls.MetroLabel
 	Friend WithEvents btnUpdate As MetroFramework.Controls.MetroButton
 	Friend WithEvents btnDelete As MetroFramework.Controls.MetroButton
-	Friend WithEvents BookBindingSource As BindingSource
 	Friend WithEvents colImportID As DataGridViewTextBoxColumn
 	Friend WithEvents colImportDate As DataGridViewTextBoxColumn
 	Friend WithEvents colImportDetailID As DataGridViewTextBoxColumn
