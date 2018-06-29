@@ -278,6 +278,17 @@ Public Class frmInvoice
 		dgvInvoice.Rows(index).Cells("colDate").Value = String.Format("{0:MM/dd/yyyy HH:mm:ss}", value.InvoiceDate)
 	End Sub
 
+	Public Function GetErrorMessage(title As String, result As Result) As String
+		Dim errorMessage As String = ""
+
+		errorMessage &= title
+		errorMessage &= Environment.NewLine
+		errorMessage &= Environment.NewLine
+		errorMessage &= result.ApplicationMessage
+
+		Return errorMessage
+	End Function
+
 	Private Sub LoadInvoiceDetailsFromSelectedInvoice()
 		If (SelectedInvoice Is Nothing) Then
 			Return
@@ -304,8 +315,9 @@ Public Class frmInvoice
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Invoice is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 		Else
-			MetroMessageBox.Show(Me, "Failed to add invoice", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, GetErrorMessage("Failed to add invoice", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
+			Return
 		End If
 
 		Dim invoiceDetails = New List(Of InvoiceDetailDTO)
@@ -323,44 +335,26 @@ Public Class frmInvoice
 
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Invoice detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+			btnAdd.Enabled = False 'Make sure to disable before loading
 			LoadInvoice() ' Reload invoice to reflect new changes and add nextId
-			btnAdd.Enabled = False
 		Else
 			If (invoice.ID = nextInvoiceID) Then
 				invoiceBUS.delete(invoice.ID)
 			End If
 
-			Dim errorMessage As String = ""
-
-			errorMessage &= "Failed to add invoice detail"
-			errorMessage &= Environment.NewLine
-			errorMessage &= Environment.NewLine
-			errorMessage &= result.ApplicationMessage
-
-			MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, GetErrorMessage("Failed to add invoice detail", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 	End Sub
 
 	Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-		Dim invoiceDetails = New List(Of InvoiceDetailDTO)
-
-		For Each row As DataGridViewRow In dgvInvoiceDetail.Rows
-			If (row.IsNewRow) Then
-				Exit For
-			End If
-
-			Dim invoiceDetail As InvoiceDetailDTO = GetInvoiceDetailFromCellsIndex(row.Index)
-			invoiceDetails.Add(invoiceDetail)
-		Next
-
 		Dim result As Result
 
 		For Each invoiceDetail As InvoiceDetailDTO In invoiceDetailsToUpdate
 			result = invoiceDetailBUS.update(invoiceDetail)
 
 			If (result.FlagResult = False) Then
-				MetroMessageBox.Show(Me, "Failed to update invoice detail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				MetroMessageBox.Show(Me, GetErrorMessage("Failed to update invoice detail", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				Console.WriteLine(result.SystemMessage)
 				Return
 			End If

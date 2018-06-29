@@ -125,11 +125,11 @@ Public Class ImportDetailBUS
 		Dim oldBooks As List(Of BookDTO) = New List(Of BookDTO)
 		Dim result As Result
 
-		result = IsValidToUpdate(newImportDetail)
+		Dim oldImportDetail As ImportDetailDTO
+		result = importDetailDAL.select_ByID(newImportDetail.ID, oldImportDetail)
 
 		If (result.FlagResult = True) Then
-			Dim oldImportDetail As ImportDetailDTO
-			result = importDetailDAL.select_ByID(newImportDetail.ID, oldImportDetail)
+			result = IsValidToUpdate(newImportDetail)
 
 			If (result.FlagResult = True) Then
 				Dim book As BookDTO
@@ -157,10 +157,10 @@ Public Class ImportDetailBUS
 					Return New Result(False, $"Cannot get book for import detail ${newImportDetail.ID}", "")
 				End If
 			Else
-				Return New Result(False, $"Cannot get import detail ${newImportDetail.ID}", "")
+				Return result
 			End If
 		Else
-			Return result
+			Return New Result(False, $"Cannot get import detail ${newImportDetail.ID}", "")
 		End If
 
 		Return importDetailDAL.update(newImportDetail)

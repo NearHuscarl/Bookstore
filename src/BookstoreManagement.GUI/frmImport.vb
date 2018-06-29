@@ -214,6 +214,17 @@ Public Class frmImport
 		dgvImport.Rows(index).Cells("colImportDate").Value = value.ImportDate
 	End Sub
 
+	Public Function GetErrorMessage(title As String, result As Result) As String
+		Dim errorMessage As String = ""
+
+		errorMessage &= title
+		errorMessage &= Environment.NewLine
+		errorMessage &= Environment.NewLine
+		errorMessage &= result.ApplicationMessage
+
+		Return errorMessage
+	End Function
+
 	Private Sub LoadImportDetailsFromSelectedImport()
 		If (SelectedImport Is Nothing) Then
 			Return
@@ -240,8 +251,9 @@ Public Class frmImport
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Import is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 		Else
-			MetroMessageBox.Show(Me, "Failed to add import", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, GetErrorMessage("Failed to add import", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
+			Return
 		End If
 
 		Dim importDetails = New List(Of ImportDetailDTO)
@@ -259,51 +271,26 @@ Public Class frmImport
 
 		If (result.FlagResult = True) Then
 			MetroMessageBox.Show(Me, "Import detail is added", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+			btnAdd.Enabled = False 'Make sure to disable before loading
 			LoadImport() ' Reload import to reflect new changes and add nextId
-			btnAdd.Enabled = False
 		Else
 			If (import.ID = nextImportID) Then
 				importBUS.delete(import.ID)
 			End If
 
-			Dim errorMessage As String = ""
-
-			errorMessage &= "Failed to add import detail"
-			errorMessage &= Environment.NewLine
-			errorMessage &= Environment.NewLine
-			errorMessage &= result.ApplicationMessage
-
-			MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, GetErrorMessage("Failed to add import detail", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 	End Sub
 
 	Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-		Dim importDetails = New List(Of ImportDetailDTO)
-
-		For Each row As DataGridViewRow In dgvImportDetail.Rows
-			If (row.IsNewRow) Then
-				Exit For
-			End If
-
-			Dim importDetail As ImportDetailDTO = GetImportDetailFromCellsIndex(row.Index)
-			importDetails.Add(importDetail)
-		Next
-
 		Dim result As Result
 
 		For Each importDetail As ImportDetailDTO In importDetailsToUpdate
 			result = importDetailBUS.update(importDetail)
 
 			If (result.FlagResult = False) Then
-				Dim errorMessage As String = ""
-
-				errorMessage &= "Failed to update import detail"
-				errorMessage &= Environment.NewLine
-				errorMessage &= Environment.NewLine
-				errorMessage &= result.ApplicationMessage
-
-				MetroMessageBox.Show(Me, errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				MetroMessageBox.Show(Me, GetErrorMessage("Failed to update import detail", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				Console.WriteLine(result.SystemMessage)
 				Return
 			End If
