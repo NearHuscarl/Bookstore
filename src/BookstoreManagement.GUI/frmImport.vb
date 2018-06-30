@@ -108,10 +108,7 @@ Public Class frmImport
 
 	Private Sub LoadBooks()
 		Dim books As List(Of BookDTO) = New List(Of BookDTO)
-		Dim result As Result
-
-		result = bookBUS.selectAll(books)
-
+		Dim result = bookBUS.selectAll(books)
 		books = books.OrderBy(Function(import) import.ID).ToList() 'Sort alphabetically
 
 		If (result.FlagResult = True) Then
