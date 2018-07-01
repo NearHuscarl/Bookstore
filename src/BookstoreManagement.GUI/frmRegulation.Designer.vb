@@ -146,11 +146,11 @@ Partial Class frmRegulation
 		'lblMaxDebt
 		'
 		Me.lblMaxDebt.AutoSize = True
-		Me.lblMaxDebt.Location = New System.Drawing.Point(186, 196)
+		Me.lblMaxDebt.Location = New System.Drawing.Point(152, 196)
 		Me.lblMaxDebt.Name = "lblMaxDebt"
-		Me.lblMaxDebt.Size = New System.Drawing.Size(66, 19)
+		Me.lblMaxDebt.Size = New System.Drawing.Size(100, 19)
 		Me.lblMaxDebt.TabIndex = 4
-		Me.lblMaxDebt.Text = "Max Debt"
+		Me.lblMaxDebt.Text = "Maximum Debt"
 		'
 		'txtMinStockAfterSales
 		'

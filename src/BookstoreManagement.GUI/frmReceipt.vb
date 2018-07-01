@@ -116,15 +116,13 @@ Public Class frmReceipt
 
 			receipt.CollectedAmount = amount
 		Catch ex As FormatException
-			receipt.CollectedAmount = 0
-			selectedCells("colAmount").Value = receipt.CollectedAmount
+			selectedCells("colAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Receipt amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		Catch ex As ArgumentException
-			receipt.CollectedAmount = 0
-			selectedCells("colAmount").Value = receipt.CollectedAmount
+			selectedCells("colAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Receipt amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)

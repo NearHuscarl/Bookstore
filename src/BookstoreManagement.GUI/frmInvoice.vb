@@ -202,15 +202,13 @@ Public Class frmInvoice
 
 			invoiceDetail.Amount = amount
 		Catch ex As FormatException
-			invoiceDetail.Amount = 0
-			selectedCells("colAmount").Value = invoiceDetail.Amount
+			selectedCells("colAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Invoice amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		Catch ex As ArgumentException
-			invoiceDetail.Amount = 0
-			selectedCells("colAmount").Value = invoiceDetail.Amount
+			selectedCells("colAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Invoice amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
@@ -226,15 +224,13 @@ Public Class frmInvoice
 
 			invoiceDetail.SalesPrice = price
 		Catch ex As FormatException
-			invoiceDetail.SalesPrice = 0
-			selectedCells("colPrice").Value = invoiceDetail.SalesPrice
+			selectedCells("colPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Invoice price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		Catch ex As ArgumentException
-			invoiceDetail.SalesPrice = 0
-			selectedCells("colPrice").Value = invoiceDetail.SalesPrice
+			selectedCells("colPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Invoice price out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)

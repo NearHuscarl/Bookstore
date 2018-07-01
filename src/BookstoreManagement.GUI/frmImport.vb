@@ -165,15 +165,13 @@ Public Class frmImport
 
 			importDetail.ImportAmount = importAmount
 		Catch ex As FormatException
-			importDetail.ImportAmount = 0
-			selectedCells("colImportAmount").Value = importDetail.ImportAmount
+			selectedCells("colImportAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Import amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		Catch ex As ArgumentException
-			importDetail.ImportAmount = 0
-			selectedCells("colImportAmount").Value = importDetail.ImportAmount
+			selectedCells("colImportAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Import amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
@@ -189,15 +187,13 @@ Public Class frmImport
 
 			importDetail.ImportPrice = importPrice
 		Catch ex As FormatException
-			importDetail.ImportPrice = 0
-			selectedCells("colImportPrice").Value = importDetail.ImportPrice
+			selectedCells("colImportPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Import price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		Catch ex As ArgumentException
-			importDetail.ImportPrice = 0
-			selectedCells("colImportPrice").Value = importDetail.ImportPrice
+			selectedCells("colImportPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Import price out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)

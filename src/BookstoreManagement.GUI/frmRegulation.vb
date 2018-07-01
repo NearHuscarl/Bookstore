@@ -29,28 +29,52 @@ Public Class frmRegulation
 		End If
 	End Sub
 
+	Public Function GetErrorMessage(title As String, result As Result) As String
+		Dim errorMessage As String = ""
+
+		errorMessage &= title
+		errorMessage &= Environment.NewLine
+		errorMessage &= Environment.NewLine
+		errorMessage &= result.ApplicationMessage
+
+		Return errorMessage
+	End Function
+
 	Private Function SaveParameters() As Result
 		Dim parameters = New ParameterDTO()
 
 		parameters.UseRegulation = ckbUseRegulation.Checked
-		parameters.MinImportAmount = txtMinImportAmount.Text
-		parameters.MaxStockBeforeImport = txtMaxStockBeforeImport.Text
-		parameters.MaxDebt = txtMaxDebt.Text
-		parameters.MinStockAfterSales = txtMinStockAfterSales.Text
+
+		Try
+			parameters.MinImportAmount = Convert.ToInt32(txtMinImportAmount.Text)
+		Catch ex As FormatException
+			txtMinImportAmount.Text = 0
+			Return New Result(False, "Minimum Import Amount must be a number", "")
+		End Try
+
+		Try
+			parameters.MaxStockBeforeImport = Convert.ToInt32(txtMaxStockBeforeImport.Text)
+		Catch ex As FormatException
+			txtMaxStockBeforeImport.Text = 0
+			Return New Result(False, "Maximum Stock Before Import must be a number", "")
+		End Try
+
+		Try
+			parameters.MaxDebt = Convert.ToInt32(txtMaxDebt.Text)
+		Catch ex As FormatException
+			txtMaxDebt.Text = 0
+			Return New Result(False, "Maximum Debt must be a number", "")
+		End Try
+
+		Try
+			parameters.MinStockAfterSales = Convert.ToInt32(txtMinStockAfterSales.Text)
+		Catch ex As FormatException
+			txtMinStockAfterSales.Text = 0
+			Return New Result(False, "Minimum Stock After Sales must be a number", "")
+		End Try
 
 		Return parameterBUS.update(parameters)
 	End Function
-
-	Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
-		Dim result = SaveParameters()
-
-		If (result.FlagResult = True) Then
-			MetroMessageBox.Show(Me, "Regulation is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
-		Else
-			MetroMessageBox.Show(Me, "Cannot update regulation options", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(Result.SystemMessage)
-		End If
-	End Sub
 
 	Private Sub UpdateTextBoxStates()
 		If (ckbUseRegulation.Checked) Then
@@ -66,14 +90,25 @@ Public Class frmRegulation
 		End If
 	End Sub
 
+	Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
+		Dim result = SaveParameters()
+
+		If (result.FlagResult = True) Then
+			MetroMessageBox.Show(Me, GetErrorMessage("Update options successfully", result), "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+		Else
+			MetroMessageBox.Show(Me, GetErrorMessage("Update options failed", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(Result.SystemMessage)
+		End If
+	End Sub
+
 	Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 		Dim result = SaveParameters()
 
 		If (result.FlagResult = True) Then
-			MetroMessageBox.Show(Me, "Regulation is updated", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
+			MetroMessageBox.Show(Me, GetErrorMessage("Update options successfully", result), "Status", MessageBoxButtons.OK, MessageBoxIcon.Information)
 			Me.Close()
 		Else
-			MetroMessageBox.Show(Me, "Cannot update regulation options", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			MetroMessageBox.Show(Me, GetErrorMessage("Update options failed", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
 	End Sub
