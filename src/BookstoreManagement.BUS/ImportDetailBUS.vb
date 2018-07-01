@@ -73,6 +73,10 @@ Public Class ImportDetailBUS
 		Return importDetailDAL.selectAll(importDetails)
 	End Function
 
+	Public Function selectAll_ByBook(bookID As String, ByRef importDetails As List(Of ImportDetailDTO)) As Result
+		Return importDetailDAL.selectAll_ByBook(bookID, importDetails)
+	End Function
+
 	Public Function selectAll_ByImport(importID As String, ByRef importDetails As List(Of ImportDetailDTO)) As Result
 		Return importDetailDAL.selectAll_ByImport(importID, importDetails)
 	End Function

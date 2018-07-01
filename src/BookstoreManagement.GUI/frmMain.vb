@@ -27,4 +27,24 @@ Public Class frmMain
 		Dim frm As frmInvoice = New frmInvoice()
 		frm.ShowDialog()
 	End Sub
+
+	Private Sub tlAuthor_Click(sender As Object, e As EventArgs) Handles tlAuthor.Click
+		Dim frm As frmAuthor = New frmAuthor()
+		frm.ShowDialog()
+	End Sub
+
+	Private Sub tlBook_Click(sender As Object, e As EventArgs) Handles tlBook.Click
+		Dim frm As frmBook = New frmBook()
+		frm.ShowDialog()
+	End Sub
+
+	Private Sub tlBookCategory_Click(sender As Object, e As EventArgs) Handles tlBookCategory.Click
+		Dim frm As frmBookCategory = New frmBookCategory()
+		frm.ShowDialog()
+	End Sub
+
+	Private Sub tlCustomer_Click(sender As Object, e As EventArgs) Handles tlCustomer.Click
+		Dim frm As frmCustomer = New frmCustomer()
+		frm.ShowDialog()
+	End Sub
 End Class

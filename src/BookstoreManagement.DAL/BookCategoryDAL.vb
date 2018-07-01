@@ -212,7 +212,7 @@ Public Class BookCategoryDAL
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name] "
 		query &= "FROM [BookCategory] "
-		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "WHERE [Name] LIKE '%' + @Name + '%' "
 		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)

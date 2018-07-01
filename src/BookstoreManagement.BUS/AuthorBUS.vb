@@ -13,7 +13,7 @@ Public Class AuthorBUS
 		authorDAL = New AuthorDAL(connectionStr)
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 		Return authorDAL.getNextId(nextId)
 	End Function
 

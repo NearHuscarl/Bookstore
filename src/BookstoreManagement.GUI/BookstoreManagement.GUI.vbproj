@@ -81,6 +81,60 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAuthor.Designer.vb">
+      <DependentUpon>frmAuthor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAuthor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBook.Designer.vb">
+      <DependentUpon>frmBook.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBook.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBookCategory.Designer.vb">
+      <DependentUpon>frmBookCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBookCategory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAuthorEdit.Designer.vb">
+      <DependentUpon>frmAuthorEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAuthorEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBookCategoryEdit.Designer.vb">
+      <DependentUpon>frmBookCategoryEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBookCategoryEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBookEdit.Designer.vb">
+      <DependentUpon>frmBookEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBookEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomer.Designer.vb">
+      <DependentUpon>frmCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomerEdit.Designer.vb">
+      <DependentUpon>frmCustomerEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomerEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDebtReport.Designer.vb">
+      <DependentUpon>frmDebtReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDebtReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmInvoice.Designer.vb">
       <DependentUpon>frmInvoice.vb</DependentUpon>
     </Compile>
@@ -100,6 +154,12 @@
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmStockReport.Designer.vb">
+      <DependentUpon>frmStockReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStockReport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -117,6 +177,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAuthor.resx">
+      <DependentUpon>frmAuthor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBook.resx">
+      <DependentUpon>frmBook.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBookCategory.resx">
+      <DependentUpon>frmBookCategory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAuthorEdit.resx">
+      <DependentUpon>frmAuthorEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBookCategoryEdit.resx">
+      <DependentUpon>frmBookCategoryEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBookEdit.resx">
+      <DependentUpon>frmBookEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomer.resx">
+      <DependentUpon>frmCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomerEdit.resx">
+      <DependentUpon>frmCustomerEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDebtReport.resx">
+      <DependentUpon>frmDebtReport.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInvoice.resx">
       <DependentUpon>frmInvoice.vb</DependentUpon>
     </EmbeddedResource>
@@ -125,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStockReport.resx">
+      <DependentUpon>frmStockReport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

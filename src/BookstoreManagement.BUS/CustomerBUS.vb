@@ -13,7 +13,7 @@ Public Class CustomerBUS
 		customerDAL = New CustomerDAL(connectionStr)
 	End Sub
 
-	Public Function getNextId(ByRef nextId As Integer) As Result
+	Public Function getNextId(ByRef nextId As String) As Result
 		Return customerDAL.getNextId(nextId)
 	End Function
 

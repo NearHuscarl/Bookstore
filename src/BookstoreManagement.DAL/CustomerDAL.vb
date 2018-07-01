@@ -215,7 +215,7 @@ Public Class CustomerDAL
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [Address], [Email], [PhoneNumber], [CurrentDebt] "
 		query &= "FROM [Customer] "
-		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "WHERE [Name] LIKE '%' + @Name + '%' "
 		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)

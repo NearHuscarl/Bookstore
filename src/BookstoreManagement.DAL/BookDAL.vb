@@ -218,7 +218,7 @@ Public Class BookDAL
 		Dim query As String = String.Empty
 		query &= "SELECT [ID], [Name], [AuthorID], [BookCategoryID], [Stock], [Price] "
 		query &= "FROM [Book] "
-		query &= "WHERE [Name] LIKE '%@Name%' "
+		query &= "WHERE [Name] LIKE '%' + @Name + '%' "
 		query &= "ORDER BY [ID] DESC"
 
 		Using conn As New SqlConnection(connectionStr)
