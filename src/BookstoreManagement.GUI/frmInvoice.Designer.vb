@@ -30,6 +30,11 @@ Partial Class frmInvoice
 		Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Me.btnAdd = New MetroFramework.Controls.MetroButton()
 		Me.dgvInvoiceDetail = New MetroFramework.Controls.MetroGrid()
+		Me.colInvoiceDetailID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colBookID = New System.Windows.Forms.DataGridViewComboBoxColumn()
+		Me.ColCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.dgvInvoice = New MetroFramework.Controls.MetroGrid()
 		Me.colInvoiceID = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colCustomer = New System.Windows.Forms.DataGridViewComboBoxColumn()
@@ -38,11 +43,8 @@ Partial Class frmInvoice
 		Me.lblGeneral = New MetroFramework.Controls.MetroLabel()
 		Me.btnUpdate = New MetroFramework.Controls.MetroButton()
 		Me.btnDelete = New MetroFramework.Controls.MetroButton()
-		Me.colInvoiceDetailID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colBookID = New System.Windows.Forms.DataGridViewComboBoxColumn()
-		Me.ColCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.txtTotal = New MetroFramework.Controls.MetroTextBox()
+		Me.lblTotal = New MetroFramework.Controls.MetroLabel()
 		CType(Me.dgvInvoiceDetail, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.dgvInvoice, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
@@ -85,7 +87,7 @@ Partial Class frmInvoice
 		Me.dgvInvoiceDetail.EnableHeadersVisualStyles = False
 		Me.dgvInvoiceDetail.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvInvoiceDetail.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.dgvInvoiceDetail.Location = New System.Drawing.Point(80, 204)
+		Me.dgvInvoiceDetail.Location = New System.Drawing.Point(78, 199)
 		Me.dgvInvoiceDetail.Name = "dgvInvoiceDetail"
 		Me.dgvInvoiceDetail.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -99,8 +101,49 @@ Partial Class frmInvoice
 		Me.dgvInvoiceDetail.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
 		Me.dgvInvoiceDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 		Me.dgvInvoiceDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-		Me.dgvInvoiceDetail.Size = New System.Drawing.Size(668, 144)
+		Me.dgvInvoiceDetail.Size = New System.Drawing.Size(668, 125)
 		Me.dgvInvoiceDetail.TabIndex = 9
+		'
+		'colInvoiceDetailID
+		'
+		Me.colInvoiceDetailID.FillWeight = 123.8739!
+		Me.colInvoiceDetailID.HeaderText = "ID"
+		Me.colInvoiceDetailID.Name = "colInvoiceDetailID"
+		Me.colInvoiceDetailID.ReadOnly = True
+		Me.colInvoiceDetailID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colInvoiceDetailID.Width = 110
+		'
+		'colBookID
+		'
+		Me.colBookID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colBookID.FillWeight = 172.2907!
+		Me.colBookID.HeaderText = "Book"
+		Me.colBookID.Name = "colBookID"
+		Me.colBookID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colBookID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+		'
+		'ColCategory
+		'
+		Me.ColCategory.HeaderText = "Category"
+		Me.ColCategory.Name = "ColCategory"
+		Me.ColCategory.ReadOnly = True
+		Me.ColCategory.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.ColCategory.Width = 150
+		'
+		'colAmount
+		'
+		Me.colAmount.FillWeight = 60.14212!
+		Me.colAmount.HeaderText = "Amount"
+		Me.colAmount.Name = "colAmount"
+		Me.colAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colAmount.Width = 115
+		'
+		'colPrice
+		'
+		Me.colPrice.FillWeight = 75.38008!
+		Me.colPrice.HeaderText = "Price"
+		Me.colPrice.Name = "colPrice"
+		Me.colPrice.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
 		'
 		'dgvInvoice
 		'
@@ -130,7 +173,7 @@ Partial Class frmInvoice
 		Me.dgvInvoice.EnableHeadersVisualStyles = False
 		Me.dgvInvoice.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvInvoice.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.dgvInvoice.Location = New System.Drawing.Point(80, 94)
+		Me.dgvInvoice.Location = New System.Drawing.Point(78, 89)
 		Me.dgvInvoice.MultiSelect = False
 		Me.dgvInvoice.Name = "dgvInvoice"
 		Me.dgvInvoice.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
@@ -178,7 +221,7 @@ Partial Class frmInvoice
 		'lblDetail
 		'
 		Me.lblDetail.AutoSize = True
-		Me.lblDetail.Location = New System.Drawing.Point(80, 182)
+		Me.lblDetail.Location = New System.Drawing.Point(78, 177)
 		Me.lblDetail.Name = "lblDetail"
 		Me.lblDetail.Size = New System.Drawing.Size(42, 19)
 		Me.lblDetail.TabIndex = 8
@@ -187,7 +230,7 @@ Partial Class frmInvoice
 		'lblGeneral
 		'
 		Me.lblGeneral.AutoSize = True
-		Me.lblGeneral.Location = New System.Drawing.Point(80, 72)
+		Me.lblGeneral.Location = New System.Drawing.Point(78, 67)
 		Me.lblGeneral.Name = "lblGeneral"
 		Me.lblGeneral.Size = New System.Drawing.Size(54, 19)
 		Me.lblGeneral.TabIndex = 11
@@ -212,52 +255,54 @@ Partial Class frmInvoice
 		Me.btnDelete.Text = "Delete"
 		Me.btnDelete.UseSelectable = True
 		'
-		'colInvoiceDetailID
+		'txtTotal
 		'
-		Me.colInvoiceDetailID.FillWeight = 123.8739!
-		Me.colInvoiceDetailID.HeaderText = "ID"
-		Me.colInvoiceDetailID.Name = "colInvoiceDetailID"
-		Me.colInvoiceDetailID.ReadOnly = True
-		Me.colInvoiceDetailID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colInvoiceDetailID.Width = 110
 		'
-		'colBookID
 		'
-		Me.colBookID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colBookID.FillWeight = 172.2907!
-		Me.colBookID.HeaderText = "Book"
-		Me.colBookID.Name = "colBookID"
-		Me.colBookID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colBookID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
 		'
-		'ColCategory
+		Me.txtTotal.CustomButton.Image = Nothing
+		Me.txtTotal.CustomButton.Location = New System.Drawing.Point(53, 1)
+		Me.txtTotal.CustomButton.Name = ""
+		Me.txtTotal.CustomButton.Size = New System.Drawing.Size(21, 21)
+		Me.txtTotal.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+		Me.txtTotal.CustomButton.TabIndex = 1
+		Me.txtTotal.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+		Me.txtTotal.CustomButton.UseSelectable = True
+		Me.txtTotal.CustomButton.Visible = False
+		Me.txtTotal.Enabled = False
+		Me.txtTotal.Lines = New String(-1) {}
+		Me.txtTotal.Location = New System.Drawing.Point(671, 330)
+		Me.txtTotal.MaxLength = 32767
+		Me.txtTotal.Name = "txtTotal"
+		Me.txtTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+		Me.txtTotal.ReadOnly = True
+		Me.txtTotal.ScrollBars = System.Windows.Forms.ScrollBars.None
+		Me.txtTotal.SelectedText = ""
+		Me.txtTotal.SelectionLength = 0
+		Me.txtTotal.SelectionStart = 0
+		Me.txtTotal.ShortcutsEnabled = True
+		Me.txtTotal.Size = New System.Drawing.Size(75, 23)
+		Me.txtTotal.TabIndex = 17
+		Me.txtTotal.UseSelectable = True
+		Me.txtTotal.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+		Me.txtTotal.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
 		'
-		Me.ColCategory.HeaderText = "Category"
-		Me.ColCategory.Name = "ColCategory"
-		Me.ColCategory.ReadOnly = True
-		Me.ColCategory.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.ColCategory.Width = 150
+		'lblTotal
 		'
-		'colAmount
-		'
-		Me.colAmount.FillWeight = 60.14212!
-		Me.colAmount.HeaderText = "Amount"
-		Me.colAmount.Name = "colAmount"
-		Me.colAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colAmount.Width = 115
-		'
-		'colPrice
-		'
-		Me.colPrice.FillWeight = 75.38008!
-		Me.colPrice.HeaderText = "Price"
-		Me.colPrice.Name = "colPrice"
-		Me.colPrice.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.lblTotal.AutoSize = True
+		Me.lblTotal.Location = New System.Drawing.Point(625, 331)
+		Me.lblTotal.Name = "lblTotal"
+		Me.lblTotal.Size = New System.Drawing.Size(36, 19)
+		Me.lblTotal.TabIndex = 18
+		Me.lblTotal.Text = "Total"
 		'
 		'frmInvoice
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(818, 437)
+		Me.Controls.Add(Me.lblTotal)
+		Me.Controls.Add(Me.txtTotal)
 		Me.Controls.Add(Me.btnDelete)
 		Me.Controls.Add(Me.btnUpdate)
 		Me.Controls.Add(Me.dgvInvoice)
@@ -296,4 +341,6 @@ Partial Class frmInvoice
 	Friend WithEvents ColCategory As DataGridViewTextBoxColumn
 	Friend WithEvents colAmount As DataGridViewTextBoxColumn
 	Friend WithEvents colPrice As DataGridViewTextBoxColumn
+	Friend WithEvents txtTotal As MetroFramework.Controls.MetroTextBox
+	Friend WithEvents lblTotal As MetroFramework.Controls.MetroLabel
 End Class

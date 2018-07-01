@@ -31,25 +31,28 @@ Public Class ImportDetailBUS
 		Dim result = parameterBUS.selectAll(parameter)
 		Dim book As BookDTO
 
-		If result.FlagResult = True Then
-			If (importDetail.BookID Is Nothing) Then
-				Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
-			End If
-
-			If (importDetail.ImportAmount < parameter.MinImportAmount) Then
-				Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
-			End If
-
-			result = bookBUS.select_ByID(importDetail.BookID, book)
-
-			If (result.FlagResult = True) Then
-				If (book.Stock > parameter.MaxStockBeforeImport) Then
-					Return New Result(False, $"Stock of {book.ID} is larger than minimum required to import ({book.Stock} > {parameter.MaxStockBeforeImport})", "")
-				End If
-			Else
-				Return New Result(False, $"Cannot load book when validating import detail", "")
-			End If
+		If result.FlagResult = False Then
+			Return result
 		End If
+
+		If (importDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+		End If
+
+		If (importDetail.ImportAmount < parameter.MinImportAmount) Then
+			Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
+		End If
+
+		result = bookBUS.select_ByID(importDetail.BookID, book)
+
+		If (result.FlagResult = True) Then
+			If (book.Stock > parameter.MaxStockBeforeImport) Then
+				Return New Result(False, $"Stock of {book.ID} is larger than minimum required to import ({book.Stock} > {parameter.MaxStockBeforeImport})", "")
+			End If
+		Else
+			Return New Result(False, $"Cannot load book when validating import detail", "")
+		End If
+
 		Return result
 	End Function
 
@@ -57,15 +60,18 @@ Public Class ImportDetailBUS
 		Dim parameter As ParameterDTO
 		Dim result = parameterBUS.selectAll(parameter)
 
-		If result.FlagResult = True Then
-			If (importDetail.BookID Is Nothing) Then
-				Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
-			End If
-
-			If (importDetail.ImportAmount < parameter.MinImportAmount) Then
-				Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
-			End If
+		If result.FlagResult = False Then
+			Return result
 		End If
+
+		If (importDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+		End If
+
+		If (importDetail.ImportAmount < parameter.MinImportAmount) Then
+			Return New Result(False, $"Import amount of {importDetail.ID} is smaller than minimum allowed ({importDetail.ImportAmount} < {parameter.MinImportAmount})", "")
+		End If
+
 		Return result
 	End Function
 
@@ -88,33 +94,24 @@ Public Class ImportDetailBUS
 		For Each importDetail As ImportDetailDTO In importDetails
 			result = IsValidToAdd(importDetail)
 
-			If (result.FlagResult = True) Then
-				Dim book As BookDTO
-
-				result = bookBUS.select_ByID(importDetail.BookID, book)
-
-				If (result.FlagResult = True) Then
-					Dim duplicatedItems = oldBooks.
-						Where(Function(b) b.ID = book.ID)
-
-					If (duplicatedItems.Count = 0) Then
-						oldBooks.Add(book)
-					Else
-						Dim oldIndex = oldBooks.IndexOf(duplicatedItems.First())
-						oldBooks(oldIndex) = book
-					End If
-
-					book.Stock += importDetail.ImportAmount
-					bookBUS.update(book)
-				Else
-					' Reverse changes in books
-					For Each b As BookDTO In oldBooks
-						bookBUS.update(b)
-					Next
-					Return New Result(False, $"Cannot get book for import detail ${importDetail.ID}", "")
-				End If
-			Else
+			If (result.FlagResult = False) Then
 				Return result
+			End If
+
+			Dim book As BookDTO
+			result = bookBUS.select_ByID(importDetail.BookID, book)
+
+			If (result.FlagResult = True) Then
+				oldBooks.AddIfNotExist(book, BookComparer.Instance)
+
+				book.Stock += importDetail.ImportAmount
+				bookBUS.update(book)
+			Else
+				' Reverse changes in books
+				For Each b As BookDTO In oldBooks
+					bookBUS.update(b)
+				Next
+				Return New Result(False, $"Cannot get book for import detail ${importDetail.ID}", "")
 			End If
 		Next
 
@@ -122,45 +119,30 @@ Public Class ImportDetailBUS
 	End Function
 
 	Public Function update(newImportDetail As ImportDetailDTO) As Result
-		Dim oldBooks As List(Of BookDTO) = New List(Of BookDTO)
+		Dim oldCustomers As List(Of CustomerDTO) = New List(Of CustomerDTO)
+		Dim oldImportDetail As ImportDetailDTO
 		Dim result As Result
 
-		Dim oldImportDetail As ImportDetailDTO
 		result = importDetailDAL.select_ByID(newImportDetail.ID, oldImportDetail)
 
-		If (result.FlagResult = True) Then
-			result = IsValidToUpdate(newImportDetail)
-
-			If (result.FlagResult = True) Then
-				Dim book As BookDTO
-
-				result = bookBUS.select_ByID(newImportDetail.BookID, book)
-
-				If (result.FlagResult = True) Then ' TODO: update stock when bookID changed too
-					Dim duplicatedItems = oldBooks.
-						Where(Function(b) b.ID = book.ID)
-
-					If (duplicatedItems.Count = 0) Then
-						oldBooks.Add(book)
-					Else
-						Dim oldIndex = oldBooks.IndexOf(duplicatedItems.First())
-						oldBooks(oldIndex) = book
-					End If
-
-					book.Stock += (newImportDetail.ImportAmount - oldImportDetail.ImportAmount)
-					bookBUS.update(book)
-				Else
-					' Reverse changes in books
-					For Each b As BookDTO In oldBooks
-						bookBUS.update(b)
-					Next
-					Return New Result(False, $"Cannot get book for import detail ${newImportDetail.ID}", "")
-				End If
-			Else
-				Return result
-			End If
-		Else
+		If (result.FlagResult = False) Then
 			Return New Result(False, $"Cannot get import detail ${newImportDetail.ID}", "")
+		End If
+
+		result = IsValidToUpdate(newImportDetail)
+
+		If (result.FlagResult = False) Then
+			Return result
+		End If
+
+		Dim book As BookDTO
+		result = bookBUS.select_ByID(newImportDetail.BookID, book)
+
+		If (result.FlagResult = True) Then ' TODO: update stock when bookID changed too
+			book.Stock += (newImportDetail.ImportAmount - oldImportDetail.ImportAmount)
+			bookBUS.update(book)
+		Else
+			Return New Result(False, $"Cannot get book for import detail ${newImportDetail.ID}", "")
 		End If
 
 		Return importDetailDAL.update(newImportDetail)

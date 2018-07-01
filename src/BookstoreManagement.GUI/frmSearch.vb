@@ -16,7 +16,7 @@ Public Class frmSearch
 		InitializeComponent()
 	End Sub
 
-	Private Sub frmInvoice_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+	Private Sub frmSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		bookBUS = New BookBUS()
 		categoryBUS = New BookCategoryBUS()
 		authorBUS = New AuthorBUS()
@@ -42,7 +42,7 @@ Public Class frmSearch
 	Private Sub LoadBooks()
 		books = New List(Of BookDTO)
 		Dim result = bookBUS.selectAll(books)
-		books = books.OrderBy(Function(invoice) invoice.ID).ToList() 'Sort alphabetically
+		books = books.OrderBy(Function(b) b.ID).ToList() 'Sort alphabetically
 
 		If (result.FlagResult = False) Then
 			MetroMessageBox.Show(Me, "Cannot load books", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -53,7 +53,7 @@ Public Class frmSearch
 	Private Sub LoadCategories()
 		categories = New List(Of BookCategoryDTO)
 		Dim result = categoryBUS.selectAll(categories)
-		categories = categories.OrderBy(Function(invoice) invoice.ID).ToList() 'Sort alphabetically
+		categories = categories.OrderBy(Function(c) c.ID).ToList() 'Sort alphabetically
 		categories.Insert(0, New BookCategoryDTO("All", "All")) 'Dummy category represent All option in combobox
 
 		If (result.FlagResult = False) Then
@@ -69,7 +69,7 @@ Public Class frmSearch
 	Private Sub LoadAuthors()
 		authors = New List(Of AuthorDTO)
 		Dim result = authorBUS.selectAll(authors)
-		authors = authors.OrderBy(Function(invoice) invoice.ID).ToList() 'Sort alphabetically
+		authors = authors.OrderBy(Function(a) a.ID).ToList() 'Sort alphabetically
 
 		If (result.FlagResult = False) Then
 			MetroMessageBox.Show(Me, "Cannot load authors", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

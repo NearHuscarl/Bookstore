@@ -27,6 +27,10 @@ Public Class InvoiceBUS
 		Dim customer As CustomerDTO
 
 		If result.FlagResult = True Then
+			If (invoice.CustomerID = Nothing) Then
+				Return New Result(False, $"Customer ID of invoice {invoice.ID} is missing", "")
+			End If
+
 			If (invoice.InvoiceDate = Nothing) Then
 				Return New Result(False, $"Date of invoice {invoice.ID} is missing", "")
 			End If

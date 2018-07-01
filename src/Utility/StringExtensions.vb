@@ -16,4 +16,9 @@ Public Module StringExtensions
 
 		this = IdPrefix + IdNumber.ToString(format)
 	End Sub
+
+	<Extension()>
+	Public Function ToNormal(ByRef this As String) As String
+		Return this.Trim().ToLowerInvariant()
+	End Function
 End Module

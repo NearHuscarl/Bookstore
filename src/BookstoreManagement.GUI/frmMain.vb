@@ -32,4 +32,9 @@ Public Class frmMain
 		Dim frm As frmSearch = New frmSearch()
 		frm.ShowDialog()
 	End Sub
+
+	Private Sub tlReceipt_Click(sender As Object, e As EventArgs) Handles tlReceipt.Click
+		Dim frm As frmReceipt = New frmReceipt()
+		frm.ShowDialog()
+	End Sub
 End Class

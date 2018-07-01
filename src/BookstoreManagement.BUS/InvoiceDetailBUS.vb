@@ -4,11 +4,15 @@ Imports Utility
 
 Public Class InvoiceDetailBUS
 	Private invoiceDetailDAL As InvoiceDetailDAL
+	Private invoiceBUS As InvoiceBUS
+	Private customerBUS As CustomerBUS
 	Private parameterBUS As ParameterBUS
 	Private bookBUS As BookBUS
 
 	Public Sub New()
 		invoiceDetailDAL = New InvoiceDetailDAL()
+		invoiceBUS = New InvoiceBUS()
+		customerBUS = New CustomerBUS()
 		parameterBUS = New ParameterBUS()
 		bookBUS = New BookBUS()
 	End Sub
@@ -26,21 +30,24 @@ Public Class InvoiceDetailBUS
 		Dim result = parameterBUS.selectAll(parameter)
 		Dim book As BookDTO
 
-		If result.FlagResult = True Then
-			If (invoiceDetail.BookID Is Nothing) Then
-				Return New Result(False, $"Book ID of {invoiceDetail.ID} is missing", "")
-			End If
-
-			result = bookBUS.select_ByID(invoiceDetail.BookID, book)
-
-			If (result.FlagResult = True) Then
-				If (book.Stock - invoiceDetail.Amount < parameter.MinStockAfterSales) Then
-					Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {invoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
-				End If
-			Else
-				Return New Result(False, $"Cannot load book when validating invoice detail", "")
-			End If
+		If result.FlagResult = False Then
+			Return result
 		End If
+
+		If (invoiceDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {invoiceDetail.ID} is missing", "")
+		End If
+
+		result = bookBUS.select_ByID(invoiceDetail.BookID, book)
+
+		If (result.FlagResult = True) Then
+			If (book.Stock - invoiceDetail.Amount < parameter.MinStockAfterSales) Then
+				Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {invoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
+			End If
+		Else
+			Return New Result(False, $"Cannot load book when validating invoice detail", "")
+		End If
+
 		Return result
 	End Function
 
@@ -49,25 +56,28 @@ Public Class InvoiceDetailBUS
 		Dim result = parameterBUS.selectAll(parameter)
 		Dim book As BookDTO
 
-		If result.FlagResult = True Then
-			If (newInvoiceDetail.BookID Is Nothing) Then
-				Return New Result(False, $"Book ID of {oldInvoiceDetail.ID} is missing", "")
-			End If
-
-			If (oldInvoiceDetail.BookID <> newInvoiceDetail.BookID) Then
-				Return IsValidToAdd(newInvoiceDetail)
-			End If
-
-			result = bookBUS.select_ByID(oldInvoiceDetail.BookID, book)
-
-			If (result.FlagResult = True) Then
-				If (book.Stock + newInvoiceDetail.Amount - oldInvoiceDetail.Amount < parameter.MinStockAfterSales) Then
-					Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {newInvoiceDetail.Amount - oldInvoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
-				End If
-			Else
-				Return New Result(False, $"Cannot load book when validating invoice detail", "")
-			End If
+		If result.FlagResult = False Then
+			Return result
 		End If
+
+		If (newInvoiceDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {oldInvoiceDetail.ID} is missing", "")
+		End If
+
+		If (oldInvoiceDetail.BookID <> newInvoiceDetail.BookID) Then
+			Return IsValidToAdd(newInvoiceDetail)
+		End If
+
+		result = bookBUS.select_ByID(oldInvoiceDetail.BookID, book)
+
+		If (result.FlagResult = True) Then
+			If (book.Stock + newInvoiceDetail.Amount - oldInvoiceDetail.Amount < parameter.MinStockAfterSales) Then
+				Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {newInvoiceDetail.Amount - oldInvoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
+			End If
+		Else
+			Return New Result(False, $"Cannot load book when validating invoice detail", "")
+		End If
+
 		Return result
 	End Function
 
@@ -77,38 +87,52 @@ Public Class InvoiceDetailBUS
 
 	Public Function insertAll(invoiceDetails As List(Of InvoiceDetailDTO)) As Result
 		Dim oldBooks As List(Of BookDTO) = New List(Of BookDTO)
+		Dim oldCustomers As List(Of CustomerDTO) = New List(Of CustomerDTO)
 		Dim result As Result
 
 		For Each invoiceDetail As InvoiceDetailDTO In invoiceDetails
 			result = IsValidToAdd(invoiceDetail)
 
-			If (result.FlagResult = True) Then
-				Dim book As BookDTO
-
-				result = bookBUS.select_ByID(invoiceDetail.BookID, book)
-
-				If (result.FlagResult = True) Then
-					Dim duplicatedItems = oldBooks.
-						Where(Function(b) b.ID = book.ID)
-
-					If (duplicatedItems.Count = 0) Then
-						oldBooks.Add(book)
-					Else
-						Dim oldIndex = oldBooks.IndexOf(duplicatedItems.First())
-						oldBooks(oldIndex) = book
-					End If
-
-					book.Stock -= invoiceDetail.Amount
-					bookBUS.update(book)
-				Else
-					' Reverse changes in books
-					For Each b As BookDTO In oldBooks
-						bookBUS.update(b)
-					Next
-					Return New Result(False, $"Cannot get book for invoice detail ${invoiceDetail.ID}", "")
-				End If
-			Else
+			If (result.FlagResult = False) Then
 				Return result
+			End If
+
+			Dim book As BookDTO
+			result = bookBUS.select_ByID(invoiceDetail.BookID, book)
+
+			If (result.FlagResult = True) Then
+				oldBooks.AddIfNotExist(book, BookComparer.Instance)
+
+				book.Stock -= invoiceDetail.Amount
+				bookBUS.update(book)
+			Else
+				' Reverse changes in books
+				For Each b As BookDTO In oldBooks
+					bookBUS.update(b)
+				Next
+				Return New Result(False, $"Cannot load book for invoice detail {invoiceDetail.ID}", "")
+			End If
+
+			Dim invoice As InvoiceDTO
+			result = invoiceBUS.select_ByID(invoiceDetail.InvoiceID, invoice)
+
+			If (result.FlagResult = False) Then
+				Return New Result(False, $"Cannot load invoice {invoiceDetail.ID}", "")
+			End If
+
+			Dim customer As CustomerDTO
+			result = customerBUS.select_ByID(invoice.CustomerID, customer)
+
+			If (result.FlagResult = True) Then
+				oldCustomers.AddIfNotExist(customer, CustomerComparer.Instance)
+
+				customer.CurrentDebt += invoiceDetail.SalesPrice * invoiceDetail.Amount
+				customerBUS.update(customer)
+			Else
+				For Each c As CustomerDTO In oldCustomers
+					customerBUS.update(c)
+				Next
+				Return New Result(False, $"Cannot load customer for invoice detail {invoiceDetail.ID}", "")
 			End If
 		Next
 
@@ -128,45 +152,46 @@ Public Class InvoiceDetailBUS
 	End Function
 
 	Public Function update(newinvoiceDetail As InvoiceDetailDTO) As Result
-		Dim oldBooks As List(Of BookDTO) = New List(Of BookDTO)
 		Dim result As Result
 
 		Dim oldInvoiceDetail As InvoiceDetailDTO
 		result = invoiceDetailDAL.select_ByID(newinvoiceDetail.ID, oldInvoiceDetail)
 
-		If (result.FlagResult = True) Then
-			result = IsValidToUpdate(oldInvoiceDetail, newinvoiceDetail)
+		If (result.FlagResult = False) Then
+			Return New Result(False, $"Cannot get invoice detail {newinvoiceDetail.ID}", "")
+		End If
 
-			If (result.FlagResult = True) Then
-				Dim book As BookDTO
+		result = IsValidToUpdate(oldInvoiceDetail, newinvoiceDetail)
 
-				result = bookBUS.select_ByID(newinvoiceDetail.BookID, book)
+		If (result.FlagResult = False) Then
+			Return result
+		End If
 
-				If (result.FlagResult = True) Then ' TODO: update stock when bookID changed too
-					Dim duplicatedItems = oldBooks.
-						Where(Function(b) b.ID = book.ID)
+		Dim book As BookDTO
+		result = bookBUS.select_ByID(newinvoiceDetail.BookID, book)
 
-					If (duplicatedItems.Count = 0) Then
-						oldBooks.Add(book)
-					Else
-						Dim oldIndex = oldBooks.IndexOf(duplicatedItems.First())
-						oldBooks(oldIndex) = book
-					End If
-
-					book.Stock += (newinvoiceDetail.Amount - oldInvoiceDetail.Amount)
-					bookBUS.update(book)
-				Else
-					' Reverse changes in books
-					For Each b As BookDTO In oldBooks
-						bookBUS.update(b)
-					Next
-					Return New Result(False, $"Cannot get book for invoice detail ${newinvoiceDetail.ID}", "")
-				End If
-			Else
-				Return result
-			End If
+		If (result.FlagResult = True) Then ' TODO: update stock when bookID changed too
+			book.Stock += (newinvoiceDetail.Amount - oldInvoiceDetail.Amount)
+			bookBUS.update(book)
 		Else
-			Return New Result(False, $"Cannot get invoice detail ${newinvoiceDetail.ID}", "")
+			Return New Result(False, $"Cannot get book for invoice detail {newinvoiceDetail.ID}", "")
+		End If
+
+		Dim invoice As InvoiceDTO
+		result = invoiceBUS.select_ByID(newinvoiceDetail.InvoiceID, invoice)
+
+		If (result.FlagResult = False) Then
+			Return New Result(False, $"Cannot load invoice {newinvoiceDetail.ID}", "")
+		End If
+
+		Dim customer As CustomerDTO
+		result = customerBUS.select_ByID(invoice.CustomerID, customer)
+
+		If (result.FlagResult = True) Then
+			customer.CurrentDebt += (newinvoiceDetail.SalesPrice * newinvoiceDetail.Amount) - (oldInvoiceDetail.SalesPrice * oldInvoiceDetail.Amount)
+			customerBUS.update(customer)
+		Else
+			Return New Result(False, $"Cannot load customer for invoice detail {newinvoiceDetail.ID}", "")
 		End If
 
 		Return invoiceDetailDAL.update(newinvoiceDetail)

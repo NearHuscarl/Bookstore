@@ -66,6 +66,7 @@
     <Compile Include="AuthorDTO.vb" />
     <Compile Include="BookCategoryDTO.vb" />
     <Compile Include="BookDTO.vb" />
+    <Compile Include="Comparer.vb" />
     <Compile Include="CustomerDTO.vb" />
     <Compile Include="DebtReportDetailDTO.vb" />
     <Compile Include="DebtReportDTO.vb" />
@@ -111,6 +112,12 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.vbproj">
+      <Project>{FA15FC93-9BCC-43A5-B1E7-0C9B0D83C6BE}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

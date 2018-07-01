@@ -195,6 +195,11 @@ Public Class frmInvoice
 
 		Try
 			Dim amount = Convert.ToInt32(selectedCells("colAmount").Value)
+
+			If (amount < 0) Then
+				Throw New ArgumentException
+			End If
+
 			invoiceDetail.Amount = amount
 		Catch ex As FormatException
 			invoiceDetail.Amount = 0
@@ -202,10 +207,23 @@ Public Class frmInvoice
 
 			MetroMessageBox.Show(Me, "Invoice amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
+			Return Nothing
+		Catch ex As ArgumentException
+			invoiceDetail.Amount = 0
+			selectedCells("colAmount").Value = invoiceDetail.Amount
+
+			MetroMessageBox.Show(Me, "Invoice amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(ex.StackTrace)
+			Return Nothing
 		End Try
 
 		Try
 			Dim price = Convert.ToInt32(selectedCells("colPrice").Value)
+
+			If (price < 0) Then
+				Throw New ArgumentException
+			End If
+
 			invoiceDetail.SalesPrice = price
 		Catch ex As FormatException
 			invoiceDetail.SalesPrice = 0
@@ -213,6 +231,14 @@ Public Class frmInvoice
 
 			MetroMessageBox.Show(Me, "Invoice price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
+			Return Nothing
+		Catch ex As ArgumentException
+			invoiceDetail.SalesPrice = 0
+			selectedCells("colPrice").Value = invoiceDetail.SalesPrice
+
+			MetroMessageBox.Show(Me, "Invoice price out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Console.WriteLine(ex.StackTrace)
+			Return Nothing
 		End Try
 
 		Return invoiceDetail
@@ -247,7 +273,12 @@ Public Class frmInvoice
 		dgvInvoiceDetail.Rows(index).Cells("colBookID").Value = value.BookID
 		UpdateCategoryFromCellsIndex(index)
 		dgvInvoiceDetail.Rows(index).Cells("colAmount").Value = value.Amount
-		UpdatePriceFromCellsIndex(index)
+
+		If (value.SalesPrice = Nothing) Then
+			UpdatePriceFromCellsIndex(index)
+		Else
+			dgvInvoiceDetail.Rows(index).Cells("colPrice").Value = value.SalesPrice
+		End If
 	End Sub
 
 	Private Function GetInvoiceFromCellsIndex(index As Integer) As InvoiceDTO
@@ -325,6 +356,9 @@ Public Class frmInvoice
 			End If
 
 			Dim invoiceDetail = GetInvoiceDetailFromCellsIndex(row.Index)
+			If (invoiceDetail Is Nothing) Then
+				Return
+			End If
 			invoiceDetails.Add(invoiceDetail)
 		Next
 
@@ -376,9 +410,24 @@ Public Class frmInvoice
 			MetroMessageBox.Show(Me, String.Format("Failed to delete invoice detail {0}", selectedInvoiceDetailID),
 										"Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
+			Return
 		End If
 
 		LoadInvoiceDetailsFromSelectedInvoice()
+	End Sub
+
+	Private Sub UpdateTotalPrice()
+		Dim total = 0
+		For Each row As DataGridViewRow In dgvInvoiceDetail.Rows
+			If (row.IsNewRow) Then
+				Exit For
+			End If
+
+			Dim invoiceDetail = GetInvoiceDetailFromCellsIndex(row.Index)
+			total += invoiceDetail.SalesPrice * invoiceDetail.Amount
+		Next
+
+		txtTotal.Text = total.ToString("N0")
 	End Sub
 
 	Private isChangingInvoiceSelection As Boolean = False
@@ -392,15 +441,34 @@ Public Class frmInvoice
 			isChangingInvoiceSelection = True
 
 			Dim dialogResult = MetroMessageBox.Show(Me, "All changed in Invoice Detail will be overwrite. Do you want to switch?",
-										"MetroMessagebox", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+										"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
 			If (dialogResult = DialogResult.Yes) Then
+				If (btnUpdate.Enabled) Then
+					invoiceDetailsToUpdate.Clear()
+				End If
 				LoadInvoiceDetailsFromSelectedInvoice()
 			Else
 				dgvInvoice.Rows(lastInvoiceSelectionIndex).Selected = True 'Trigger recursion
 			End If
 		Else
 			LoadInvoiceDetailsFromSelectedInvoice()
+		End If
+
+		UpdateTotalPrice()
+
+		If (SelectedInvoiceDetail IsNot Nothing) Then
+			If (SelectedInvoice.ID = nextInvoiceID) Then 'Cannot change customer in invoice once added
+				colCustomer.ReadOnly = False
+			Else
+				colCustomer.ReadOnly = True
+			End If
+
+			If (SelectedInvoiceDetail.ID = nextInvoiceDetailID) Then
+				dgvInvoiceDetail.AllowUserToAddRows = True
+			Else
+				dgvInvoiceDetail.AllowUserToAddRows = False
+			End If
 		End If
 
 		lastInvoiceSelectionIndex = dgvInvoice.CurrentCell.RowIndex
@@ -413,6 +481,9 @@ Public Class frmInvoice
 		End If
 
 		Dim changedInvoiceDetail = GetInvoiceDetailFromCellsIndex(e.RowIndex)
+		If (changedInvoiceDetail Is Nothing) Then
+			Return
+		End If
 
 		If (changedInvoiceDetail.ID = Nothing) Then
 			nextInvoiceDetailID.IncrementID("INVOICEDETAIL", "D4")
@@ -421,26 +492,33 @@ Public Class frmInvoice
 			Return
 		End If
 
-		Dim duplicatedItems = invoiceDetailsToUpdate.
-			Where(Function(detail) detail.ID = changedInvoiceDetail.ID)
+		invoiceDetailsToUpdate.AddOrReplace(changedInvoiceDetail, InvoiceDetailComparer.Instance)
 
 		If (dgvInvoiceDetail.Columns(e.ColumnIndex).Name = "colBookID") Then ' Update book category along with book ID
 			UpdateCategoryFromCellsIndex(e.RowIndex)
 			UpdatePriceFromCellsIndex(e.RowIndex)
 		End If
 
-		If (duplicatedItems.Count = 0) Then
-			invoiceDetailsToUpdate.Add(changedInvoiceDetail)
-		Else
-			Dim oldIndex = invoiceDetailsToUpdate.IndexOf(duplicatedItems.First())
-			invoiceDetailsToUpdate(oldIndex) = changedInvoiceDetail
-		End If
+		UpdateTotalPrice()
 
 		If (SelectedInvoice IsNot Nothing) Then
 			If (SelectedInvoice.ID Is nextInvoiceID) Then
 				btnAdd.Enabled = True
 			Else
 				btnUpdate.Enabled = True
+			End If
+		End If
+	End Sub
+
+	Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
+		If (btnAdd.Enabled Or btnUpdate.Enabled) Then
+			Dim dialogResult = MetroMessageBox.Show(Me, "All changed in Import Detail will be overwrite. Do you want to exit?",
+							"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+			If (dialogResult = DialogResult.Yes) Then
+				MyBase.OnFormClosing(e)
+			Else
+				e.Cancel = True
 			End If
 		End If
 	End Sub

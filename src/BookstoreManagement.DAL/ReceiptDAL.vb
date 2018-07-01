@@ -144,7 +144,7 @@ Public Class ReceiptDAL
 
 					If reader.HasRows = True Then
 						reader.Read()
-						receipt = New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectAmount"))
+						receipt = New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectedAmount"))
 					End If
 
 				Catch ex As Exception
@@ -192,7 +192,7 @@ Public Class ReceiptDAL
 					If reader.HasRows = True Then
 						receipts.Clear()
 						While reader.Read()
-							receipts.Add(New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectAmount")))
+							receipts.Add(New ReceiptDTO(reader("ID"), reader("CustomerID"), reader("CollectedDate"), reader("CollectedAmount")))
 						End While
 					End If
 
@@ -318,8 +318,8 @@ Public Class ReceiptDAL
 		query &= "UPDATE [Receipt] SET "
 		query &= "[CustomerID] = @CustomerID, "
 		query &= "[CollectedDate] = @CollectedDate, "
-		query &= "[CollectedAmount] = @CollectedAmount, "
-		query &= "WHERE [ID] = @ID"
+		query &= "[CollectedAmount] = @CollectedAmount"
+		query &= " WHERE [ID] = @ID"
 
 		Using conn As New SqlConnection(connectionStr)
 

@@ -22,10 +22,14 @@ Partial Class frmSearch
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
-		Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-		Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
 		Me.dgvSearchResults = New MetroFramework.Controls.MetroGrid()
+		Me.colBook = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colAuthor = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.txtBookName = New MetroFramework.Controls.MetroTextBox()
 		Me.lblBookName = New MetroFramework.Controls.MetroLabel()
 		Me.lblCategory = New MetroFramework.Controls.MetroLabel()
@@ -35,57 +39,91 @@ Partial Class frmSearch
 		Me.cbbAmount = New MetroFramework.Controls.MetroComboBox()
 		Me.lblAmount = New MetroFramework.Controls.MetroLabel()
 		Me.btnSearch = New MetroFramework.Controls.MetroButton()
-		Me.colBook = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colAuthor = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		CType(Me.dgvSearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'dgvSearchResults
 		'
+		Me.dgvSearchResults.AllowUserToAddRows = False
+		Me.dgvSearchResults.AllowUserToDeleteRows = False
 		Me.dgvSearchResults.AllowUserToResizeRows = False
 		Me.dgvSearchResults.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
 		Me.dgvSearchResults.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.dgvSearchResults.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
 		Me.dgvSearchResults.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvSearchResults.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+		DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvSearchResults.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
 		Me.dgvSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.dgvSearchResults.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colBook, Me.colCategory, Me.colAuthor, Me.colAmount})
-		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
-		DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.dgvSearchResults.DefaultCellStyle = DataGridViewCellStyle2
+		DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+		DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.dgvSearchResults.DefaultCellStyle = DataGridViewCellStyle5
 		Me.dgvSearchResults.EnableHeadersVisualStyles = False
 		Me.dgvSearchResults.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
 		Me.dgvSearchResults.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
 		Me.dgvSearchResults.Location = New System.Drawing.Point(119, 153)
 		Me.dgvSearchResults.Name = "dgvSearchResults"
+		Me.dgvSearchResults.ReadOnly = True
 		Me.dgvSearchResults.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-		DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-		DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-		DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-		DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dgvSearchResults.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+		DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+		DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+		DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+		DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dgvSearchResults.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
 		Me.dgvSearchResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
 		Me.dgvSearchResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 		Me.dgvSearchResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
 		Me.dgvSearchResults.Size = New System.Drawing.Size(580, 227)
 		Me.dgvSearchResults.TabIndex = 9
+		'
+		'colBook
+		'
+		Me.colBook.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colBook.FillWeight = 172.2907!
+		Me.colBook.HeaderText = "Book"
+		Me.colBook.Name = "colBook"
+		Me.colBook.ReadOnly = True
+		Me.colBook.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		'
+		'colCategory
+		'
+		Me.colCategory.HeaderText = "Category"
+		Me.colCategory.Name = "colCategory"
+		Me.colCategory.ReadOnly = True
+		Me.colCategory.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.colCategory.Width = 150
+		'
+		'colAuthor
+		'
+		Me.colAuthor.FillWeight = 60.14212!
+		Me.colAuthor.HeaderText = "Author"
+		Me.colAuthor.Name = "colAuthor"
+		Me.colAuthor.ReadOnly = True
+		Me.colAuthor.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colAuthor.Width = 115
+		'
+		'colAmount
+		'
+		Me.colAmount.FillWeight = 123.8739!
+		Me.colAmount.HeaderText = "Amount"
+		Me.colAmount.Name = "colAmount"
+		Me.colAmount.ReadOnly = True
+		Me.colAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colAmount.Width = 110
 		'
 		'txtBookName
 		'
@@ -148,7 +186,7 @@ Partial Class frmSearch
 		'lblAuthor
 		'
 		Me.lblAuthor.AutoSize = True
-		Me.lblAuthor.Location = New System.Drawing.Point(407, 75)
+		Me.lblAuthor.Location = New System.Drawing.Point(396, 75)
 		Me.lblAuthor.Name = "lblAuthor"
 		Me.lblAuthor.Size = New System.Drawing.Size(49, 19)
 		Me.lblAuthor.TabIndex = 16
@@ -169,7 +207,7 @@ Partial Class frmSearch
 		Me.txtAuthor.CustomButton.UseSelectable = True
 		Me.txtAuthor.CustomButton.Visible = False
 		Me.txtAuthor.Lines = New String(-1) {}
-		Me.txtAuthor.Location = New System.Drawing.Point(462, 75)
+		Me.txtAuthor.Location = New System.Drawing.Point(451, 75)
 		Me.txtAuthor.MaxLength = 32767
 		Me.txtAuthor.Name = "txtAuthor"
 		Me.txtAuthor.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -188,7 +226,7 @@ Partial Class frmSearch
 		'
 		Me.cbbAmount.FormattingEnabled = True
 		Me.cbbAmount.ItemHeight = 23
-		Me.cbbAmount.Location = New System.Drawing.Point(461, 104)
+		Me.cbbAmount.Location = New System.Drawing.Point(450, 104)
 		Me.cbbAmount.Name = "cbbAmount"
 		Me.cbbAmount.Size = New System.Drawing.Size(147, 29)
 		Me.cbbAmount.TabIndex = 18
@@ -197,7 +235,7 @@ Partial Class frmSearch
 		'lblAmount
 		'
 		Me.lblAmount.AutoSize = True
-		Me.lblAmount.Location = New System.Drawing.Point(399, 110)
+		Me.lblAmount.Location = New System.Drawing.Point(388, 110)
 		Me.lblAmount.Name = "lblAmount"
 		Me.lblAmount.Size = New System.Drawing.Size(56, 19)
 		Me.lblAmount.TabIndex = 17
@@ -205,45 +243,12 @@ Partial Class frmSearch
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(635, 108)
+		Me.btnSearch.Location = New System.Drawing.Point(624, 108)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(75, 23)
 		Me.btnSearch.TabIndex = 19
 		Me.btnSearch.Text = "Search"
 		Me.btnSearch.UseSelectable = True
-		'
-		'colBook
-		'
-		Me.colBook.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colBook.FillWeight = 172.2907!
-		Me.colBook.HeaderText = "Book"
-		Me.colBook.Name = "colBook"
-		Me.colBook.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		'
-		'colCategory
-		'
-		Me.colCategory.HeaderText = "Category"
-		Me.colCategory.Name = "colCategory"
-		Me.colCategory.ReadOnly = True
-		Me.colCategory.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.colCategory.Width = 150
-		'
-		'colAuthor
-		'
-		Me.colAuthor.FillWeight = 60.14212!
-		Me.colAuthor.HeaderText = "Author"
-		Me.colAuthor.Name = "colAuthor"
-		Me.colAuthor.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colAuthor.Width = 115
-		'
-		'colAmount
-		'
-		Me.colAmount.FillWeight = 123.8739!
-		Me.colAmount.HeaderText = "Amount"
-		Me.colAmount.Name = "colAmount"
-		Me.colAmount.ReadOnly = True
-		Me.colAmount.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colAmount.Width = 110
 		'
 		'frmSearch
 		'
