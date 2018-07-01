@@ -89,6 +89,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="AccountDAL.vb" />
+    <Compile Include="OptionDAL.vb" />
     <Compile Include="ParameterDAL.vb" />
     <Compile Include="ReceiptDAL.vb" />
     <Compile Include="StockReportDAL.vb" />

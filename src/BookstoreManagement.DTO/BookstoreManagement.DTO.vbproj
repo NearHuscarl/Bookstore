@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountDTO.vb" />
     <Compile Include="AuthorDTO.vb" />
     <Compile Include="BookCategoryDTO.vb" />
     <Compile Include="BookDTO.vb" />
@@ -89,6 +90,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="OptionDTO.vb" />
     <Compile Include="ParameterDTO.vb" />
     <Compile Include="ReceiptDTO.vb" />
     <Compile Include="StockReportDetailDTO.vb" />
