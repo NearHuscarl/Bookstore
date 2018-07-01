@@ -236,7 +236,9 @@ Partial Class frmRegulation
 		Me.Controls.Add(Me.lblMaxStockBeforeImport)
 		Me.Controls.Add(Me.txtMinImportAmount)
 		Me.Controls.Add(Me.lblMinImportAmount)
+		Me.MaximizeBox = False
 		Me.Name = "frmRegulation"
+		Me.Resizable = False
 		Me.Text = "Regulation"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()

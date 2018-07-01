@@ -246,7 +246,9 @@ Partial Class frmImport
 		Me.Controls.Add(Me.dgvImportDetail)
 		Me.Controls.Add(Me.lblImportDetail)
 		Me.Controls.Add(Me.btnAdd)
+		Me.MaximizeBox = False
 		Me.Name = "frmImport"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Import Book"
 		CType(Me.dgvImportDetail, System.ComponentModel.ISupportInitialize).EndInit()

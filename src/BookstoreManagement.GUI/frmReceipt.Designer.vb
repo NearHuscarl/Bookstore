@@ -28,6 +28,10 @@ Partial Class frmReceipt
 		Me.btnUpdate = New MetroFramework.Controls.MetroButton()
 		Me.btnAdd = New MetroFramework.Controls.MetroButton()
 		Me.dgvReceipt = New MetroFramework.Controls.MetroGrid()
+		Me.colReceiptID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colCustomerID = New System.Windows.Forms.DataGridViewComboBoxColumn()
+		Me.colDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.lblEmail = New MetroFramework.Controls.MetroLabel()
 		Me.txtEmail = New MetroFramework.Controls.MetroTextBox()
 		Me.lblPhoneNumber = New MetroFramework.Controls.MetroLabel()
@@ -37,10 +41,6 @@ Partial Class frmReceipt
 		Me.lblName = New MetroFramework.Controls.MetroLabel()
 		Me.txtName = New MetroFramework.Controls.MetroTextBox()
 		Me.btnDelete = New MetroFramework.Controls.MetroButton()
-		Me.colReceiptID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colCustomerID = New System.Windows.Forms.DataGridViewComboBoxColumn()
-		Me.colDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		CType(Me.dgvReceipt, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
@@ -109,6 +109,37 @@ Partial Class frmReceipt
 		Me.dgvReceipt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
 		Me.dgvReceipt.Size = New System.Drawing.Size(536, 133)
 		Me.dgvReceipt.TabIndex = 29
+		'
+		'colReceiptID
+		'
+		Me.colReceiptID.FillWeight = 123.8739!
+		Me.colReceiptID.HeaderText = "ID"
+		Me.colReceiptID.Name = "colReceiptID"
+		Me.colReceiptID.ReadOnly = True
+		Me.colReceiptID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colReceiptID.Width = 110
+		'
+		'colCustomerID
+		'
+		Me.colCustomerID.FillWeight = 172.2907!
+		Me.colCustomerID.HeaderText = "Customer ID"
+		Me.colCustomerID.Name = "colCustomerID"
+		Me.colCustomerID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colCustomerID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+		Me.colCustomerID.Width = 150
+		'
+		'colDate
+		'
+		Me.colDate.FillWeight = 75.38008!
+		Me.colDate.HeaderText = "Date"
+		Me.colDate.Name = "colDate"
+		Me.colDate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+		Me.colDate.Width = 130
+		'
+		'colAmount
+		'
+		Me.colAmount.HeaderText = "Amount"
+		Me.colAmount.Name = "colAmount"
 		'
 		'lblEmail
 		'
@@ -280,37 +311,6 @@ Partial Class frmReceipt
 		Me.btnDelete.Text = "Delete"
 		Me.btnDelete.UseSelectable = True
 		'
-		'colReceiptID
-		'
-		Me.colReceiptID.FillWeight = 123.8739!
-		Me.colReceiptID.HeaderText = "ID"
-		Me.colReceiptID.Name = "colReceiptID"
-		Me.colReceiptID.ReadOnly = True
-		Me.colReceiptID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colReceiptID.Width = 110
-		'
-		'colCustomerID
-		'
-		Me.colCustomerID.FillWeight = 172.2907!
-		Me.colCustomerID.HeaderText = "Customer ID"
-		Me.colCustomerID.Name = "colCustomerID"
-		Me.colCustomerID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colCustomerID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-		Me.colCustomerID.Width = 150
-		'
-		'colDate
-		'
-		Me.colDate.FillWeight = 75.38008!
-		Me.colDate.HeaderText = "Date"
-		Me.colDate.Name = "colDate"
-		Me.colDate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.colDate.Width = 130
-		'
-		'colAmount
-		'
-		Me.colAmount.HeaderText = "Amount"
-		Me.colAmount.Name = "colAmount"
-		'
 		'frmReceipt
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -328,7 +328,9 @@ Partial Class frmReceipt
 		Me.Controls.Add(Me.dgvReceipt)
 		Me.Controls.Add(Me.btnAdd)
 		Me.Controls.Add(Me.btnUpdate)
+		Me.MaximizeBox = False
 		Me.Name = "frmReceipt"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Receipt"
 		CType(Me.dgvReceipt, System.ComponentModel.ISupportInitialize).EndInit()
