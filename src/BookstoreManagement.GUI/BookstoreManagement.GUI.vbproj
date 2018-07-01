@@ -87,6 +87,12 @@
     <Compile Include="frmReceipt.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmRegulation.Designer.vb">
+      <DependentUpon>frmRegulation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegulation.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSearch.Designer.vb">
       <DependentUpon>frmSearch.vb</DependentUpon>
     </Compile>
@@ -174,6 +180,9 @@
     <EmbeddedResource Include="frmReceipt.resx">
       <DependentUpon>frmReceipt.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmRegulation.resx">
+      <DependentUpon>frmRegulation.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSearch.resx">
       <DependentUpon>frmSearch.vb</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +249,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Regulation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

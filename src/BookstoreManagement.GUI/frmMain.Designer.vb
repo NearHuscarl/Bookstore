@@ -23,7 +23,7 @@ Partial Class frmMain
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
 		Me.pnlMainMenu = New MetroFramework.Controls.MetroPanel()
-		Me.tlAuthor = New MetroFramework.Controls.MetroTile()
+		Me.lkAbout = New MetroFramework.Controls.MetroLink()
 		Me.tlRegulation = New MetroFramework.Controls.MetroTile()
 		Me.tlReceipt = New MetroFramework.Controls.MetroTile()
 		Me.tlDebtReport = New MetroFramework.Controls.MetroTile()
@@ -64,20 +64,15 @@ Partial Class frmMain
 		Me.pnlMainMenu.VerticalScrollbarHighlightOnWheel = False
 		Me.pnlMainMenu.VerticalScrollbarSize = 10
 		'
-		'tlAuthor
+		'lkAbout
 		'
-		Me.tlAuthor.ActiveControl = Nothing
-		Me.tlAuthor.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
-		Me.tlAuthor.Location = New System.Drawing.Point(10, 10)
-		Me.tlAuthor.Margin = New System.Windows.Forms.Padding(10)
-		Me.tlAuthor.Name = "tlAuthor"
-		Me.tlAuthor.Size = New System.Drawing.Size(70, 50)
-		Me.tlAuthor.TabIndex = 6
-		Me.tlAuthor.Text = "Author"
-		Me.tlAuthor.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.tlAuthor.UseCustomBackColor = True
-		Me.tlAuthor.UseSelectable = True
-		Me.tlAuthor.UseTileImage = True
+		Me.lkAbout.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
+		Me.lkAbout.ImageSize = 25
+		Me.lkAbout.Location = New System.Drawing.Point(687, 33)
+		Me.lkAbout.Name = "lkAbout"
+		Me.lkAbout.Size = New System.Drawing.Size(30, 27)
+		Me.lkAbout.TabIndex = 1
+		Me.lkAbout.UseSelectable = True
 		'
 		'tlRegulation
 		'
@@ -241,6 +236,7 @@ Partial Class frmMain
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(750, 400)
+		Me.Controls.Add(Me.lkAbout)
 		Me.Controls.Add(Me.pnlMainMenu)
 		Me.Name = "frmMain"
 		Me.Text = "Main Menu"
@@ -258,8 +254,5 @@ Partial Class frmMain
 	Friend WithEvents tlInvoice As MetroFramework.Controls.MetroTile
 	Friend WithEvents tlImport As MetroFramework.Controls.MetroTile
 	Friend WithEvents tlRegulation As MetroFramework.Controls.MetroTile
-	Friend WithEvents tlAuthor As MetroFramework.Controls.MetroTile
-	Friend WithEvents tlBookCategory As MetroFramework.Controls.MetroTile
-	Friend WithEvents tlCustomer As MetroFramework.Controls.MetroTile
-	Friend WithEvents tlBook As MetroFramework.Controls.MetroTile
+	Friend WithEvents lkAbout As MetroFramework.Controls.MetroLink
 End Class

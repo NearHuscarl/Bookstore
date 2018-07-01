@@ -65,10 +65,10 @@ Public Class ParameterDAL
 
 		Dim query As String = String.Empty
 		query &= "UPDATE [Parameter] SET "
-		query &= " [MinImportAmount] = @MinImportAmount"
-		query &= " [MaxStockBeforeImport] = @MaxStockBeforeImport"
-		query &= " [MaxDebt] = @MaxDebt"
-		query &= " [MinStockAfterSales] = @MinStockAfterSales"
+		query &= " [MinImportAmount] = @MinImportAmount, "
+		query &= " [MaxStockBeforeImport] = @MaxStockBeforeImport, "
+		query &= " [MaxDebt] = @MaxDebt, "
+		query &= " [MinStockAfterSales] = @MinStockAfterSales, "
 		query &= " [UseRegulation] = @UseRegulation"
 
 		Using conn As New SqlConnection(connectionStr)

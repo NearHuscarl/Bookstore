@@ -1,4 +1,8 @@
-﻿Imports MetroFramework.Drawing
+﻿Imports System.Drawing.Text
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+Imports MetroFramework
+Imports MetroFramework.Drawing
 
 Public Class frmMain
 	Public Sub New()
@@ -35,6 +39,15 @@ Public Class frmMain
 
 	Private Sub tlReceipt_Click(sender As Object, e As EventArgs) Handles tlReceipt.Click
 		Dim frm As frmReceipt = New frmReceipt()
+		frm.ShowDialog()
+	End Sub
+
+	Private Sub lkAbout_Click(sender As Object, e As EventArgs) Handles lkAbout.Click
+
+	End Sub
+
+	Private Sub tlRegulation_Click(sender As Object, e As EventArgs) Handles tlRegulation.Click
+		Dim frm As frmRegulation = New frmRegulation()
 		frm.ShowDialog()
 	End Sub
 End Class
