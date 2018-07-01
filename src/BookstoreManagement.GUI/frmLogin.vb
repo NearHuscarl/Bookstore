@@ -81,7 +81,7 @@ Public Class frmLogin
 
 		If (txtPassword.Text = account.Password) Then
 			UpdateOption(account)
-			LoginSuccess()
+			LoginSuccess(account.Privilege)
 		Else
 			MetroMessageBox.Show(Me, "Wrong password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 		End If
@@ -101,8 +101,8 @@ Public Class frmLogin
 		End If
 	End Sub
 
-	Private Sub LoginSuccess()
-		Dim frm As frmMain = New frmMain()
+	Private Sub LoginSuccess(privilege As Integer)
+		Dim frm As frmMain = New frmMain(privilege)
 
 		frm.Show()
 		Close()
