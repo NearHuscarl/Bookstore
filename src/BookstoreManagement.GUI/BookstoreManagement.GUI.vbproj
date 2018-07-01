@@ -46,6 +46,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>BookstoreManagement.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
@@ -81,6 +84,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmReceipt.Designer.vb">
       <DependentUpon>frmReceipt.vb</DependentUpon>
     </Compile>
@@ -141,32 +150,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmAuthor.resx">
-      <DependentUpon>frmAuthor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBook.resx">
-      <DependentUpon>frmBook.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBookCategory.resx">
-      <DependentUpon>frmBookCategory.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAuthorEdit.resx">
-      <DependentUpon>frmAuthorEdit.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBookCategoryEdit.resx">
-      <DependentUpon>frmBookCategoryEdit.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBookEdit.resx">
-      <DependentUpon>frmBookEdit.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCustomer.resx">
-      <DependentUpon>frmCustomer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCustomerEdit.resx">
-      <DependentUpon>frmCustomerEdit.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDebtReport.resx">
-      <DependentUpon>frmDebtReport.vb</DependentUpon>
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInvoice.resx">
       <DependentUpon>frmInvoice.vb</DependentUpon>
@@ -252,6 +237,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BookstoreManagement.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

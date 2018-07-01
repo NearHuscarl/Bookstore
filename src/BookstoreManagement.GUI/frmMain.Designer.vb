@@ -22,7 +22,9 @@ Partial Class frmMain
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
 		Me.pnlMainMenu = New MetroFramework.Controls.MetroPanel()
+		Me.lkAbout = New MetroFramework.Controls.MetroLink()
 		Me.tlRegulation = New MetroFramework.Controls.MetroTile()
 		Me.tlReceipt = New MetroFramework.Controls.MetroTile()
 		Me.tlDebtReport = New MetroFramework.Controls.MetroTile()
@@ -33,7 +35,6 @@ Partial Class frmMain
 		Me.tlCustomer = New MetroFramework.Controls.MetroTile()
 		Me.tlBook = New MetroFramework.Controls.MetroTile()
 		Me.tlImport = New MetroFramework.Controls.MetroTile()
-		Me.lkAbout = New MetroFramework.Controls.MetroLink()
 		Me.pnlMainMenu.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -63,6 +64,16 @@ Partial Class frmMain
 		Me.pnlMainMenu.VerticalScrollbarBarColor = True
 		Me.pnlMainMenu.VerticalScrollbarHighlightOnWheel = False
 		Me.pnlMainMenu.VerticalScrollbarSize = 10
+		'
+		'lkAbout
+		'
+		Me.lkAbout.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
+		Me.lkAbout.ImageSize = 25
+		Me.lkAbout.Location = New System.Drawing.Point(687, 33)
+		Me.lkAbout.Name = "lkAbout"
+		Me.lkAbout.Size = New System.Drawing.Size(30, 27)
+		Me.lkAbout.TabIndex = 1
+		Me.lkAbout.UseSelectable = True
 		'
 		'tlRegulation
 		'
@@ -221,16 +232,6 @@ Partial Class frmMain
 		Me.tlImport.UseSelectable = True
 		Me.tlImport.UseTileImage = True
 		'
-		'lkAbout
-		'
-		Me.lkAbout.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
-		Me.lkAbout.ImageSize = 25
-		Me.lkAbout.Location = New System.Drawing.Point(687, 33)
-		Me.lkAbout.Name = "lkAbout"
-		Me.lkAbout.Size = New System.Drawing.Size(30, 27)
-		Me.lkAbout.TabIndex = 1
-		Me.lkAbout.UseSelectable = True
-		'
 		'frmMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -238,6 +239,7 @@ Partial Class frmMain
 		Me.ClientSize = New System.Drawing.Size(750, 400)
 		Me.Controls.Add(Me.lkAbout)
 		Me.Controls.Add(Me.pnlMainMenu)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
 		Me.Name = "frmMain"
 		Me.Resizable = False

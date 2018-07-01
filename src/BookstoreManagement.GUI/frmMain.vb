@@ -12,13 +12,13 @@ Public Class frmMain
 
 		' Add any initialization after the InitializeComponent() call.
 
-		tlImport.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Red)
-		tlInvoice.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Yellow)
-		tlSearch.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Green)
-		tlReceipt.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Orange)
-		tlStockReport.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Lime)
-		tlDebtReport.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Teal)
-		tlRegulation.BackColor = MetroPaint.GetStyleColor(MetroFramework.MetroColorStyle.Silver)
+		tlImport.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Red)
+		tlInvoice.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Yellow)
+		tlSearch.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Green)
+		tlReceipt.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Orange)
+		tlStockReport.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Lime)
+		tlDebtReport.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Teal)
+		tlRegulation.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
 	End Sub
 
 	Private Sub tlImport_Click(sender As Object, e As EventArgs) Handles tlImport.Click
@@ -43,7 +43,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub lkAbout_Click(sender As Object, e As EventArgs) Handles lkAbout.Click
-
+		Dim frm As frmAbout = New frmAbout()
+		frm.ShowDialog()
 	End Sub
 
 	Private Sub tlRegulation_Click(sender As Object, e As EventArgs) Handles tlRegulation.Click
