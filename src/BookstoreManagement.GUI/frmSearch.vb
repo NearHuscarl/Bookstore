@@ -104,7 +104,7 @@ Public Class frmSearch
 			Return books
 		End If
 
-		Return books.Where(Function(b) b.Name.Contains(name)).ToList()
+		Return books.Where(Function(b) b.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList()
 	End Function
 
 	Private Function FilterByCategory(books As List(Of BookDTO), category As String) As List(Of BookDTO)
@@ -112,7 +112,7 @@ Public Class frmSearch
 			Return books
 		End If
 
-		Dim categoryIDs = categories.Where(Function(c) c.Name.Contains(category)).Select(Function(a) a.ID).ToList()
+		Dim categoryIDs = categories.Where(Function(c) c.Name.Contains(category, StringComparison.OrdinalIgnoreCase)).Select(Function(a) a.ID).ToList()
 		Dim results = New List(Of BookDTO)
 
 		For Each book As BookDTO In books
@@ -132,7 +132,7 @@ Public Class frmSearch
 			Return books
 		End If
 
-		Dim authorIDs = authors.Where(Function(a) a.Name.Contains(author)).Select(Function(a) a.ID).ToList()
+		Dim authorIDs = authors.Where(Function(a) a.Name.Contains(author, StringComparison.OrdinalIgnoreCase)).Select(Function(a) a.ID).ToList()
 		Dim results = New List(Of BookDTO)
 
 		For Each book As BookDTO In books

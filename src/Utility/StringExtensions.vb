@@ -21,4 +21,12 @@ Public Module StringExtensions
 	Public Function ToNormal(ByRef this As String) As String
 		Return this.Trim().ToLowerInvariant()
 	End Function
+
+	<Extension()>
+	Public Function Contains(ByRef this As String, strToCheck As String, Optional stringComparison As StringComparison = StringComparison.Ordinal) As Boolean
+		If (this IsNot Nothing) Then
+			Return this.IndexOf(strToCheck, stringComparison) >= 0
+		End If
+		Return False
+   End Function
 End Module
