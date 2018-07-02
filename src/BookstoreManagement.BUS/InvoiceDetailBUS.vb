@@ -25,6 +25,22 @@ Public Class InvoiceDetailBUS
 		Return invoiceDetailDAL.getNextId(nextId)
 	End Function
 
+	Private Function Validate(invoiceDetail As InvoiceDetailDTO) As Result
+		If (invoiceDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {invoiceDetail.ID} is missing", "")
+		End If
+
+		If (invoiceDetail.Amount < 0) Then
+			Return New Result(False, $"Amount of {invoiceDetail.ID} is out of range", "")
+		End If
+
+		If (invoiceDetail.SalesPrice < 0) Then
+			Return New Result(False, $"SalesPrice of {invoiceDetail.ID} is out of range", "")
+		End If
+
+		Return New Result(True)
+	End Function
+
 	Private Function IsValidToAdd(invoiceDetail As InvoiceDetailDTO) As Result
 		Dim parameter As ParameterDTO
 		Dim result = parameterBUS.selectAll(parameter)
@@ -33,8 +49,9 @@ Public Class InvoiceDetailBUS
 			Return result
 		End If
 
-		If (invoiceDetail.BookID Is Nothing) Then
-			Return New Result(False, $"Book ID of {invoiceDetail.ID} is missing", "")
+		result = Validate(invoiceDetail)
+		If (result.FlagResult = False) Then
+			Return result
 		End If
 
 		If (parameter.UseRegulation) Then
@@ -61,8 +78,9 @@ Public Class InvoiceDetailBUS
 			Return result
 		End If
 
-		If (newInvoiceDetail.BookID Is Nothing) Then
-			Return New Result(False, $"Book ID of {oldInvoiceDetail.ID} is missing", "")
+		result = Validate(newInvoiceDetail)
+		If (result.FlagResult = False) Then
+			Return result
 		End If
 
 		If (oldInvoiceDetail.BookID <> newInvoiceDetail.BookID) Then

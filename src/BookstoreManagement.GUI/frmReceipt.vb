@@ -109,22 +109,11 @@ Public Class frmReceipt
 
 		Try
 			Dim amount = Convert.ToInt32(selectedCells("colAmount").Value)
-
-			If (amount < 0) Then
-				Throw New ArgumentException
-			End If
-
 			receipt.CollectedAmount = amount
 		Catch ex As FormatException
 			selectedCells("colAmount").Value = 0
 
 			MetroMessageBox.Show(Me, "Receipt amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(ex.StackTrace)
-			Return Nothing
-		Catch ex As ArgumentException
-			selectedCells("colAmount").Value = 0
-
-			MetroMessageBox.Show(Me, "Receipt amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		End Try

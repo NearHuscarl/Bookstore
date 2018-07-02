@@ -195,11 +195,6 @@ Public Class frmInvoice
 
 		Try
 			Dim amount = Convert.ToInt32(selectedCells("colAmount").Value)
-
-			If (amount < 0) Then
-				Throw New ArgumentException
-			End If
-
 			invoiceDetail.Amount = amount
 		Catch ex As FormatException
 			selectedCells("colAmount").Value = 0
@@ -207,32 +202,15 @@ Public Class frmInvoice
 			MetroMessageBox.Show(Me, "Invoice amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
-		Catch ex As ArgumentException
-			selectedCells("colAmount").Value = 0
-
-			MetroMessageBox.Show(Me, "Invoice amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(ex.StackTrace)
-			Return Nothing
 		End Try
 
 		Try
 			Dim price = Convert.ToInt32(selectedCells("colPrice").Value)
-
-			If (price < 0) Then
-				Throw New ArgumentException
-			End If
-
 			invoiceDetail.SalesPrice = price
 		Catch ex As FormatException
 			selectedCells("colPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Invoice price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(ex.StackTrace)
-			Return Nothing
-		Catch ex As ArgumentException
-			selectedCells("colPrice").Value = 0
-
-			MetroMessageBox.Show(Me, "Invoice price out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		End Try

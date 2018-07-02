@@ -26,6 +26,22 @@ Public Class ImportDetailBUS
 		Return importDetailDAL.insert(importDetail)
 	End Function
 
+	Private Function Validate(importDetail As ImportDetailDTO) As Result
+		If (importDetail.BookID Is Nothing) Then
+			Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+		End If
+
+		If (importDetail.ImportAmount < 0) Then
+			Return New Result(False, $"Import amount of {importDetail.ID} is  out of range", "")
+		End If
+
+		If (importDetail.ImportPrice < 0) Then
+			Return New Result(False, $"Import price of {importDetail.ID} is  out of range", "")
+		End If
+
+		Return New Result(True)
+	End Function
+
 	Private Function IsValidToAdd(importDetail As ImportDetailDTO) As Result
 		Dim parameter As ParameterDTO
 		Dim result = parameterBUS.selectAll(parameter)
@@ -35,8 +51,9 @@ Public Class ImportDetailBUS
 			Return result
 		End If
 
-		If (importDetail.BookID Is Nothing) Then
-			Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+		result = Validate(importDetail)
+		If result.FlagResult = False Then
+			Return result
 		End If
 
 		If (importDetail.ImportAmount < parameter.MinImportAmount) Then
@@ -64,8 +81,9 @@ Public Class ImportDetailBUS
 			Return result
 		End If
 
-		If (importDetail.BookID Is Nothing) Then
-			Return New Result(False, $"Book ID of {importDetail.ID} is missing", "")
+		result = Validate(importDetail)
+		If result.FlagResult = False Then
+			Return result
 		End If
 
 		If (importDetail.ImportAmount < parameter.MinImportAmount) Then

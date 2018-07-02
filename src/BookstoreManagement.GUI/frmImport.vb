@@ -158,11 +158,6 @@ Public Class frmImport
 
 		Try
 			Dim importAmount = Convert.ToInt32(selectedCells("colImportAmount").Value)
-
-			If (importAmount < 0) Then
-				Throw New ArgumentException
-			End If
-
 			importDetail.ImportAmount = importAmount
 		Catch ex As FormatException
 			selectedCells("colImportAmount").Value = 0
@@ -170,32 +165,15 @@ Public Class frmImport
 			MetroMessageBox.Show(Me, "Import amount field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
-		Catch ex As ArgumentException
-			selectedCells("colImportAmount").Value = 0
-
-			MetroMessageBox.Show(Me, "Import amount out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(ex.StackTrace)
-			Return Nothing
 		End Try
 
 		Try
 			Dim importPrice = Convert.ToInt32(selectedCells("colImportPrice").Value)
-
-			If (importPrice < 0) Then
-				Throw New ArgumentException
-			End If
-
 			importDetail.ImportPrice = importPrice
 		Catch ex As FormatException
 			selectedCells("colImportPrice").Value = 0
 
 			MetroMessageBox.Show(Me, "Import price field must be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Console.WriteLine(ex.StackTrace)
-			Return Nothing
-		Catch ex As ArgumentException
-			selectedCells("colImportPrice").Value = 0
-
-			MetroMessageBox.Show(Me, "Import price out of range", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(ex.StackTrace)
 			Return Nothing
 		End Try
@@ -230,7 +208,7 @@ Public Class frmImport
 
 	Private Sub SetImportFromCellsIndex(index As Integer, value As ImportDTO)
 		dgvImport.Rows(index).Cells("colImportID").Value = value.ID
-		dgvImport.Rows(index).Cells("colImportDate").Value = value.ImportDate
+		dgvImport.Rows(index).Cells("colImportDate").Value = value.ImportDate.ToShortDateString()
 	End Sub
 
 	Public Function GetErrorMessage(title As String, result As Result) As String

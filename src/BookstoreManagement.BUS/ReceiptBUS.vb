@@ -21,6 +21,18 @@ Public Class ReceiptBUS
 		Return receiptDAL.getNextId(nextId)
 	End Function
 
+	Private Function Validate(receipt As ReceiptDTO) As Result
+		If (receipt.CustomerID Is Nothing) Then
+			Return New Result(False, $"Customer ID of {receipt.ID} is missing", "")
+		End If
+
+		If (receipt.CollectedAmount < 0) Then
+			Return New Result(False, $"Collected amount of {receipt.ID} is out of range", "")
+		End If
+
+		Return New Result(True)
+	End Function
+
 	Private Function IsValidToAdd(receipt As ReceiptDTO) As Result
 		Dim parameter As ParameterDTO
 		Dim result = parameterBUS.selectAll(parameter)
@@ -30,8 +42,9 @@ Public Class ReceiptBUS
 			Return result
 		End If
 
-		If (receipt.CustomerID Is Nothing) Then
-			Return New Result(False, $"Customer ID of {receipt.ID} is missing", "")
+		result = Validate(receipt)
+		If (result.FlagResult = False) Then
+			Return result
 		End If
 
 		result = customerBUS.select_ByID(receipt.CustomerID, customer)
@@ -56,8 +69,9 @@ Public Class ReceiptBUS
 			Return result
 		End If
 
-		If (newReceipt.CustomerID Is Nothing) Then
-			Return New Result(False, $"Customer ID of {newReceipt.ID} is missing", "")
+		result = Validate(newReceipt)
+		If (result.FlagResult = False) Then
+			Return result
 		End If
 
 		If (oldReceipt.ID <> newReceipt.ID) Then
