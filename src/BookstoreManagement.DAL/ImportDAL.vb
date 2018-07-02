@@ -256,6 +256,57 @@ Public Class ImportDAL
 		Return New Result(True)
 	End Function
 
+	Public Function selectAll_ByBeforeDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
+
+		importDate = New DateTime(importDate.Year, importDate.Month, 1)
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [ImportDate] "
+		query &= "FROM [Import] "
+		query &= "WHERE [Import].[ImportDate] < @ImportDate"
+		query &= " ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@ImportDate", importDate)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						_imports.Clear()
+						While reader.Read()
+							_imports.Add(New ImportDTO(reader("ID"), reader("ImportDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					'Debug.WriteLine("Get imports failed")
+					Return New Result(False, "Get imports failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		'Debug.WriteLine("Get imports succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function update(import As ImportDTO) As Result
 
 		Dim query As String = String.Empty

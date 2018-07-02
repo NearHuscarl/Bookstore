@@ -259,6 +259,57 @@ Public Class InvoiceDAL
 		Return New Result(True)
 	End Function
 
+	Public Function selectAll_ByBeforeDate(invoiceDate As DateTime, ByRef invoices As List(Of InvoiceDTO)) As Result
+
+		invoiceDate = New DateTime(invoiceDate.Year, invoiceDate.Month, 1)
+
+		Dim query As String = String.Empty
+		query &= "SELECT [ID], [CustomerID], [InvoiceDate] "
+		query &= "FROM [Invoice] "
+		query &= "WHERE [Invoice].[InvoiceDate] < @InvoiceDate"
+		query &= " ORDER BY [ID] DESC"
+
+		Using conn As New SqlConnection(connectionStr)
+
+			Using comm As New SqlCommand()
+
+				With comm
+					.Connection = conn
+					.CommandType = CommandType.Text
+					.CommandText = query
+					.Parameters.AddWithValue("@InvoiceDate", invoiceDate)
+				End With
+
+				Try
+					conn.Open()
+
+					Dim reader As SqlDataReader
+					reader = comm.ExecuteReader()
+
+					If reader.HasRows = True Then
+						invoices.Clear()
+						While reader.Read()
+							invoices.Add(New InvoiceDTO(reader("ID"), reader("CustomerID"), reader("InvoiceDate")))
+						End While
+					End If
+
+				Catch ex As Exception
+
+					'Debug.WriteLine("Get invoices failed")
+					Return New Result(False, "Get invoices failed", ex.StackTrace)
+
+				Finally
+					conn.Close()
+				End Try
+
+			End Using
+
+		End Using
+
+		'Debug.WriteLine("Get invoices succeed")
+		Return New Result(True)
+	End Function
+
 	Public Function selectAll_ByCustomer(customerID As String, ByRef invoices As List(Of InvoiceDTO)) As Result
 
 		Dim query As String = String.Empty

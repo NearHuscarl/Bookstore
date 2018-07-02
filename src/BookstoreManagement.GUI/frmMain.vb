@@ -111,10 +111,8 @@ Public Class frmMain
 		frm.ShowDialog()
 	End Sub
 
-	Private Sub tlExit_Click(sender As Object, e As EventArgs) Handles tlExit.Click
-		Dim frm As frmLogin = New frmLogin()
-
-		frm.Show()
-		Close()
+	Private Sub tlStockReport_Click(sender As Object, e As EventArgs) Handles tlStockReport.Click
+		Dim frm As frmStockReport = New frmStockReport
+		frm.ShowDialog()
 	End Sub
 End Class

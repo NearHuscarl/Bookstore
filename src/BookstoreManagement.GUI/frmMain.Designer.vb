@@ -37,6 +37,7 @@ Partial Class frmMain
 		Me.tlCustomer = New MetroFramework.Controls.MetroTile()
 		Me.tlBook = New MetroFramework.Controls.MetroTile()
 		Me.tlImport = New MetroFramework.Controls.MetroTile()
+		Me.lkAbout = New MetroFramework.Controls.MetroLink()
 		Me.pnlMainMenu.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -84,36 +85,6 @@ Partial Class frmMain
 		Me.tlAuthor.UseCustomBackColor = True
 		Me.tlAuthor.UseSelectable = True
 		Me.tlAuthor.UseTileImage = True
-		'
-		'tlAbout
-		'
-		Me.tlAbout.ActiveControl = Nothing
-		Me.tlAbout.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
-		Me.tlAbout.Location = New System.Drawing.Point(605, 293)
-		Me.tlAbout.Name = "tlAbout"
-		Me.tlAbout.Size = New System.Drawing.Size(168, 83)
-		Me.tlAbout.TabIndex = 14
-		Me.tlAbout.Text = "About"
-		Me.tlAbout.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
-		Me.tlAbout.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.tlAbout.UseCustomBackColor = True
-		Me.tlAbout.UseSelectable = True
-		Me.tlAbout.UseTileImage = True
-		'
-		'tlExit
-		'
-		Me.tlExit.ActiveControl = Nothing
-		Me.tlExit.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
-		Me.tlExit.Location = New System.Drawing.Point(417, 291)
-		Me.tlExit.Name = "tlExit"
-		Me.tlExit.Size = New System.Drawing.Size(178, 85)
-		Me.tlExit.TabIndex = 13
-		Me.tlExit.Text = "Exit"
-		Me.tlExit.TileImage = CType(resources.GetObject("tlExit.TileImage"), System.Drawing.Image)
-		Me.tlExit.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-		Me.tlExit.UseCustomBackColor = True
-		Me.tlExit.UseSelectable = True
-		Me.tlExit.UseTileImage = True
 		'
 		'tlRegulation
 		'
@@ -274,6 +245,16 @@ Partial Class frmMain
 		Me.tlImport.UseCustomBackColor = True
 		Me.tlImport.UseSelectable = True
 		Me.tlImport.UseTileImage = True
+		'
+		'lkAbout
+		'
+		Me.lkAbout.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
+		Me.lkAbout.ImageSize = 25
+		Me.lkAbout.Location = New System.Drawing.Point(687, 33)
+		Me.lkAbout.Name = "lkAbout"
+		Me.lkAbout.Size = New System.Drawing.Size(30, 27)
+		Me.lkAbout.TabIndex = 1
+		Me.lkAbout.UseSelectable = True
 		'
 		'frmMain
 		'

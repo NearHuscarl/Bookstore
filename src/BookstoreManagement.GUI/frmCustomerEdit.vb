@@ -53,6 +53,10 @@ Public Class frmCustomerEdit
 		Try
 			newCustomer.ID = txtID.Text
 			newCustomer.Name = txtName.Text
+			newCustomer.Address = txtAddress.Text
+			newCustomer.PhoneNumber = txtPhone.Text
+			newCustomer.Email = txtEmail.Text
+			newCustomer.CurrentDebt = txtDebt.Text
 			Dim result As Result
 			If (isModified) Then
 				result = customerBUS.update(newCustomer)

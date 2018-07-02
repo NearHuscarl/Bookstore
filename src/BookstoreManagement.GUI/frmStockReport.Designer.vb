@@ -30,13 +30,13 @@ Partial Class frmStockReport
 		Me.dtpReportDate = New MetroFramework.Controls.MetroDateTime()
 		Me.btnViewReport = New MetroFramework.Controls.MetroButton()
 		Me.btnReport = New MetroFramework.Controls.MetroButton()
-		Me.MetroGrid1 = New MetroFramework.Controls.MetroGrid()
+		Me.dgvReport = New MetroFramework.Controls.MetroGrid()
 		Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colBookName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colBookName = New System.Windows.Forms.DataGridViewComboBoxColumn()
 		Me.colOpeningStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colNewStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colClosingStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		CType(Me.MetroGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.dgvReport, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'lblID
@@ -86,15 +86,15 @@ Partial Class frmStockReport
 		Me.btnReport.Text = "Export"
 		Me.btnReport.UseSelectable = True
 		'
-		'MetroGrid1
+		'dgvReport
 		'
-		Me.MetroGrid1.AllowUserToAddRows = False
-		Me.MetroGrid1.AllowUserToDeleteRows = False
-		Me.MetroGrid1.AllowUserToResizeRows = False
-		Me.MetroGrid1.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.MetroGrid1.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.MetroGrid1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-		Me.MetroGrid1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+		Me.dgvReport.AllowUserToAddRows = False
+		Me.dgvReport.AllowUserToDeleteRows = False
+		Me.dgvReport.AllowUserToResizeRows = False
+		Me.dgvReport.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		Me.dgvReport.BorderStyle = System.Windows.Forms.BorderStyle.None
+		Me.dgvReport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+		Me.dgvReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
 		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -102,9 +102,9 @@ Partial Class frmStockReport
 		DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.MetroGrid1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-		Me.MetroGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-		Me.MetroGrid1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colBookName, Me.colOpeningStock, Me.colNewStock, Me.colClosingStock})
+		Me.dgvReport.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+		Me.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+		Me.dgvReport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colBookName, Me.colOpeningStock, Me.colNewStock, Me.colClosingStock})
 		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
 		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -112,13 +112,13 @@ Partial Class frmStockReport
 		DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.MetroGrid1.DefaultCellStyle = DataGridViewCellStyle2
-		Me.MetroGrid1.EnableHeadersVisualStyles = False
-		Me.MetroGrid1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		Me.MetroGrid1.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.MetroGrid1.Location = New System.Drawing.Point(23, 98)
-		Me.MetroGrid1.Name = "MetroGrid1"
-		Me.MetroGrid1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+		Me.dgvReport.DefaultCellStyle = DataGridViewCellStyle2
+		Me.dgvReport.EnableHeadersVisualStyles = False
+		Me.dgvReport.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		Me.dgvReport.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		Me.dgvReport.Location = New System.Drawing.Point(23, 98)
+		Me.dgvReport.Name = "dgvReport"
+		Me.dgvReport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
 		DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -126,15 +126,16 @@ Partial Class frmStockReport
 		DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.MetroGrid1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-		Me.MetroGrid1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-		Me.MetroGrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-		Me.MetroGrid1.Size = New System.Drawing.Size(754, 329)
-		Me.MetroGrid1.TabIndex = 4
+		Me.dgvReport.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+		Me.dgvReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+		Me.dgvReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+		Me.dgvReport.Size = New System.Drawing.Size(754, 329)
+		Me.dgvReport.TabIndex = 4
 		'
 		'colID
 		'
 		Me.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colID.DataPropertyName = "ID"
 		Me.colID.FillWeight = 10.0!
 		Me.colID.HeaderText = "ID"
 		Me.colID.Name = "colID"
@@ -143,14 +144,19 @@ Partial Class frmStockReport
 		'colBookName
 		'
 		Me.colBookName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colBookName.DataPropertyName = "BookID"
+		Me.colBookName.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
 		Me.colBookName.FillWeight = 30.0!
 		Me.colBookName.HeaderText = "Book"
 		Me.colBookName.Name = "colBookName"
 		Me.colBookName.ReadOnly = True
+		Me.colBookName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.colBookName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
 		'
 		'colOpeningStock
 		'
 		Me.colOpeningStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colOpeningStock.DataPropertyName = "OpeningStock"
 		Me.colOpeningStock.FillWeight = 20.0!
 		Me.colOpeningStock.HeaderText = "Opening Stock"
 		Me.colOpeningStock.Name = "colOpeningStock"
@@ -159,6 +165,7 @@ Partial Class frmStockReport
 		'colNewStock
 		'
 		Me.colNewStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colNewStock.DataPropertyName = "NewStock"
 		Me.colNewStock.FillWeight = 20.0!
 		Me.colNewStock.HeaderText = "New Stock"
 		Me.colNewStock.Name = "colNewStock"
@@ -167,6 +174,7 @@ Partial Class frmStockReport
 		'colClosingStock
 		'
 		Me.colClosingStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colClosingStock.DataPropertyName = "ClosingStock"
 		Me.colClosingStock.FillWeight = 20.0!
 		Me.colClosingStock.HeaderText = "Closing Stock"
 		Me.colClosingStock.Name = "colClosingStock"
@@ -177,7 +185,7 @@ Partial Class frmStockReport
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(800, 450)
-		Me.Controls.Add(Me.MetroGrid1)
+		Me.Controls.Add(Me.dgvReport)
 		Me.Controls.Add(Me.btnReport)
 		Me.Controls.Add(Me.btnViewReport)
 		Me.Controls.Add(Me.dtpReportDate)
@@ -185,7 +193,7 @@ Partial Class frmStockReport
 		Me.Controls.Add(Me.lblID)
 		Me.Name = "frmStockReport"
 		Me.Text = "Stock Report"
-		CType(Me.MetroGrid1, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.dgvReport, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -196,9 +204,9 @@ Partial Class frmStockReport
 	Friend WithEvents dtpReportDate As MetroFramework.Controls.MetroDateTime
 	Friend WithEvents btnViewReport As MetroFramework.Controls.MetroButton
 	Friend WithEvents btnReport As MetroFramework.Controls.MetroButton
-	Friend WithEvents MetroGrid1 As MetroFramework.Controls.MetroGrid
+	Friend WithEvents dgvReport As MetroFramework.Controls.MetroGrid
 	Friend WithEvents colID As DataGridViewTextBoxColumn
-	Friend WithEvents colBookName As DataGridViewTextBoxColumn
+	Friend WithEvents colBookName As DataGridViewComboBoxColumn
 	Friend WithEvents colOpeningStock As DataGridViewTextBoxColumn
 	Friend WithEvents colNewStock As DataGridViewTextBoxColumn
 	Friend WithEvents colClosingStock As DataGridViewTextBoxColumn

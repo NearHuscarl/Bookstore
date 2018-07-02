@@ -42,6 +42,9 @@ Public Class ImportBUS
 		Return result
 	End Function
 
+	Public Function selectAll_ByBeforeDate(importDate As DateTime, ByRef _imports As List(Of ImportDTO)) As Result
+		Return importDAL.selectAll_ByBeforeDate(importDate, _imports)
+	End Function
 	Public Function update(import As ImportDTO) As Result
 		Return importDAL.update(import)
 	End Function
