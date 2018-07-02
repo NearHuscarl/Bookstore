@@ -54,17 +54,15 @@ Public Class InvoiceDetailBUS
 			Return result
 		End If
 
-		If (parameter.UseRegulation) Then
-			Dim book As BookDTO
-			result = bookBUS.select_ByID(invoiceDetail.BookID, book)
+		Dim book As BookDTO
+		result = bookBUS.select_ByID(invoiceDetail.BookID, book)
 
-			If (result.FlagResult = True) Then
-				If (book.Stock - invoiceDetail.Amount < parameter.MinStockAfterSales) Then
-					Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {invoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
-				End If
-			Else
-				Return New Result(False, $"Cannot load book when validating invoice detail", "")
+		If (result.FlagResult = True) Then
+			If (book.Stock - invoiceDetail.Amount < parameter.MinStockAfterSales) Then
+				Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {invoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
 			End If
+		Else
+			Return New Result(False, $"Cannot load book when validating invoice detail", "")
 		End If
 
 		Return result
@@ -87,17 +85,15 @@ Public Class InvoiceDetailBUS
 			Return IsValidToAdd(newInvoiceDetail)
 		End If
 
-		If (parameter.UseRegulation) Then
-			Dim book As BookDTO
-			result = bookBUS.select_ByID(oldInvoiceDetail.BookID, book)
+		Dim book As BookDTO
+		result = bookBUS.select_ByID(oldInvoiceDetail.BookID, book)
 
-			If (result.FlagResult = True) Then
-				If (book.Stock + newInvoiceDetail.Amount - oldInvoiceDetail.Amount < parameter.MinStockAfterSales) Then
-					Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {newInvoiceDetail.Amount - oldInvoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
-				End If
-			Else
-				Return New Result(False, $"Cannot load book when validating invoice detail", "")
+		If (result.FlagResult = True) Then
+			If (book.Stock + newInvoiceDetail.Amount - oldInvoiceDetail.Amount < parameter.MinStockAfterSales) Then
+				Return New Result(False, $"Stock after sales of {book.ID} is smaller than minimum allowed ({book.Stock} - {newInvoiceDetail.Amount - oldInvoiceDetail.Amount} < {parameter.MinStockAfterSales})", "")
 			End If
+		Else
+			Return New Result(False, $"Cannot load book when validating invoice detail", "")
 		End If
 
 		Return result

@@ -38,7 +38,7 @@ Partial Class frmRegulation
 		'lblMinImportAmount
 		'
 		Me.lblMinImportAmount.AutoSize = True
-		Me.lblMinImportAmount.Location = New System.Drawing.Point(91, 115)
+		Me.lblMinImportAmount.Location = New System.Drawing.Point(91, 70)
 		Me.lblMinImportAmount.Name = "lblMinImportAmount"
 		Me.lblMinImportAmount.Size = New System.Drawing.Size(161, 19)
 		Me.lblMinImportAmount.TabIndex = 0
@@ -59,7 +59,7 @@ Partial Class frmRegulation
 		Me.txtMinImportAmount.CustomButton.UseSelectable = True
 		Me.txtMinImportAmount.CustomButton.Visible = False
 		Me.txtMinImportAmount.Lines = New String(-1) {}
-		Me.txtMinImportAmount.Location = New System.Drawing.Point(258, 115)
+		Me.txtMinImportAmount.Location = New System.Drawing.Point(258, 70)
 		Me.txtMinImportAmount.MaxLength = 32767
 		Me.txtMinImportAmount.Name = "txtMinImportAmount"
 		Me.txtMinImportAmount.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -89,7 +89,7 @@ Partial Class frmRegulation
 		Me.txtMaxStockBeforeImport.CustomButton.UseSelectable = True
 		Me.txtMaxStockBeforeImport.CustomButton.Visible = False
 		Me.txtMaxStockBeforeImport.Lines = New String(-1) {}
-		Me.txtMaxStockBeforeImport.Location = New System.Drawing.Point(258, 153)
+		Me.txtMaxStockBeforeImport.Location = New System.Drawing.Point(258, 108)
 		Me.txtMaxStockBeforeImport.MaxLength = 32767
 		Me.txtMaxStockBeforeImport.Name = "txtMaxStockBeforeImport"
 		Me.txtMaxStockBeforeImport.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -107,7 +107,7 @@ Partial Class frmRegulation
 		'lblMaxStockBeforeImport
 		'
 		Me.lblMaxStockBeforeImport.AutoSize = True
-		Me.lblMaxStockBeforeImport.Location = New System.Drawing.Point(61, 153)
+		Me.lblMaxStockBeforeImport.Location = New System.Drawing.Point(61, 108)
 		Me.lblMaxStockBeforeImport.Name = "lblMaxStockBeforeImport"
 		Me.lblMaxStockBeforeImport.Size = New System.Drawing.Size(191, 19)
 		Me.lblMaxStockBeforeImport.TabIndex = 2
@@ -128,7 +128,7 @@ Partial Class frmRegulation
 		Me.txtMaxDebt.CustomButton.UseSelectable = True
 		Me.txtMaxDebt.CustomButton.Visible = False
 		Me.txtMaxDebt.Lines = New String(-1) {}
-		Me.txtMaxDebt.Location = New System.Drawing.Point(258, 192)
+		Me.txtMaxDebt.Location = New System.Drawing.Point(258, 147)
 		Me.txtMaxDebt.MaxLength = 32767
 		Me.txtMaxDebt.Name = "txtMaxDebt"
 		Me.txtMaxDebt.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -146,7 +146,7 @@ Partial Class frmRegulation
 		'lblMaxDebt
 		'
 		Me.lblMaxDebt.AutoSize = True
-		Me.lblMaxDebt.Location = New System.Drawing.Point(152, 196)
+		Me.lblMaxDebt.Location = New System.Drawing.Point(152, 151)
 		Me.lblMaxDebt.Name = "lblMaxDebt"
 		Me.lblMaxDebt.Size = New System.Drawing.Size(100, 19)
 		Me.lblMaxDebt.TabIndex = 4
@@ -167,7 +167,7 @@ Partial Class frmRegulation
 		Me.txtMinStockAfterSales.CustomButton.UseSelectable = True
 		Me.txtMinStockAfterSales.CustomButton.Visible = False
 		Me.txtMinStockAfterSales.Lines = New String(-1) {}
-		Me.txtMinStockAfterSales.Location = New System.Drawing.Point(258, 232)
+		Me.txtMinStockAfterSales.Location = New System.Drawing.Point(258, 187)
 		Me.txtMinStockAfterSales.MaxLength = 32767
 		Me.txtMinStockAfterSales.Name = "txtMinStockAfterSales"
 		Me.txtMinStockAfterSales.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -185,7 +185,7 @@ Partial Class frmRegulation
 		'lblMinStockAfterSales
 		'
 		Me.lblMinStockAfterSales.AutoSize = True
-		Me.lblMinStockAfterSales.Location = New System.Drawing.Point(86, 236)
+		Me.lblMinStockAfterSales.Location = New System.Drawing.Point(86, 191)
 		Me.lblMinStockAfterSales.Name = "lblMinStockAfterSales"
 		Me.lblMinStockAfterSales.Size = New System.Drawing.Size(166, 19)
 		Me.lblMinStockAfterSales.TabIndex = 6
@@ -194,12 +194,11 @@ Partial Class frmRegulation
 		'ckbUseRegulation
 		'
 		Me.ckbUseRegulation.AutoSize = True
-		Me.ckbUseRegulation.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-		Me.ckbUseRegulation.Location = New System.Drawing.Point(23, 76)
+		Me.ckbUseRegulation.Location = New System.Drawing.Point(46, 237)
 		Me.ckbUseRegulation.Name = "ckbUseRegulation"
-		Me.ckbUseRegulation.Size = New System.Drawing.Size(117, 19)
+		Me.ckbUseRegulation.Size = New System.Drawing.Size(304, 15)
 		Me.ckbUseRegulation.TabIndex = 9
-		Me.ckbUseRegulation.Text = "Use Regulation"
+		Me.ckbUseRegulation.Text = "Receipt Amount must not bigger than customer debt"
 		Me.ckbUseRegulation.UseSelectable = True
 		'
 		'btnApply

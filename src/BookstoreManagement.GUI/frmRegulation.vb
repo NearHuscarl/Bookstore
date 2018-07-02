@@ -22,7 +22,6 @@ Public Class frmRegulation
 			txtMaxStockBeforeImport.Text = parameters.MaxStockBeforeImport
 			txtMaxDebt.Text = parameters.MaxDebt.ToString("N0")
 			txtMinStockAfterSales.Text = parameters.MinStockAfterSales
-			UpdateTextBoxStates()
 		Else
 			MetroMessageBox.Show(Me, "Cannot load regulation options", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
@@ -76,16 +75,6 @@ Public Class frmRegulation
 		Return parameterBUS.update(parameters)
 	End Function
 
-	Private Sub UpdateTextBoxStates()
-		If (ckbUseRegulation.Checked) Then
-			txtMaxDebt.Enabled = True
-			txtMinStockAfterSales.Enabled = True
-		Else
-			txtMaxDebt.Enabled = False
-			txtMinStockAfterSales.Enabled = False
-		End If
-	End Sub
-
 	Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
 		Dim result = SaveParameters()
 
@@ -107,9 +96,5 @@ Public Class frmRegulation
 			MetroMessageBox.Show(Me, GetErrorMessage("Update options failed", result), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Console.WriteLine(result.SystemMessage)
 		End If
-	End Sub
-
-	Private Sub ckbUseRegulation_Click(sender As Object, e As EventArgs) Handles ckbUseRegulation.Click
-		UpdateTextBoxStates()
 	End Sub
 End Class

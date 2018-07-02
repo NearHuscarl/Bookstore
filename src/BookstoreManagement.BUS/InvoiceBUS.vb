@@ -34,17 +34,15 @@ Public Class InvoiceBUS
 				Return New Result(False, $"Date of invoice {invoice.ID} is missing", "")
 			End If
 
-			If (parameter.UseRegulation) Then
-				Dim customer As CustomerDTO
-				result = customerBUS.select_ByID(invoice.CustomerID, customer)
+			Dim customer As CustomerDTO
+			result = customerBUS.select_ByID(invoice.CustomerID, customer)
 
-				If (result.FlagResult = True) Then
-					If (customer.CurrentDebt > parameter.MaxDebt) Then
-						Return New Result(False, $"Customer {customer.ID}'s current debt is larger than the maximum allowed ({customer.CurrentDebt} > {parameter.MaxDebt})", "")
-					End If
-				Else
-					Return New Result(False, $"Cannot load customer when validating invoice", "")
+			If (result.FlagResult = True) Then
+				If (customer.CurrentDebt > parameter.MaxDebt) Then
+					Return New Result(False, $"Customer {customer.ID}'s current debt is larger than the maximum allowed ({customer.CurrentDebt} > {parameter.MaxDebt})", "")
 				End If
+			Else
+				Return New Result(False, $"Cannot load customer when validating invoice", "")
 			End If
 		End If
 		Return result

@@ -50,7 +50,7 @@ Public Class ReceiptBUS
 		result = customerBUS.select_ByID(receipt.CustomerID, customer)
 
 		If (result.FlagResult = True) Then
-			If (receipt.CollectedAmount > customer.CurrentDebt) Then
+			If (receipt.CollectedAmount > customer.CurrentDebt And parameter.UseRegulation) Then
 				Return New Result(False, $"Total amount of {receipt.ID} is bigger than {customer.ID}'s current debt ({receipt.CollectedAmount} > {customer.CurrentDebt})", "")
 			End If
 		Else
