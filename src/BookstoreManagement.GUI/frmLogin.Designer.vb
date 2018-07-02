@@ -26,19 +26,19 @@ Partial Class frmLogin
 		Me.txtUsername = New MetroFramework.Controls.MetroTextBox()
 		Me.btnLogin = New MetroFramework.Controls.MetroButton()
 		Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
-		Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
-		Me.txtPassword = New MetroFramework.Controls.MetroTextBox()
-		Me.pbPassword = New System.Windows.Forms.PictureBox()
 		Me.pbUsername = New System.Windows.Forms.PictureBox()
+		Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
+		Me.pbPassword = New System.Windows.Forms.PictureBox()
+		Me.txtPassword = New MetroFramework.Controls.MetroTextBox()
 		Me.pbLogin = New System.Windows.Forms.PictureBox()
 		Me.lblPassword = New MetroFramework.Controls.MetroLabel()
 		Me.lblUsername = New MetroFramework.Controls.MetroLabel()
 		Me.ckbRememberMe = New MetroFramework.Controls.MetroCheckBox()
 		Me.pnlLogin = New MetroFramework.Controls.MetroPanel()
 		Me.MetroPanel1.SuspendLayout()
+		CType(Me.pbUsername, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.MetroPanel2.SuspendLayout()
 		CType(Me.pbPassword, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me.pbUsername, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.pbLogin, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.pnlLogin.SuspendLayout()
 		Me.SuspendLayout()
@@ -97,6 +97,17 @@ Partial Class frmLogin
 		Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
 		Me.MetroPanel1.VerticalScrollbarSize = 10
 		'
+		'pbUsername
+		'
+		Me.pbUsername.Anchor = System.Windows.Forms.AnchorStyles.None
+		Me.pbUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.pbUsername.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.Username
+		Me.pbUsername.Location = New System.Drawing.Point(0, 0)
+		Me.pbUsername.Name = "pbUsername"
+		Me.pbUsername.Size = New System.Drawing.Size(23, 23)
+		Me.pbUsername.TabIndex = 6
+		Me.pbUsername.TabStop = False
+		'
 		'MetroPanel2
 		'
 		Me.MetroPanel2.Controls.Add(Me.pbPassword)
@@ -111,6 +122,19 @@ Partial Class frmLogin
 		Me.MetroPanel2.VerticalScrollbarBarColor = True
 		Me.MetroPanel2.VerticalScrollbarHighlightOnWheel = False
 		Me.MetroPanel2.VerticalScrollbarSize = 10
+		'
+		'pbPassword
+		'
+		Me.pbPassword.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+				Or System.Windows.Forms.AnchorStyles.Left) _
+				Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+		Me.pbPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.pbPassword.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.Password
+		Me.pbPassword.Location = New System.Drawing.Point(0, 0)
+		Me.pbPassword.Name = "pbPassword"
+		Me.pbPassword.Size = New System.Drawing.Size(23, 23)
+		Me.pbPassword.TabIndex = 7
+		Me.pbPassword.TabStop = False
 		'
 		'txtPassword
 		'
@@ -142,30 +166,6 @@ Partial Class frmLogin
 		Me.txtPassword.UseSystemPasswordChar = True
 		Me.txtPassword.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
 		Me.txtPassword.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-		'
-		'pbPassword
-		'
-		Me.pbPassword.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-				Or System.Windows.Forms.AnchorStyles.Left) _
-				Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-		Me.pbPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.pbPassword.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.Password
-		Me.pbPassword.Location = New System.Drawing.Point(0, 0)
-		Me.pbPassword.Name = "pbPassword"
-		Me.pbPassword.Size = New System.Drawing.Size(23, 23)
-		Me.pbPassword.TabIndex = 7
-		Me.pbPassword.TabStop = False
-		'
-		'pbUsername
-		'
-		Me.pbUsername.Anchor = System.Windows.Forms.AnchorStyles.None
-		Me.pbUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.pbUsername.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.Username
-		Me.pbUsername.Location = New System.Drawing.Point(0, 0)
-		Me.pbUsername.Name = "pbUsername"
-		Me.pbUsername.Size = New System.Drawing.Size(23, 23)
-		Me.pbUsername.TabIndex = 6
-		Me.pbUsername.TabStop = False
 		'
 		'pbLogin
 		'
@@ -224,7 +224,7 @@ Partial Class frmLogin
 		Me.pnlLogin.HorizontalScrollbarBarColor = True
 		Me.pnlLogin.HorizontalScrollbarHighlightOnWheel = False
 		Me.pnlLogin.HorizontalScrollbarSize = 10
-		Me.pnlLogin.Location = New System.Drawing.Point(263, 63)
+		Me.pnlLogin.Location = New System.Drawing.Point(304, 97)
 		Me.pnlLogin.Name = "pnlLogin"
 		Me.pnlLogin.Size = New System.Drawing.Size(225, 282)
 		Me.pnlLogin.TabIndex = 9
@@ -237,7 +237,7 @@ Partial Class frmLogin
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(750, 400)
+		Me.ClientSize = New System.Drawing.Size(833, 476)
 		Me.Controls.Add(Me.pnlLogin)
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
@@ -245,9 +245,9 @@ Partial Class frmLogin
 		Me.Resizable = False
 		Me.Style = MetroFramework.MetroColorStyle.Green
 		Me.MetroPanel1.ResumeLayout(False)
+		CType(Me.pbUsername, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.MetroPanel2.ResumeLayout(False)
 		CType(Me.pbPassword, System.ComponentModel.ISupportInitialize).EndInit()
-		CType(Me.pbUsername, System.ComponentModel.ISupportInitialize).EndInit()
 		CType(Me.pbLogin, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.pnlLogin.ResumeLayout(False)
 		Me.pnlLogin.PerformLayout()
