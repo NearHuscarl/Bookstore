@@ -78,13 +78,9 @@ Public Class frmRegulation
 
 	Private Sub UpdateTextBoxStates()
 		If (ckbUseRegulation.Checked) Then
-			txtMinImportAmount.Enabled = True
-			txtMaxStockBeforeImport.Enabled = True
 			txtMaxDebt.Enabled = True
 			txtMinStockAfterSales.Enabled = True
 		Else
-			txtMinImportAmount.Enabled = False
-			txtMaxStockBeforeImport.Enabled = False
 			txtMaxDebt.Enabled = False
 			txtMinStockAfterSales.Enabled = False
 		End If
