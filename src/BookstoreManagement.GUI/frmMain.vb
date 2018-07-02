@@ -20,12 +20,12 @@ Public Class frmMain
 		tlDebtReport.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Teal)
 		tlRegulation.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
 
-		tlBook.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
-		tlAuthor.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
-		tlBookCategory.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
-		tlCustomer.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
-		tlAbout.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
-		tlExit.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Silver)
+		tlBook.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Orange)
+		tlAuthor.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Default)
+		tlBookCategory.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Purple)
+		tlCustomer.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Yellow)
+		tlAbout.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Teal)
+		tlExit.BackColor = MetroPaint.GetStyleColor(MetroColorStyle.Red)
 	End Sub
 
 	Private Sub tlImport_Click(sender As Object, e As EventArgs) Handles tlImport.Click

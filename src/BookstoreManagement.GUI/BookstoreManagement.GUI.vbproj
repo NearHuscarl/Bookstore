@@ -249,6 +249,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BookstoreManagement.ico" />
+    <None Include="Resources\Author.png" />
+    <None Include="Resources\Customer.png" />
+    <None Include="Resources\Book.png" />
+    <None Include="Resources\Cateogry.png" />
+    <None Include="Resources\Exit.png" />
     <None Include="Resources\Username.png" />
     <None Include="Resources\Password.png" />
     <None Include="Resources\Login.png" />

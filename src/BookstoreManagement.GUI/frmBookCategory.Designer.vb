@@ -168,6 +168,7 @@ Partial Class frmBookCategory
 		Me.Controls.Add(Me.txtBookCategoryName)
 		Me.MaximizeBox = False
 		Me.Name = "frmBookCategory"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Book Category"
 		CType(Me.dgvBookCategory, System.ComponentModel.ISupportInitialize).EndInit()

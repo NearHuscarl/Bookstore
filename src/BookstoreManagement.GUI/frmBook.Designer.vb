@@ -223,6 +223,7 @@ Partial Class frmBook
 		Me.Controls.Add(Me.txtBookName)
 		Me.MaximizeBox = False
 		Me.Name = "frmBook"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Book"
 		CType(Me.dgvBook, System.ComponentModel.ISupportInitialize).EndInit()

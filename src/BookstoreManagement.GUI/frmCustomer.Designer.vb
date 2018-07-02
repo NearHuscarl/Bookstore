@@ -207,6 +207,7 @@ Partial Class frmCustomer
 		Me.Controls.Add(Me.txtCustomerName)
 		Me.MaximizeBox = False
 		Me.Name = "frmCustomer"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Customer"
 		CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).EndInit()

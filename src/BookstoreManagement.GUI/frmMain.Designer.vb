@@ -24,9 +24,9 @@ Partial Class frmMain
 	Private Sub InitializeComponent()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
 		Me.pnlMainMenu = New MetroFramework.Controls.MetroPanel()
+		Me.tlAuthor = New MetroFramework.Controls.MetroTile()
 		Me.tlAbout = New MetroFramework.Controls.MetroTile()
 		Me.tlExit = New MetroFramework.Controls.MetroTile()
-		Me.tlAuthor = New MetroFramework.Controls.MetroTile()
 		Me.tlRegulation = New MetroFramework.Controls.MetroTile()
 		Me.tlReceipt = New MetroFramework.Controls.MetroTile()
 		Me.tlDebtReport = New MetroFramework.Controls.MetroTile()
@@ -69,30 +69,6 @@ Partial Class frmMain
 		Me.pnlMainMenu.VerticalScrollbarHighlightOnWheel = False
 		Me.pnlMainMenu.VerticalScrollbarSize = 10
 		'
-		'tlAbout
-		'
-		Me.tlAbout.ActiveControl = Nothing
-		Me.tlAbout.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
-		Me.tlAbout.Location = New System.Drawing.Point(605, 293)
-		Me.tlAbout.Name = "tlAbout"
-		Me.tlAbout.Size = New System.Drawing.Size(168, 83)
-		Me.tlAbout.TabIndex = 14
-		Me.tlAbout.Text = "About"
-		Me.tlAbout.UseCustomBackColor = True
-		Me.tlAbout.UseSelectable = True
-		'
-		'tlExit
-		'
-		Me.tlExit.ActiveControl = Nothing
-		Me.tlExit.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
-		Me.tlExit.Location = New System.Drawing.Point(417, 291)
-		Me.tlExit.Name = "tlExit"
-		Me.tlExit.Size = New System.Drawing.Size(178, 85)
-		Me.tlExit.TabIndex = 13
-		Me.tlExit.Text = "Exit"
-		Me.tlExit.UseCustomBackColor = True
-		Me.tlExit.UseSelectable = True
-		'
 		'tlAuthor
 		'
 		Me.tlAuthor.ActiveControl = Nothing
@@ -103,10 +79,41 @@ Partial Class frmMain
 		Me.tlAuthor.Size = New System.Drawing.Size(107, 130)
 		Me.tlAuthor.TabIndex = 6
 		Me.tlAuthor.Text = "Author"
+		Me.tlAuthor.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.Author
 		Me.tlAuthor.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Me.tlAuthor.UseCustomBackColor = True
 		Me.tlAuthor.UseSelectable = True
 		Me.tlAuthor.UseTileImage = True
+		'
+		'tlAbout
+		'
+		Me.tlAbout.ActiveControl = Nothing
+		Me.tlAbout.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
+		Me.tlAbout.Location = New System.Drawing.Point(605, 293)
+		Me.tlAbout.Name = "tlAbout"
+		Me.tlAbout.Size = New System.Drawing.Size(168, 83)
+		Me.tlAbout.TabIndex = 14
+		Me.tlAbout.Text = "About"
+		Me.tlAbout.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
+		Me.tlAbout.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+		Me.tlAbout.UseCustomBackColor = True
+		Me.tlAbout.UseSelectable = True
+		Me.tlAbout.UseTileImage = True
+		'
+		'tlExit
+		'
+		Me.tlExit.ActiveControl = Nothing
+		Me.tlExit.BackColor = System.Drawing.Color.FromArgb(CType(CType(57, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(215, Byte), Integer))
+		Me.tlExit.Location = New System.Drawing.Point(417, 291)
+		Me.tlExit.Name = "tlExit"
+		Me.tlExit.Size = New System.Drawing.Size(178, 85)
+		Me.tlExit.TabIndex = 13
+		Me.tlExit.Text = "Exit"
+		Me.tlExit.TileImage = CType(resources.GetObject("tlExit.TileImage"), System.Drawing.Image)
+		Me.tlExit.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+		Me.tlExit.UseCustomBackColor = True
+		Me.tlExit.UseSelectable = True
+		Me.tlExit.UseTileImage = True
 		'
 		'tlRegulation
 		'
@@ -214,6 +221,7 @@ Partial Class frmMain
 		Me.tlBookCategory.Size = New System.Drawing.Size(260, 85)
 		Me.tlBookCategory.TabIndex = 6
 		Me.tlBookCategory.Text = "Category"
+		Me.tlBookCategory.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.Cateogry
 		Me.tlBookCategory.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Me.tlBookCategory.UseCustomBackColor = True
 		Me.tlBookCategory.UseSelectable = True
@@ -229,6 +237,7 @@ Partial Class frmMain
 		Me.tlCustomer.Size = New System.Drawing.Size(178, 130)
 		Me.tlCustomer.TabIndex = 6
 		Me.tlCustomer.Text = "Customer"
+		Me.tlCustomer.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.Customer
 		Me.tlCustomer.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Me.tlCustomer.UseCustomBackColor = True
 		Me.tlCustomer.UseSelectable = True
@@ -244,6 +253,7 @@ Partial Class frmMain
 		Me.tlBook.Size = New System.Drawing.Size(109, 130)
 		Me.tlBook.TabIndex = 6
 		Me.tlBook.Text = "Book"
+		Me.tlBook.TileImage = Global.BookstoreManagement.GUI.My.Resources.Resources.Book
 		Me.tlBook.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Me.tlBook.UseCustomBackColor = True
 		Me.tlBook.UseSelectable = True

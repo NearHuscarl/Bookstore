@@ -204,6 +204,7 @@ Partial Class frmBookEdit
 		Me.Controls.Add(Me.lblID)
 		Me.MaximizeBox = False
 		Me.Name = "frmBookEdit"
+		Me.Resizable = False
 		Me.ShowIcon = False
 		Me.Text = "Book"
 		Me.ResumeLayout(False)
