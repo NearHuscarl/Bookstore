@@ -74,7 +74,7 @@ Public Class frmLogin
 		Dim account As AccountDTO
 		Dim result = accountBUS.select_byName(txtUsername.Text, account)
 
-		If (result.FlagResult = False) Then
+		If (result.FlagResult = False Or account Is Nothing) Then
 			MetroMessageBox.Show(Me, "Username not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Return
 		End If

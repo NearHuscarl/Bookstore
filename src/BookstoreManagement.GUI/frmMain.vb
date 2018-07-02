@@ -117,12 +117,20 @@ Public Class frmMain
 	End Sub
 
 	Private Sub tlStockReport_Click(sender As Object, e As EventArgs) Handles tlStockReport.Click
-		Dim frm As frmStockReport = frmStockReport
-		frm.ShowDialog()
+		If (privilege <= 2) Then
+			Dim frm As frmStockReport = frmStockReport
+			frm.ShowDialog()
+		Else
+			MetroMessageBox.Show(Me, "You do not have enough permission", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+		End If
 	End Sub
 
 	Private Sub tlDebtReport_Click(sender As Object, e As EventArgs) Handles tlDebtReport.Click
-		Dim frm As frmDebtReport = frmDebtReport
-		frm.ShowDialog()
+		If (privilege <= 2) Then
+			Dim frm As frmDebtReport = frmDebtReport
+			frm.ShowDialog()
+		Else
+			MetroMessageBox.Show(Me, "You do not have enough permission", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+		End If
 	End Sub
 End Class
