@@ -28,15 +28,15 @@ Partial Class frmDebtReport
 		Me.dtpReportDate = New MetroFramework.Controls.MetroDateTime()
 		Me.btnExport = New MetroFramework.Controls.MetroButton()
 		Me.btnViewReport = New MetroFramework.Controls.MetroButton()
-		Me.dvgReport = New MetroFramework.Controls.MetroGrid()
+		Me.dgvReport = New MetroFramework.Controls.MetroGrid()
+		Me.lblID = New MetroFramework.Controls.MetroLabel()
+		Me.txtID = New System.Windows.Forms.TextBox()
 		Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.colCustomerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.colCustomerName = New System.Windows.Forms.DataGridViewComboBoxColumn()
 		Me.colOpeningDebt = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colNewDebt = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.colClosingDebt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.lblID = New MetroFramework.Controls.MetroLabel()
-		Me.txtID = New System.Windows.Forms.TextBox()
-		CType(Me.dvgReport, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.dgvReport, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'dtpReportDate
@@ -69,15 +69,15 @@ Partial Class frmDebtReport
 		Me.btnViewReport.Text = "View Report"
 		Me.btnViewReport.UseSelectable = True
 		'
-		'dvgReport
+		'dgvReport
 		'
-		Me.dvgReport.AllowUserToAddRows = False
-		Me.dvgReport.AllowUserToDeleteRows = False
-		Me.dvgReport.AllowUserToResizeRows = False
-		Me.dvgReport.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.dvgReport.BorderStyle = System.Windows.Forms.BorderStyle.None
-		Me.dvgReport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
-		Me.dvgReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+		Me.dgvReport.AllowUserToAddRows = False
+		Me.dgvReport.AllowUserToDeleteRows = False
+		Me.dgvReport.AllowUserToResizeRows = False
+		Me.dgvReport.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		Me.dgvReport.BorderStyle = System.Windows.Forms.BorderStyle.None
+		Me.dgvReport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+		Me.dgvReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
 		DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -85,9 +85,9 @@ Partial Class frmDebtReport
 		DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dvgReport.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-		Me.dvgReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-		Me.dvgReport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colCustomerName, Me.colOpeningDebt, Me.colNewDebt, Me.colClosingDebt})
+		Me.dgvReport.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+		Me.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+		Me.dgvReport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colCustomerName, Me.colOpeningDebt, Me.colNewDebt, Me.colClosingDebt})
 		DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
 		DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -95,13 +95,13 @@ Partial Class frmDebtReport
 		DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-		Me.dvgReport.DefaultCellStyle = DataGridViewCellStyle2
-		Me.dvgReport.EnableHeadersVisualStyles = False
-		Me.dvgReport.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-		Me.dvgReport.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-		Me.dvgReport.Location = New System.Drawing.Point(23, 98)
-		Me.dvgReport.Name = "dvgReport"
-		Me.dvgReport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+		Me.dgvReport.DefaultCellStyle = DataGridViewCellStyle2
+		Me.dgvReport.EnableHeadersVisualStyles = False
+		Me.dgvReport.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+		Me.dgvReport.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		Me.dgvReport.Location = New System.Drawing.Point(23, 98)
+		Me.dgvReport.Name = "dgvReport"
+		Me.dgvReport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
 		DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 		DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
 		DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -109,51 +109,11 @@ Partial Class frmDebtReport
 		DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
 		DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
 		DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-		Me.dvgReport.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-		Me.dvgReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-		Me.dvgReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-		Me.dvgReport.Size = New System.Drawing.Size(754, 329)
-		Me.dvgReport.TabIndex = 4
-		'
-		'colID
-		'
-		Me.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colID.FillWeight = 10.0!
-		Me.colID.HeaderText = "ID"
-		Me.colID.Name = "colID"
-		Me.colID.ReadOnly = True
-		'
-		'colCustomerName
-		'
-		Me.colCustomerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colCustomerName.FillWeight = 30.0!
-		Me.colCustomerName.HeaderText = "Customer"
-		Me.colCustomerName.Name = "colCustomerName"
-		Me.colCustomerName.ReadOnly = True
-		'
-		'colOpeningDebt
-		'
-		Me.colOpeningDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colOpeningDebt.FillWeight = 20.0!
-		Me.colOpeningDebt.HeaderText = "Opening Debt"
-		Me.colOpeningDebt.Name = "colOpeningDebt"
-		Me.colOpeningDebt.ReadOnly = True
-		'
-		'colNewDebt
-		'
-		Me.colNewDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colNewDebt.FillWeight = 20.0!
-		Me.colNewDebt.HeaderText = "New Debt"
-		Me.colNewDebt.Name = "colNewDebt"
-		Me.colNewDebt.ReadOnly = True
-		'
-		'colClosingDebt
-		'
-		Me.colClosingDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-		Me.colClosingDebt.FillWeight = 20.0!
-		Me.colClosingDebt.HeaderText = "ClosingDebt"
-		Me.colClosingDebt.Name = "colClosingDebt"
-		Me.colClosingDebt.ReadOnly = True
+		Me.dgvReport.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+		Me.dgvReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+		Me.dgvReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+		Me.dgvReport.Size = New System.Drawing.Size(754, 329)
+		Me.dgvReport.TabIndex = 4
 		'
 		'lblID
 		'
@@ -172,6 +132,54 @@ Partial Class frmDebtReport
 		Me.txtID.Size = New System.Drawing.Size(274, 20)
 		Me.txtID.TabIndex = 6
 		'
+		'colID
+		'
+		Me.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colID.DataPropertyName = "ID"
+		Me.colID.FillWeight = 10.0!
+		Me.colID.HeaderText = "ID"
+		Me.colID.Name = "colID"
+		Me.colID.ReadOnly = True
+		'
+		'colCustomerName
+		'
+		Me.colCustomerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colCustomerName.DataPropertyName = "CustomerID"
+		Me.colCustomerName.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+		Me.colCustomerName.FillWeight = 30.0!
+		Me.colCustomerName.HeaderText = "Customer"
+		Me.colCustomerName.Name = "colCustomerName"
+		Me.colCustomerName.ReadOnly = True
+		Me.colCustomerName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.colCustomerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+		'
+		'colOpeningDebt
+		'
+		Me.colOpeningDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colOpeningDebt.DataPropertyName = "OpeningDebt"
+		Me.colOpeningDebt.FillWeight = 20.0!
+		Me.colOpeningDebt.HeaderText = "Opening Debt"
+		Me.colOpeningDebt.Name = "colOpeningDebt"
+		Me.colOpeningDebt.ReadOnly = True
+		'
+		'colNewDebt
+		'
+		Me.colNewDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colNewDebt.DataPropertyName = "NewDebt"
+		Me.colNewDebt.FillWeight = 20.0!
+		Me.colNewDebt.HeaderText = "New Debt"
+		Me.colNewDebt.Name = "colNewDebt"
+		Me.colNewDebt.ReadOnly = True
+		'
+		'colClosingDebt
+		'
+		Me.colClosingDebt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+		Me.colClosingDebt.DataPropertyName = "ClosingDebt"
+		Me.colClosingDebt.FillWeight = 20.0!
+		Me.colClosingDebt.HeaderText = "ClosingDebt"
+		Me.colClosingDebt.Name = "colClosingDebt"
+		Me.colClosingDebt.ReadOnly = True
+		'
 		'frmDebtReport
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -179,13 +187,13 @@ Partial Class frmDebtReport
 		Me.ClientSize = New System.Drawing.Size(800, 450)
 		Me.Controls.Add(Me.txtID)
 		Me.Controls.Add(Me.lblID)
-		Me.Controls.Add(Me.dvgReport)
+		Me.Controls.Add(Me.dgvReport)
 		Me.Controls.Add(Me.btnViewReport)
 		Me.Controls.Add(Me.btnExport)
 		Me.Controls.Add(Me.dtpReportDate)
 		Me.Name = "frmDebtReport"
 		Me.Text = "Debt Report"
-		CType(Me.dvgReport, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.dgvReport, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -194,12 +202,12 @@ Partial Class frmDebtReport
 	Friend WithEvents dtpReportDate As MetroFramework.Controls.MetroDateTime
 	Friend WithEvents btnExport As MetroFramework.Controls.MetroButton
 	Friend WithEvents btnViewReport As MetroFramework.Controls.MetroButton
-	Friend WithEvents dvgReport As MetroFramework.Controls.MetroGrid
+	Friend WithEvents dgvReport As MetroFramework.Controls.MetroGrid
+	Friend WithEvents lblID As MetroFramework.Controls.MetroLabel
+	Friend WithEvents txtID As TextBox
 	Friend WithEvents colID As DataGridViewTextBoxColumn
-	Friend WithEvents colCustomerName As DataGridViewTextBoxColumn
+	Friend WithEvents colCustomerName As DataGridViewComboBoxColumn
 	Friend WithEvents colOpeningDebt As DataGridViewTextBoxColumn
 	Friend WithEvents colNewDebt As DataGridViewTextBoxColumn
 	Friend WithEvents colClosingDebt As DataGridViewTextBoxColumn
-	Friend WithEvents lblID As MetroFramework.Controls.MetroLabel
-	Friend WithEvents txtID As TextBox
 End Class

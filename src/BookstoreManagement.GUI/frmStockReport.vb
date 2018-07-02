@@ -106,8 +106,6 @@ Public Class frmStockReport
 		Next
 	End Sub
 
-
-
 	Private Sub loadListBook()
 		Dim books As List(Of BookDTO) = New List(Of BookDTO)
 		Dim result As Result

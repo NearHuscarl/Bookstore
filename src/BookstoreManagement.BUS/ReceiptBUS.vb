@@ -110,6 +110,11 @@ Public Class ReceiptBUS
 	Public Function selectAll_ByDate(dateCollected As DateTime, ByRef receipts As List(Of ReceiptDTO)) As Result
 		Return receiptDAL.selectAll_ByDate(dateCollected, receipts)
 	End Function
+
+	Public Function selectAll_ByBeforeDate(dateCollected As DateTime, ByRef receipts As List(Of ReceiptDTO)) As Result
+		Return receiptDAL.selectAll_ByBeforeDate(dateCollected, receipts)
+	End Function
+
 	Public Function selectAll_ByCustomer(customerID As String, ByRef receipts As List(Of ReceiptDTO)) As Result
 		Return receiptDAL.selectAll_ByCustomer(customerID, receipts)
 	End Function
