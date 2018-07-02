@@ -164,6 +164,10 @@ Public Class frmSearch
 	End Function
 
 	Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+		Search()
+	End Sub
+
+	Private Sub Search()
 		Dim bookName = txtBookName.Text
 		Dim category = cbbCategory.Text
 		Dim author = txtAuthor.Text
@@ -190,5 +194,17 @@ Public Class frmSearch
 		searchResults = FilterByAmount(searchResults, minAmount, maxAmount)
 
 		LoadSearchResults(searchResults)
+	End Sub
+
+	Private Sub txtBookName_KeyUp(sender As Object, e As KeyEventArgs) Handles txtBookName.KeyUp
+		If (e.KeyCode = Keys.Enter) Then
+			Search()
+		End If
+	End Sub
+
+	Private Sub txtAuthor_KeyUp(sender As Object, e As KeyEventArgs) Handles txtAuthor.KeyUp
+		If (e.KeyCode = Keys.Enter) Then
+			Search()
+		End If
 	End Sub
 End Class
