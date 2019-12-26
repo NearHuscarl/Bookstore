@@ -106,17 +106,12 @@ Public Class frmMain
 		End If
 	End Sub
 
-	Private Sub tlAbout_Click(sender As Object, e As EventArgs) Handles tlAbout.Click
-		Dim frm As frmAbout = New frmAbout()
-		frm.ShowDialog()
-	End Sub
+   Private Sub tlAbout_Click(sender As Object, e As EventArgs) Handles tlAbout.Click
+      Dim frm As frmAbout = New frmAbout()
+      frm.ShowDialog()
+   End Sub
 
-	Private Sub tlStockReport_Click(sender As Object, e As EventArgs) Handles tlStockReport.Click
-		Dim frm As frmStockReport = New frmStockReport
-		frm.ShowDialog()
-	End Sub
-
-	Private Sub tlStockReport_Click(sender As Object, e As EventArgs) Handles tlStockReport.Click
+   Private Sub tlStockReport_Click(sender As Object, e As EventArgs) Handles tlStockReport.Click
 		If (privilege <= 2) Then
 			Dim frm As frmStockReport = frmStockReport
 			frm.ShowDialog()

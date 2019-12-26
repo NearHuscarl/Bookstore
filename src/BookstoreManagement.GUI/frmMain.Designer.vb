@@ -37,9 +37,8 @@ Partial Class frmMain
 		Me.tlCustomer = New MetroFramework.Controls.MetroTile()
 		Me.tlBook = New MetroFramework.Controls.MetroTile()
 		Me.tlImport = New MetroFramework.Controls.MetroTile()
-		Me.lkAbout = New MetroFramework.Controls.MetroLink()
-		Me.pnlMainMenu.SuspendLayout()
-		Me.SuspendLayout()
+      Me.pnlMainMenu.SuspendLayout()
+      Me.SuspendLayout()
 		'
 		'pnlMainMenu
 		'
@@ -274,21 +273,11 @@ Partial Class frmMain
 		Me.tlImport.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Me.tlImport.UseCustomBackColor = True
 		Me.tlImport.UseSelectable = True
-		Me.tlImport.UseTileImage = True
-		'
-		'lkAbout
-		'
-		Me.lkAbout.Image = Global.BookstoreManagement.GUI.My.Resources.Resources.AboutIcon
-		Me.lkAbout.ImageSize = 25
-		Me.lkAbout.Location = New System.Drawing.Point(687, 33)
-		Me.lkAbout.Name = "lkAbout"
-		Me.lkAbout.Size = New System.Drawing.Size(30, 27)
-		Me.lkAbout.TabIndex = 1
-		Me.lkAbout.UseSelectable = True
-		'
-		'frmMain
-		'
-		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+      Me.tlImport.UseTileImage = True
+      '
+      'frmMain
+      '
+      Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(833, 476)
 		Me.Controls.Add(Me.pnlMainMenu)

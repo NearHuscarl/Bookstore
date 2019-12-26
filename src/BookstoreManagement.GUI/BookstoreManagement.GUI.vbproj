@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-
-   <PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8F073FD1-D83C-4260-889A-4B2045CE308D}</ProjectGuid>
@@ -15,8 +14,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
-
-   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -26,8 +24,7 @@
     <DocumentationFile>BookstoreManagement.GUI.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
-
-   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
@@ -37,8 +34,7 @@
     <DocumentationFile>BookstoreManagement.GUI.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
-
-   <PropertyGroup>
+  <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
@@ -88,136 +84,115 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-     
+    <Compile Include="frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.vb">
+      <DependentUpon>frmLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmReceipt.Designer.vb">
       <DependentUpon>frmReceipt.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmReceipt.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmRegulation.Designer.vb">
       <DependentUpon>frmRegulation.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmRegulation.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmSearch.Designer.vb">
       <DependentUpon>frmSearch.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmSearch.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmAuthor.Designer.vb">
       <DependentUpon>frmAuthor.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmAuthor.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmBook.Designer.vb">
       <DependentUpon>frmBook.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmBook.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmBookCategory.Designer.vb">
       <DependentUpon>frmBookCategory.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmBookCategory.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmAuthorEdit.Designer.vb">
       <DependentUpon>frmAuthorEdit.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmAuthorEdit.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmBookCategoryEdit.Designer.vb">
       <DependentUpon>frmBookCategoryEdit.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmBookCategoryEdit.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmBookEdit.Designer.vb">
       <DependentUpon>frmBookEdit.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmBookEdit.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmCustomer.Designer.vb">
       <DependentUpon>frmCustomer.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmCustomer.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmCustomerEdit.Designer.vb">
       <DependentUpon>frmCustomerEdit.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmCustomerEdit.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmDebtReport.Designer.vb">
       <DependentUpon>frmDebtReport.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmDebtReport.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmInvoice.Designer.vb">
       <DependentUpon>frmInvoice.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmInvoice.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmImport.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmImport.Designer.vb">
       <DependentUpon>frmImport.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="frmStockReport.Designer.vb">
       <DependentUpon>frmStockReport.vb</DependentUpon>
     </Compile>
-     
     <Compile Include="frmStockReport.vb">
       <SubType>Form</SubType>
     </Compile>
-     
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -253,7 +228,7 @@
     <EmbeddedResource Include="frmReceipt.resx">
       <DependentUpon>frmReceipt.vb</DependentUpon>
     </EmbeddedResource>
-     <EmbeddedResource Include="frmRegulation.resx">
+    <EmbeddedResource Include="frmRegulation.resx">
       <DependentUpon>frmRegulation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSearch.resx">
